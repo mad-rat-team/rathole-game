@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 1030671361}
   - component: {fileID: 1030671363}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: Obstacle2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -558,9 +558,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackTrail: {fileID: 1440750105}
   attackTrailSpriteRenderer: {fileID: 52883985}
-  enemiesLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
+  playerCamera: {fileID: 519420031}
+  enemiesContactFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
 --- !u!1 &1375523844
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +727,7 @@ PolygonCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -766,7 +778,7 @@ GameObject:
   - component: {fileID: 1520676242}
   - component: {fileID: 1520676244}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Obstacle1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

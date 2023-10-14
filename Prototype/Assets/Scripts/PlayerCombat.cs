@@ -7,7 +7,8 @@ public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] GameObject attackTrail;
     [SerializeField] SpriteRenderer attackTrailSpriteRenderer;
-    [SerializeField] LayerMask enemiesLayerMask;
+    [SerializeField] Camera playerCamera;
+    [SerializeField] ContactFilter2D enemiesContactFilter;
 
     private Collider2D attackColl;
     private Animator attackTrailAnimator;
@@ -30,7 +31,7 @@ public class PlayerCombat : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             // Casting camera world pos to Vector2 is necessary so that its Z component doesn't affect the calculation
-            Vector2 dir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)attackTrail.transform.position).normalized;
+            Vector2 dir = ((Vector2)playerCamera.ScreenToWorldPoint(Input.mousePosition) - (Vector2)attackTrail.transform.position).normalized;
             Attack(dir);
         }
 
@@ -46,8 +47,8 @@ public class PlayerCombat : MonoBehaviour
         //Debug.Log($"Attacked to {dir}");
         float attackAngle = Vector2.SignedAngle(Vector2.right, dir);
         attackTrail.transform.eulerAngles = Vector3.forward * attackAngle;
-        attackTrailSpriteRenderer.flipY = Mathf.Abs(attackAngle) > 90;
 
+        attackTrailSpriteRenderer.flipY = Mathf.Abs(attackAngle) > 90;
         attackTrailAnimator.SetTrigger("Attacked");
     }
 }
