@@ -90,6 +90,8 @@ public class PlayerMovement : MonoBehaviour
         {
             startMoveDir = moveDir;
             targetMoveDir = inputMoveDir;
+            // due to isometric view, y should be 2 times less than x
+            targetMoveDir.y /= 2;
             moveDirChangeFactor = 0f;
         }
 
