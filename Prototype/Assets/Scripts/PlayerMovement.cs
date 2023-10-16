@@ -27,12 +27,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        updateInputMoveDir();
+        UpdateInputMoveDir();
     }
 
     private void FixedUpdate()
     {
-        updateMoveDir();
+        UpdateMoveDir();
         rb.velocity = moveDir * moveSpeed;
     }
 
@@ -67,24 +67,24 @@ public class PlayerMovement : MonoBehaviour
         Vector2 prevPoint = Vector2.zero;
         for(float x = 0f; x <= 1; x += stepX)
         {
-            Vector2 newPoint = new Vector2(x, smootheningFunction(0, 1, x));
+            Vector2 newPoint = new Vector2(x, SmootheningFunction(0, 1, x));
             Gizmos.DrawLine(graphPos + prevPoint * scale, graphPos + newPoint * scale);
             prevPoint = newPoint;
         }
     }
 
-    private float smootheningFunction(float a, float b, float factor)
+    private float SmootheningFunction(float a, float b, float factor)
     {
         //return a + (b - a) * ((1 - Mathf.Pow(accCurveFlatness, factor)) / (1 - accCurveFlatness));
         return a + (b - a) * ((1 - Mathf.Pow(accCurveFlatness * accCurveFlatness, factor)) / (1 - accCurveFlatness * accCurveFlatness));
     }
 
-    private void updateInputMoveDir()
+    private void UpdateInputMoveDir()
     {
         inputMoveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
     }
 
-    private void updateMoveDir()
+    private void UpdateMoveDir()
     {
         if (inputMoveDir != targetMoveDir)
         {
@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
 
         float dirChangeSpeed = 1 / moveDirChangeTime;
         moveDirChangeFactor = Mathf.Clamp01(moveDirChangeFactor + Time.deltaTime * dirChangeSpeed);
-        moveDir.x = smootheningFunction(startMoveDir.x, targetMoveDir.x, moveDirChangeFactor);
-        moveDir.y = smootheningFunction(startMoveDir.y, targetMoveDir.y, moveDirChangeFactor);
+        moveDir.x = SmootheningFunction(startMoveDir.x, targetMoveDir.x, moveDirChangeFactor);
+        moveDir.y = SmootheningFunction(startMoveDir.y, targetMoveDir.y, moveDirChangeFactor);
     }
 }
