@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
@@ -47,6 +46,16 @@ public class PlayerCombat : MonoBehaviour
         //Debug.Log($"Attacked to {dir}");
         float attackAngle = Vector2.SignedAngle(Vector2.right, dir);
         attackTrail.transform.eulerAngles = Vector3.forward * attackAngle;
+
+        Physics2D.SyncTransforms(); // Force update collider's position according to attackTrail's rotation
+        List<Collider2D> enemyColliders = new List<Collider2D>();
+        int enemyColliderCount = attackColl.OverlapCollider(enemiesContactFilter, enemyColliders);
+
+        foreach (var enemyColl in enemyColliders)
+        {
+            Enemy enemy = enemyColl.GetComponent<Enemy>();
+            enemy.TakeHit(attackTrail.transform.position, 1000f);
+        }
 
         attackTrailSpriteRenderer.flipY = Mathf.Abs(attackAngle) > 90;
         attackTrailAnimator.SetTrigger("Attacked");
