@@ -52,8 +52,8 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(pos + inputMoveDir * radCircle, radRealStick);
 
-        Handles.Label(pos - new Vector2(1f, 2.25f), moveDir.ToString());
-        Handles.Label(pos - new Vector2(1f, 2.5f), moveDirChangeFactor.ToString());
+        //Handles.Label(pos - new Vector2(1f, 2.25f), moveDir.ToString());
+        //Handles.Label(pos - new Vector2(1f, 2.5f), moveDirChangeFactor.ToString());
 
         //graph
         Gizmos.color = Color.white;
