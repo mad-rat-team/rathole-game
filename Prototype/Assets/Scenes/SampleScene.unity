@@ -2986,7 +2986,6 @@ GameObject:
   - component: {fileID: 2042510246}
   - component: {fileID: 2042510245}
   - component: {fileID: 2042510244}
-  - component: {fileID: 2042510243}
   m_Layer: 7
   m_Name: DoorTrigger
   m_TagString: Untagged
@@ -3009,21 +3008,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 24700760}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2042510243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2042510241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c683c05bf975914d85e505ae4e64fe3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foregoundWallTilemap: {fileID: 737406381}
-  startTransparency: 0
-  transitionDuration: 0.7
 --- !u!66 &2042510244
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -3157,7 +3141,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3167,7 +3151,15 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: da4e665f479afa54eacf8c8f0fa039e9, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 6fb3e6c3cf363244b89a77b273545cc3, type: 3}
   m_TileMatrixArray:
@@ -3196,7 +3188,7 @@ Tilemap:
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: 0, z: 0}
-  m_Size: {x: 3, y: 6, z: 2}
+  m_Size: {x: 5, y: 13, z: 2}
   m_TileAnchor: {x: 0, y: 0, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
