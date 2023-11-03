@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateMoveDir()
     {
         Vector2 newTargetMoveDir = inputMoveDir;
-        targetMoveDir.y /= 2;
+        newTargetMoveDir.y /= 2;
 
         if (newTargetMoveDir != targetMoveDir)
         {
