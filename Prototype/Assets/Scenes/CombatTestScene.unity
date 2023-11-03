@@ -185,6 +185,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6161051263559759676, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: drawDebugStickGizmos
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6956284265177250919, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
       propertyPath: playerCamera
       value: 
@@ -6566,9 +6570,17 @@ PrefabInstance:
       propertyPath: visibleRange
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 4549488096070430776, guid: 491276baf792b4540ba782d2203cf8ed, type: 3}
+      propertyPath: moveDirChangeTime
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7977155572225556886, guid: 491276baf792b4540ba782d2203cf8ed, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7977155572225556886, guid: 491276baf792b4540ba782d2203cf8ed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

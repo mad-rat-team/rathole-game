@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Enemy : MonoBehaviour
+public class Enemy : MovementWithChangingDir
 {
     [SerializeField] private GameObject player;
     [SerializeField] private float moveSpeed;
@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
             knockbackTimeLeft -= Time.deltaTime;
             if (knockbackTimeLeft > 0)
             {
+                UpdateMoveDir(Vector2.zero);
                 return;
             }
             else
@@ -38,9 +39,11 @@ public class Enemy : MonoBehaviour
         Vector2 moveDir = (Vector2.SqrMagnitude(vectorToPlayer) <= visibleRange * visibleRange)
             ? vectorToPlayer.normalized:
             Vector2.zero;
-
         moveDir.y /= 2;
-        rb.velocity = moveDir * moveSpeed;
+        UpdateMoveDir(moveDir);
+
+        rb.velocity = GetMoveDir() * moveSpeed;
+        //rb.velocity = moveDir * moveSpeed;
     }
 
     public void TakeHit(Vector2 origin, float knockbackForce, float knockbackTime) // TODO: Make class HitInfo
