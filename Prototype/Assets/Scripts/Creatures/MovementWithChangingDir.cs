@@ -11,7 +11,7 @@ public class MovementWithChangingDir : MonoBehaviour
     private Vector2 startMoveDir = Vector2.zero;
     private Vector2 targetMoveDir = Vector2.zero;
     private Vector2 moveDir = Vector2.zero;
-    private float moveDirChangeFactor = 0f; //asdsasadsadsadsadsadsadsadsadsa
+    private float moveDirChangeFactor = 0f;
 
     private float SmootheningFunction(float a, float b, float factor)
     {

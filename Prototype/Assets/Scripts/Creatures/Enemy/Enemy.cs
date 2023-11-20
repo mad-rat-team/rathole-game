@@ -1,24 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(EnemyHealth))]
 [RequireComponent(typeof(EnemyMovement))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private float visibleRange;
 
-    private float knockbackTimeLeft = 0f;
-    private bool knockedBack = false;
-
-    private Rigidbody2D rb;
+    private EnemyHealth health;
     private EnemyMovement movement;
+
+    public void TakeHit(Vector2 origin, float knockbackForce, float knockbackTime) // TODO: Make class HitInfo
+    {
+        health.TakeHit(origin, knockbackForce, knockbackTime);
+    }
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
         movement = GetComponent<EnemyMovement>();
+        health = GetComponent<EnemyHealth>();
+
+        health.OnKnockbackReceived += HandleKnockback;
+        health.OnKnockbackEnded += HandleKnockbackEnd;
     }
 
     private void Start()
@@ -28,29 +34,17 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (knockedBack)
-        {
-            knockbackTimeLeft -= Time.deltaTime;
-            if (knockbackTimeLeft > 0)
-            {
-                return;
-            }
-            else
-            {
-                movement.SetIsMoving(true);
-                knockedBack = false;
-            }
-        }
-
         movement.SetTarget(player.transform.position);
     }
 
-    public void TakeHit(Vector2 origin, float knockbackForce, float knockbackTime) // TODO: Make class HitInfo
+    private void HandleKnockback(float knockbackForce)
     {
-        rb.AddForce(((Vector2)transform.position - origin).normalized * knockbackForce);
-        knockedBack = true;
-        knockbackTimeLeft = knockbackTime;
         movement.SetIsMoving(false);
+    }
+
+    private void HandleKnockbackEnd()
+    {
+        movement.SetIsMoving(true);
     }
 }
 

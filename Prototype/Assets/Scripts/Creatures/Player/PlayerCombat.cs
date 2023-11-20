@@ -60,7 +60,7 @@ public class PlayerCombat : MonoBehaviour
         foreach (var enemyColl in enemyColliders)
         {
             Enemy enemy = enemyColl.GetComponent<Enemy>();
-            enemy.TakeHit(attackTrailRotator.transform.position, 1000f, 0.5f);
+            enemy.TakeHit(attackTrailRotator.transform.position, 500f, 0.5f);
         }
 
         attackTrailSpriteRenderer.flipY = Mathf.Abs(attackAngle) > 90;
