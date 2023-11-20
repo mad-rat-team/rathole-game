@@ -17,8 +17,9 @@ public class PlayerMovement : MovementWithChangingDir
 
     private void FixedUpdate()
     {
-        UpdateMoveDir(GetInputMoveDir() * new Vector2(1, 0.5f));
-        rb.velocity = GetMoveDir() * moveSpeed;
+        UpdateMoveDir(Shortcuts.RealToIso(GetInputMoveDir()));
+        rb.velocity = GetIsoMoveDir() * moveSpeed;
+        //Debug.Log($"{gameObject.name}: {GetIsoMoveDir() * moveSpeed}");
     }
 
     [SerializeField] private bool drawDebugStickGizmos = false;
@@ -34,7 +35,7 @@ public class PlayerMovement : MovementWithChangingDir
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(pos, radCircle);
-        Gizmos.DrawSphere(pos + GetMoveDir() * radCircle, radStick);
+        Gizmos.DrawSphere(pos + GetIsoMoveDir() * radCircle, radStick);
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(pos + GetInputMoveDir() * radCircle, radRealStick);
 
