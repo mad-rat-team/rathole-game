@@ -12,18 +12,15 @@ public class MovementWithChangingDir : MonoBehaviour
     private Vector2 targetMoveDir = Vector2.zero;
     private Vector2 moveDir = Vector2.zero;
     private float moveDirChangeFactor = 0f;
-
-    private float SmootheningFunction(float a, float b, float factor)
-    {
-        //return a + (b - a) * ((1 - Mathf.Pow(accCurveFlatness, factor)) / (1 - accCurveFlatness));
-        return a + (b - a) * ((1 - Mathf.Pow(accCurveFlatness * accCurveFlatness, factor)) / (1 - accCurveFlatness * accCurveFlatness));
-    }
     
     /// <summary>
     /// Should be called every frame.
     /// </summary>
+    /// <returns>
+    /// Movement direction (iso-vector)
+    /// </returns>
     /// <param name="newTargetIsoMoveDir">New target move dir. Should be an iso-vector.</param>
-    protected void UpdateMoveDir(Vector2 newTargetIsoMoveDir) //Should be called every FixedUpdate step
+    protected Vector2 GetMoveDir(Vector2 newTargetIsoMoveDir) //Should be called every FixedUpdate step
     {
         if (newTargetIsoMoveDir != targetMoveDir)
         {
@@ -52,10 +49,18 @@ public class MovementWithChangingDir : MonoBehaviour
         moveDirChangeFactor = Mathf.Clamp01(moveDirChangeFactor + Time.deltaTime * dirChangeSpeed);
         moveDir.x = SmootheningFunction(startMoveDir.x, targetMoveDir.x, moveDirChangeFactor);
         moveDir.y = SmootheningFunction(startMoveDir.y, targetMoveDir.y, moveDirChangeFactor);
+
+        return moveDir;
     }
 
-    protected Vector2 GetIsoMoveDir()
+    protected Vector2 GetMoveDir()
     {
         return moveDir;
+    }
+
+    private float SmootheningFunction(float a, float b, float factor)
+    {
+        //return a + (b - a) * ((1 - Mathf.Pow(accCurveFlatness, factor)) / (1 - accCurveFlatness));
+        return a + (b - a) * ((1 - Mathf.Pow(accCurveFlatness * accCurveFlatness, factor)) / (1 - accCurveFlatness * accCurveFlatness));
     }
 }
