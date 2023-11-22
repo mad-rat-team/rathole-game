@@ -10,7 +10,6 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] ContactFilter2D enemiesContactFilter;
 
     private Collider2D attackTrailColl;
-    private SpriteRenderer attackTrailSpriteRenderer;
     private Animator attackTrailAnimator;
 
     private void Awake()
@@ -18,11 +17,6 @@ public class PlayerCombat : MonoBehaviour
         if (!attackTrail.TryGetComponent<Collider2D>(out attackTrailColl))
         {
             Debug.LogError("attackTrail does not have a Collider2D component");
-        }
-
-        if (!attackTrail.TryGetComponent<SpriteRenderer>(out attackTrailSpriteRenderer))
-        {
-            Debug.LogError("attackTrail does not have a SpriteRenderer component");
         }
         
         if (!attackTrail.TryGetComponent<Animator>(out attackTrailAnimator))
@@ -51,19 +45,26 @@ public class PlayerCombat : MonoBehaviour
     {
         //Debug.Log($"Attacked to {dir}");
         float attackAngle = Vector2.SignedAngle(Vector2.right, dir);
+
         attackTrailRotator.transform.eulerAngles = Vector3.forward * attackAngle;
 
-        Physics2D.SyncTransforms(); // Force update collider's position according to attackTrailRotator's rotation
+        attackTrailRotator.transform.localScale =
+            new Vector3(
+                attackTrailRotator.transform.localScale.x,
+                Mathf.Abs(attackAngle) > 90 ? -1 : 1,
+                attackTrailRotator.transform.localScale.z
+                );
+
+        Physics2D.SyncTransforms(); // Force update collider's position according to attackTrailRotator's rotation and scale
         List<Collider2D> enemyColliders = new List<Collider2D>();
         attackTrailColl.OverlapCollider(enemiesContactFilter, enemyColliders);
 
         foreach (var enemyColl in enemyColliders)
         {
-            Enemy enemy = enemyColl.GetComponent<Enemy>();
-            enemy.TakeHit(attackTrailRotator.transform.position, 500f, 0.5f);
+            NPCHealth enemyHealth = enemyColl.GetComponent<NPCHealth>();
+            enemyHealth.TakeHit(attackTrailRotator.transform.position, 500f, 0.5f);
         }
-
-        attackTrailSpriteRenderer.flipY = Mathf.Abs(attackAngle) > 90;
+        
         attackTrailAnimator.SetTrigger("Attacked");
     }
 }

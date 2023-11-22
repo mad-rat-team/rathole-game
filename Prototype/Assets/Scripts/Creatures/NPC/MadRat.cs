@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(NPCMovement))]
+[RequireComponent(typeof(NPCHealth))]
 public class MadRat : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     private NPCMovement movement;
+    private NPCHealth health;
 
     private void Awake()
     {
@@ -30,6 +32,6 @@ public class MadRat : MonoBehaviour
             movement.SetTarget(transform.position);
         }
 
-        GetComponentInChildren<SpriteRenderer>().flipX = movement.GetCurrentMoveDir().x > 0;
+        GetComponentInChildren<SpriteRenderer>().flipX = movement.GetCurrentMoveDir().x > 0; //PH
     }
 }
