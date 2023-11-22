@@ -61,10 +61,10 @@ public class PlayerCombat : MonoBehaviour
 
         foreach (var enemyColl in enemyColliders)
         {
-            NPCHealth enemyHealth = enemyColl.GetComponent<NPCHealth>();
+            NPCHealth enemyHealth = enemyColl.GetComponentInParent<NPCHealth>();
             enemyHealth.TakeHit(attackTrailRotator.transform.position, 500f, 0.5f);
         }
-        
+
         attackTrailAnimator.SetTrigger("Attacked");
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NPCHealth : MonoBehaviour
 {
-    public event Action<float> OnKnockbackReceived; // <knockbackForce>
+    public event Action<Vector2, float> OnKnockbackReceived; // <knockbackForce>
     public event Action OnKnockbackEnded;
 
     //[SerializeField] private float maxHealth = 20f;
@@ -40,9 +40,9 @@ public class NPCHealth : MonoBehaviour
 
     public void TakeHit(Vector2 origin, float knockbackForce, float knockbackTime) // TODO: Make class HitInfo
     {
-        rb.AddForce(((Vector2)transform.position - origin).normalized * knockbackForce);
+        //rb.AddForce(((Vector2)transform.position - origin).normalized * knockbackForce);
         knockedBack = true;
         knockbackTimeLeft = knockbackTime;
-        OnKnockbackReceived?.Invoke(knockbackForce);
+        OnKnockbackReceived?.Invoke(origin, knockbackForce);
     }
 }

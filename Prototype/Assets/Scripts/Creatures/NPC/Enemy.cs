@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
         movement.SetTarget(player.transform.position);
     }
 
-    private void HandleKnockback(float knockbackForce)
+    private void HandleKnockback(Vector2 origin, float knockbackForce)
     {
         movement.SetIsMoving(false);
     }

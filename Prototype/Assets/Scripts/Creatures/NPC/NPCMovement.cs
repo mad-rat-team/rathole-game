@@ -46,6 +46,11 @@ public class NPCMovement : MovementWithChangingDir
         return GetMoveDir();
     }
 
+    public void Push(Vector2 force)
+    {
+        rb.AddForce(force);
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
