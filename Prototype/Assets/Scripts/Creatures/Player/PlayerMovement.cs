@@ -20,7 +20,7 @@ public class PlayerMovement : MovementWithChangingDir
         //UpdateMoveDir(Shortcuts.RealToIso(GetInputMoveDir()));
         //rb.velocity = GetIsoMoveDir() * moveSpeed;
 
-        rb.velocity = GetMoveDir(Shortcuts.RealToIso(GetInputMoveDir())) * moveSpeed;
+        rb.velocity = UpdateMoveDir(Shortcuts.RealToIso(GetInputMoveDir())) * moveSpeed;
     }
 
     //[SerializeField] private bool drawDebugStickGizmos = false;

@@ -8,14 +8,18 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class NPCMovement : MovementWithChangingDir
 {
+    [SerializeField] private Collider2D hitbox;
     [SerializeField] private float moveSpeed;
 
     private Vector2 target;
-    private bool isMoving;
+    private bool isMoving = true;
 
     private bool knockedBack;
     private Vector2 knockbackDir;
-    private float knockbackForce;
+    private float knockbackTime;
+    private float knockbackStartTime;
+    private float knockbackStartVelocity;
+    private float knockbackAcceleration;
 
     private Rigidbody2D rb;
 
@@ -29,26 +33,23 @@ public class NPCMovement : MovementWithChangingDir
         isMoving = newIsMoving;
     }
 
-    public void StartKnockback(Vector2 origin, float force)
+    public void StartKnockback(Vector2 origin, float distance, float time)
     {
         knockedBack = true;
-        knockbackDir = Shortcuts.NormalizeIso((Vector2)transform.position - origin);
-        knockbackForce = force;
+        knockbackTime = time;
+        knockbackStartTime = Time.time;
+        knockbackDir = Shortcuts.NormalizeIso((Vector2)hitbox.transform.position - origin);
+        knockbackStartVelocity = (2 * distance) / time;
+        knockbackAcceleration = -(knockbackStartVelocity / time);
     }
 
-    public void EndKnockback()
+    public override Vector2 GetMoveDir()
     {
-        knockedBack = false;
-    }
-
-    public Vector2 GetCurrentMoveDir()
-    {
-        return GetMoveDir();
-    }
-
-    public void Push(Vector2 force)
-    {
-        rb.AddForce(force);
+        if(knockedBack)
+        {
+            return knockbackDir;
+        }
+        return base.GetMoveDir();
     }
 
     private void Awake()
@@ -58,19 +59,34 @@ public class NPCMovement : MovementWithChangingDir
 
     private void FixedUpdate()
     {
-        if(knockedBack)
+        if (knockedBack)
         {
-            rb.velocity = knockbackDir * knockbackForce; // PLACEHOLDER
+            float timePassed = Time.time - knockbackStartTime;
+            rb.velocity = knockbackDir * (knockbackStartVelocity + knockbackAcceleration * timePassed); //NOTE: Maybe this changes a little with different framerates
+
+            if (timePassed >= knockbackTime)
+            {
+                knockedBack = false;
+                rb.velocity = Vector2.zero;
+                ResetMoveDir();
+            }
+            else
+            {
+                return;
+            }
         }
+
+        Vector2 newTargetMoveDir;
 
         if (!isMoving)
         {
-            return;
+            newTargetMoveDir = Vector2.zero;
+        }
+        else
+        {
+            newTargetMoveDir = Shortcuts.NormalizeIso(target - (Vector2)transform.position);
         }
 
-        Vector2 dirToTarget = Shortcuts.NormalizeIso(target - (Vector2)transform.position);
-        //UpdateMoveDir(dirToTarget);
-        //rb.velocity = GetIsoMoveDir() * moveSpeed;
-        rb.velocity = GetMoveDir(dirToTarget) * moveSpeed;
+        rb.velocity = UpdateMoveDir(newTargetMoveDir) * moveSpeed;
     }
 }

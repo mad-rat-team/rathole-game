@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
         health = GetComponent<NPCHealth>();
 
         health.OnKnockbackReceived += HandleKnockback;
-        health.OnKnockbackEnded += HandleKnockbackEnd;
+        //health.OnKnockbackEnded += HandleKnockbackEnd;
     }
 
     private void Start()
@@ -37,15 +37,16 @@ public class Enemy : MonoBehaviour
         movement.SetTarget(player.transform.position);
     }
 
-    private void HandleKnockback(Vector2 origin, float knockbackForce)
+    private void HandleKnockback(Vector2 origin, float knockbackDistance, float knockbackTime)
     {
+        Debug.Log("PH");
         movement.SetIsMoving(false);
     }
 
-    private void HandleKnockbackEnd()
-    {
-        movement.SetIsMoving(true);
-    }
+    //private void HandleKnockbackEnd()
+    //{
+    //    movement.SetIsMoving(true);
+    //}
 }
 
 //using System.Collections;
@@ -96,10 +97,10 @@ public class Enemy : MonoBehaviour
 //        //rb.velocity = moveDir * moveSpeed;
 //    }
 
-//    public void TakeHit(Vector2 origin, float knockbackForce, float knockbackTime) // TODO: Make class HitInfo
+//    public void TakeHit(Vector2 origin, float knockbackForce, float time) // TODO: Make class HitInfo
 //    {
 //        rb.AddForce(((Vector2)transform.position - origin).normalized * knockbackForce);
 //        knockedBack = true;
-//        knockbackTimeLeft = knockbackTime;
+//        knockbackTimeLeft = time;
 //    }
 //}

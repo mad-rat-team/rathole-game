@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class MovementWithChangingDir : MonoBehaviour
+public abstract class MovementWithChangingDir : MonoBehaviour
 {
     [SerializeField][Range(0.01f, 2f)] private float moveDirChangeTime = 0.15f;
     [SerializeField][Range(0.01f, 0.99f)] private float accCurveFlatness = 0.1f;
@@ -20,7 +20,7 @@ public class MovementWithChangingDir : MonoBehaviour
     /// Movement direction (iso-vector)
     /// </returns>
     /// <param name="newTargetIsoMoveDir">New target move dir. Should be an iso-vector.</param>
-    protected Vector2 GetMoveDir(Vector2 newTargetIsoMoveDir) //Should be called every FixedUpdate step
+    protected Vector2 UpdateMoveDir(Vector2 newTargetIsoMoveDir) //Should be called every FixedUpdate step
     {
         if (newTargetIsoMoveDir != targetMoveDir)
         {
@@ -53,7 +53,15 @@ public class MovementWithChangingDir : MonoBehaviour
         return moveDir;
     }
 
-    protected Vector2 GetMoveDir()
+    protected void ResetMoveDir()
+    {
+        startMoveDir = Vector2.zero;
+        targetMoveDir = Vector2.zero;
+        moveDir = Vector2.zero;
+        moveDirChangeFactor = 0f;
+    }
+
+    public virtual Vector2 GetMoveDir()
     {
         return moveDir;
     }

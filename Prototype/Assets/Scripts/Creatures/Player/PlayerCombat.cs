@@ -48,12 +48,12 @@ public class PlayerCombat : MonoBehaviour
 
         attackTrailRotator.transform.eulerAngles = Vector3.forward * attackAngle;
 
-        attackTrailRotator.transform.localScale =
-            new Vector3(
-                attackTrailRotator.transform.localScale.x,
-                Mathf.Abs(attackAngle) > 90 ? -1 : 1,
-                attackTrailRotator.transform.localScale.z
-                );
+        //attackTrailRotator.transform.localScale =
+        //    new Vector3(
+        //        attackTrailRotator.transform.localScale.x,
+        //        Mathf.Abs(attackAngle) > 90 ? -1 : 1,
+        //        attackTrailRotator.transform.localScale.z
+        //        );
 
         Physics2D.SyncTransforms(); // Force update collider's position according to attackTrailRotator's rotation and scale
         List<Collider2D> enemyColliders = new List<Collider2D>();
@@ -62,7 +62,7 @@ public class PlayerCombat : MonoBehaviour
         foreach (var enemyColl in enemyColliders)
         {
             NPCHealth enemyHealth = enemyColl.GetComponentInParent<NPCHealth>();
-            enemyHealth.TakeHit(attackTrailRotator.transform.position, 500f, 0.5f);
+            enemyHealth.TakeHit(attackTrailRotator.transform.position, 3f, 0.5f); //PH
         }
 
         attackTrailAnimator.SetTrigger("Attacked");
