@@ -5,6 +5,6 @@ using UnityEngine;
 public class HitInfo
 {
     public Vector2 origin;
-    public float knockbackForce;
+    public float knockbackDistance;
     public float knockbackTime;
 }

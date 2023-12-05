@@ -61,8 +61,15 @@ public class PlayerCombat : MonoBehaviour
 
         foreach (var enemyColl in enemyColliders)
         {
-            NPCHealth enemyHealth = enemyColl.GetComponentInParent<NPCHealth>();
-            enemyHealth.TakeHit(attackTrailRotator.transform.position, 3f, 0.5f); //PH
+            Health enemyHealth = enemyColl.GetComponentInParent<Health>();
+
+            //PH
+            HitInfo hitInfo = new HitInfo();
+            hitInfo.origin = attackTrailRotator.transform.position;
+            hitInfo.knockbackDistance = 3f;
+            hitInfo.knockbackTime = 0.5f;
+            enemyHealth.TakeHit(hitInfo);
+            //PH
         }
 
         attackTrailAnimator.SetTrigger("Attacked");

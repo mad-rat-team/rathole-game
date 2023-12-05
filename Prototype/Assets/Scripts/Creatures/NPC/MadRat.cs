@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(NPCMovement))]
-[RequireComponent(typeof(NPCHealth))]
+[RequireComponent(typeof(Health))]
 public class MadRat : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     private NPCMovement movement;
-    private NPCHealth health;
+    private Health health;
 
     private void Awake()
     {
         movement = GetComponent<NPCMovement>();
-        health = GetComponent<NPCHealth>();
+        health = GetComponent<Health>();
 
         //Subscribing to events - PH, should be abstracted to not write this every time for a new enemy
         health.OnKnockbackReceived += movement.StartKnockback;
