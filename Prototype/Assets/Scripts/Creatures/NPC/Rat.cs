@@ -17,7 +17,6 @@ public class Rat : MonoBehaviour
 
         //Subscribing to events - PH, should be abstracted to not write this every time for a new enemy
         health.OnKnockbackReceived += movement.StartKnockback;
-        //health.OnKnockbackEnded += HandleKnockbackEnded;
     }
 
     //public bool isMoving = false; //TEST
