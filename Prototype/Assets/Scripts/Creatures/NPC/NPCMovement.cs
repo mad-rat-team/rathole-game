@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// If <c>isMoving</c> is set to true, moves in the direction of <c>target</c>
-/// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class NPCMovement : MovementWithChangingDir
 {
