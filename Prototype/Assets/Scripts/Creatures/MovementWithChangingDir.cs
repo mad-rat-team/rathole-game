@@ -19,29 +19,14 @@ public abstract class MovementWithChangingDir : MonoBehaviour
     /// <returns>
     /// Movement direction (iso-vector)
     /// </returns>
-    /// <param name="newTargetIsoMoveDir">New target move dir. Should be an iso-vector.</param>
+    /// <param name="newTargetIsoMoveDir">New target move dir. Should be a normalized iso-vector.</param>
     protected Vector2 UpdateMoveDir(Vector2 newTargetIsoMoveDir) //Should be called every FixedUpdate step
     {
         if (newTargetIsoMoveDir != targetMoveDir)
         {
             startMoveDir = moveDir;
             moveDirChangeFactor = 0f;
-            //moveDirChangeFactor *=
-            //    newTargetIsoMoveDir.sqrMagnitude == 0 || targetMoveDir.sqrMagnitude == 0
-            //        ? 0f
-            //        : Mathf.Clamp01(Vector2.Dot(targetMoveDir, newTargetIsoMoveDir));
-            //moveDirChangeFactor *=
-            //    newTargetIsoMoveDir.sqrMagnitude == 0 || targetMoveDir.sqrMagnitude == 0
-            //        ? 0f
-            //        : Mathf.Clamp01(Vector2.Dot(Shortcuts.IsoToReal(targetMoveDir), Shortcuts.IsoToReal(newTargetIsoMoveDir)));
-            //Debug.Log($"old: {targetMoveDir}; new: {newTargetIsoMoveDir}");
-            //Debug.Log(moveDirChangeFactor);
-
             targetMoveDir = newTargetIsoMoveDir;
-            //moveDirChangeFactor *=
-            //    newTargetIsoMoveDir.sqrMagnitude == 0 || targetMoveDir.sqrMagnitude == 0
-            //        ? 0f
-            //        : Mathf.Clamp01(Mathf.Cos(Vector2.Angle(Shortcuts.IsoToReal(targetMoveDir), Shortcuts.IsoToReal(newTargetIsoMoveDir)) * Mathf.Deg2Rad));
 
         }
 
