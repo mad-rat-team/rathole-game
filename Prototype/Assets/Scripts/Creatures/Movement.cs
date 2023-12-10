@@ -8,24 +8,32 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private Transform centerTransform;
+    [SerializeField] private Transform jumpingPart; //A gameobject, all of the children of which should rise when the object is jumping
+    private Vector3 jumpingPartOffset;
+
+    [SerializeField] private Transform centerTransform; //NOTE: Maybe this should be changed to the point, where the object stands
     [SerializeField] [Range(0.01f, 2f)] private float moveDirChangeTime = 0.15f;
     [SerializeField] [Range(0.01f, 0.99f)] private float accCurveFlatness = 0.1f;
 
     public enum MovementState {
-        None,
-        Moving,
+        Walking,
         Jumping,
         KnockedBack
     }
 
     private MovementState state;
 
+    //private bool isWalking = true;
     private float moveSpeed = 1f;
     private Vector2 targetMoveDir = Vector2.zero;
     private Vector2 startMoveDir = Vector2.zero;
     private Vector2 moveDir = Vector2.zero;
     private float moveDirChangeFactor = 0f;
+
+    private Vector2 jumpXYVelocity;
+    private float jumpStartUpVelocity;
+    private float jumpStartTime; //NOTE: It's possible to combine some jump and knockback variables, but I'll leave it as is for now to avoid confusion
+    private float jumpTime;
 
     private Vector2 knockbackDir;
     private float knockbackTime;
@@ -35,23 +43,27 @@ public class Movement : MonoBehaviour
 
     private Rigidbody2D rb;
 
-    /// <summary>
-    /// Starts moving with the speed set by SetMoveSpeed
-    /// </summary>
-    public void StartMoving()
-    {
-        state = MovementState.Moving;
-        ResetMoveDir();
-    }
-
     public void StartKnockback(Vector2 origin, float distance, float time)
     {
+        if (state != MovementState.Walking) return;
         state = MovementState.KnockedBack;
+
         knockbackTime = time;
         knockbackStartTime = Time.time;
         knockbackDir = Shortcuts.NormalizeIso((Vector2)centerTransform.position - origin);
         knockbackStartVelocity = (2 * distance) / time;
         knockbackAcceleration = -(knockbackStartVelocity / time);
+    }
+
+    public void StartJump(Vector2 target, float time) //TODO
+    {
+        if (state != MovementState.Walking) return;
+        state = MovementState.Jumping;
+
+        jumpStartTime = Time.time;
+        jumpTime = time;
+        jumpXYVelocity = (target - (Vector2)transform.position) / time;
+        jumpStartUpVelocity = Shortcuts.g * jumpTime / 2f;
     }
 
     /// <summary>
@@ -80,16 +92,56 @@ public class Movement : MonoBehaviour
         moveSpeed = newMoveSpeed;
     }
 
+    public MovementState GetMovementState()
+    {
+        return state;
+    }
+
+    /// <summary>
+    /// Returns walking direction as an iso-vector. If the object is not in Walking state, returns the last direction in which it was walking.
+    /// </summary>
+    /// <returns>An iso-vector</returns>
+    public Vector2 GetWalkDir()
+    {
+        return moveDir;
+    }
+
+    /// <summary>
+    /// Returns movement direction as an iso-vector no matter the movement state.
+    /// </summary>
+    /// <returns>An iso-vector</returns>
+    public Vector2 GetMoveDir()
+    {
+        switch (state)
+        {
+            case MovementState.Walking:
+                return moveDir;
+            case MovementState.Jumping:
+                return Shortcuts.NormalizeIso(jumpXYVelocity);
+            case MovementState.KnockedBack:
+                return knockbackDir;
+        }
+        return Vector2.zero;
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private void Start()
+    {
+        if (jumpingPart != null)
+        {
+            jumpingPartOffset = jumpingPart.localPosition;
+        }
+    }
+
     private void FixedUpdate()
     {
-        switch(state) {
-            case MovementState.Moving:
-                HandleMoving();
+        switch (state) {
+            case MovementState.Walking:
+                HandleWalking();
                 break;
             case MovementState.Jumping:
                 HandleJumping();
@@ -100,8 +152,10 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void HandleMoving()
+    private void HandleWalking()
     {
+        //if (!isWalking) return;
+
         float dirChangeSpeed = 1 / moveDirChangeTime;
         moveDirChangeFactor = Mathf.Clamp01(moveDirChangeFactor + Time.deltaTime * dirChangeSpeed);
         moveDir.x = SmootheningFunction(startMoveDir.x, targetMoveDir.x, moveDirChangeFactor);
@@ -118,9 +172,19 @@ public class Movement : MonoBehaviour
         moveDirChangeFactor = 0f;
     }
 
-    private void HandleJumping()
+    private void HandleJumping() //TODO
     {
+        float timePassed = Time.time - jumpStartTime;
+        jumpingPart.localPosition = jumpingPartOffset + Vector3.up * (jumpStartUpVelocity * timePassed - (Shortcuts.g * timePassed * timePassed) / 2);
+        rb.velocity = jumpXYVelocity;
+        if (timePassed >= jumpTime)
+        {
+            jumpingPart.localPosition = jumpingPartOffset;
+            rb.velocity = Vector2.zero;
 
+            state = MovementState.Walking;
+            ResetMoveDir();
+        }
     }
 
     private void HandleKnockedBack()
@@ -131,7 +195,8 @@ public class Movement : MonoBehaviour
         if (timePassed >= knockbackTime)
         {
             rb.velocity = Vector2.zero;
-            StartMoving();
+            state = MovementState.Walking;
+            ResetMoveDir();
         }
     }
 

@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 120606417}
   - component: {fileID: 120606419}
   - component: {fileID: 120606418}
+  - component: {fileID: 120606420}
   m_Layer: 0
   m_Name: JumpTest
   m_TagString: Untagged
@@ -183,7 +184,7 @@ Transform:
   m_GameObject: {fileID: 120606415}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6, y: -1.33, z: 0}
+  m_LocalPosition: {x: -0.538, y: -0.099, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -216,7 +217,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &120606419
 MonoBehaviour:
@@ -232,6 +233,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteTransform: {fileID: 1904220088}
   time: 0.5
+--- !u!70 &120606420
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120606415}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.19855523, y: 0.04486486}
+  m_Direction: 1
 --- !u!1 &198836145
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,7 +809,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3110448896672116035, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4103359919959518293, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
       propertyPath: m_FlipY
@@ -1467,7 +1503,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 505d6dbfeeb6a4f418464a328c285762, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7598,6 +7634,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!4 &1803268915 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5199826162174794527, guid: 9e0e9641555fdeb418169291f418761c, type: 3}
+  m_PrefabInstance: {fileID: 5034777501474284717}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1904220087
 GameObject:
   m_ObjectHideFlags: 0
@@ -7623,7 +7664,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904220087}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -7670,7 +7711,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -1738074771, guid: 020d1a75395c2ad44b5146ddca2468f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -7681,7 +7722,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &832690030667399536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7695,22 +7736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 785549725}
---- !u!114 &953882324408891196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8717503004214113882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c2171d110f71124e965b0be71c555c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveDirChangeTime: 0.15
-  accCurveFlatness: 0.1
-  hitbox: {fileID: 6669305711981049586}
-  moveSpeed: 0.4
+  walkSpeed: 0.4
 --- !u!70 &2137525645258689778
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -7755,7 +7781,7 @@ Transform:
   m_GameObject: {fileID: 8717503004214113882}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.63, y: -0.05, z: 0.5369622}
+  m_LocalPosition: {x: -1.217, y: 0.19, z: 0.5369622}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7817,6 +7843,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 453632057213819643, guid: 9e0e9641555fdeb418169291f418761c, type: 3}
+      propertyPath: centerTransform
+      value: 
+      objectReference: {fileID: 1803268915}
     - target: {fileID: 1038880905826075294, guid: 9e0e9641555fdeb418169291f418761c, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -7869,15 +7899,20 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 785549725}
+    - target: {fileID: 3873498489118322162, guid: 9e0e9641555fdeb418169291f418761c, type: 3}
+      propertyPath: walkSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5095237738115717848, guid: 9e0e9641555fdeb418169291f418761c, type: 3}
       propertyPath: m_Name
       value: Rat
       objectReference: {fileID: 0}
     - target: {fileID: 5095237738115717848, guid: 9e0e9641555fdeb418169291f418761c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3707587955883383742, guid: 9e0e9641555fdeb418169291f418761c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -8033,15 +8068,31 @@ GameObject:
   - component: {fileID: 2137525645258689778}
   - component: {fileID: 7799715010046627619}
   - component: {fileID: 832690030667399536}
-  - component: {fileID: 953882324408891196}
   - component: {fileID: 3148071480710829974}
+  - component: {fileID: 8717503004214113883}
   m_Layer: 0
   m_Name: Rat 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
+--- !u!114 &8717503004214113883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717503004214113882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb2329df7c1a4039a7287219d0a16bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpingPart: {fileID: 79081747}
+  centerTransform: {fileID: 8531611176452126621}
+  moveDirChangeTime: 0.15
+  accCurveFlatness: 0.1
 --- !u!95 &8768996159147439553
 Animator:
   serializedVersion: 5
