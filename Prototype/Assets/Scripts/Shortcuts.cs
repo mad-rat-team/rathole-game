@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shortcuts
 {
-    public const float g = 9.81f;
+    public const float g = 9.81f / 1.5f;
 
     public static Vector2 IsoToReal(Vector2 isoVec)
     {
