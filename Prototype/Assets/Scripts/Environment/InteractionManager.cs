@@ -59,6 +59,14 @@ public class InteractionManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Should be called when destroying gameobjects that are interactables
+    /// </summary>
+    public static void RemoveInteractable(Interactable interactable)
+    {
+        im.interactables.Remove(interactable);
+    }
+
     private void Start()
     {
         if(im != null)
