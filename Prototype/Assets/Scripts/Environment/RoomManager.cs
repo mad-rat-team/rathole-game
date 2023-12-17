@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    [SerializeField] private Grid grid;
+    //[SerializeField] private Grid grid;
     [SerializeField] private GameObject currentRoom;
 
     private static RoomManager rm;
@@ -20,7 +20,8 @@ public class RoomManager : MonoBehaviour
     public static void ChangeRoom(GameObject newRoom)
     {
         DestroyImmediate(rm.currentRoom); // Can't use normal Destroy(), because InteractionManager is getting the list of interactable on the same frame
-        rm.currentRoom = Instantiate(newRoom, rm.grid.transform);
+        //rm.currentRoom = Instantiate(newRoom, rm.grid.transform);
+        rm.currentRoom = Instantiate(newRoom);
         OnRoomChanged?.Invoke();
     }
 
@@ -32,5 +33,10 @@ public class RoomManager : MonoBehaviour
         }
 
         rm = this;
+
+        if(currentRoom == null)
+        {
+            Debug.LogWarning("No current room is set in RoomManager");
+        }
     }
 }
