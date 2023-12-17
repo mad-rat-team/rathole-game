@@ -187,6 +187,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 8990249887845013465, guid: e47b061738533c048a29a60e40425420, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -251,34 +255,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3110448896672116035, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 796016170}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
 --- !u!4 &211122535 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9129454694115212814, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
   m_PrefabInstance: {fileID: 211122534}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &796016164 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3110448896672116035, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-  m_PrefabInstance: {fileID: 211122534}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &796016170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 796016164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 211684a9304c6504bab4b3672b3bd81b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  testDoor: {fileID: 1683328176}
 --- !u!1 &954261000
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +307,7 @@ Transform:
   - {fileID: 1103168715995204343}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1683328174
+--- !u!1 &1556102288
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -332,45 +315,57 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1683328175}
-  - component: {fileID: 1683328176}
+  - component: {fileID: 1556102289}
+  - component: {fileID: 1556102290}
+  - component: {fileID: 1556102291}
   m_Layer: 0
-  m_Name: Door1
+  m_Name: Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1683328175
+--- !u!4 &1556102289
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683328174}
+  m_GameObject: {fileID: 1556102288}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.34, y: 1.45, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1683328176
+--- !u!114 &1556102290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683328174}
+  m_GameObject: {fileID: 1556102288}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52374b04e41ee31448694abfd06d384f, type: 3}
+  m_Script: {fileID: 11500000, guid: 12504eeffda148a4d8beb194b965dd6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRoom: {fileID: 782774050200071282}
-  nextRoom: {fileID: 2824725959337188615, guid: 88c32679fe2fcfc4990b329a7f1b7eae, type: 3}
+--- !u!114 &1556102291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556102288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ee83de8e55969c46a9518365138650a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   grid: {fileID: 954261001}
+  currentRoom: {fileID: 782774050200071282}
 --- !u!20 &2113014928 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 2768348733256467111, guid: e47b061738533c048a29a60e40425420, type: 3}
@@ -455,7 +450,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1556102289}
   - {fileID: 206214653}
   - {fileID: 211122534}
   - {fileID: 954261002}
-  - {fileID: 1683328175}

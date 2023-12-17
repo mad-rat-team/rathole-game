@@ -46,9 +46,10 @@ GameObject:
   - component: {fileID: 6161051263559759676}
   - component: {fileID: 6956284265177250919}
   - component: {fileID: 2812649387120921890}
+  - component: {fileID: 4075287206635653815}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,6 +191,20 @@ MonoBehaviour:
   centerTransform: {fileID: 0}
   moveDirChangeTime: 0.15
   accCurveFlatness: 0.1
+--- !u!114 &4075287206635653815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3110448896672116035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211684a9304c6504bab4b3672b3bd81b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionRadius: 0.75
+  drawDebugGizmos: 0
 --- !u!1 &3515851601742699477
 GameObject:
   m_ObjectHideFlags: 0

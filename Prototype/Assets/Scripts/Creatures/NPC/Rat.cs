@@ -6,11 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(Health))]
 public class Rat : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
     [SerializeField] private float walkSpeed = 1f;
 
     private Movement movement;
     private Health health;
+
+    private GameObject player;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class Rat : MonoBehaviour
     private void Start()
     {
         movement.SetMoveSpeed(walkSpeed);
+        player = GameObject.FindWithTag("Player"); //PH
     }
 
     //public bool isMoving = false; //TEST
