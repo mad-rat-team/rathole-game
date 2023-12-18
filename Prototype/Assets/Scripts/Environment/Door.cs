@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class Door : Interactable
@@ -13,15 +12,31 @@ public class Door : Interactable
     public override void Interact(PlayerInteractions interactionAgent)
     {
         RoomManager.ChangeRoom(nextRoom);
-        foreach(Door nextRoomDoor in RoomManager.GetCurrentRoom().GetComponentsInChildren<Door>())
+
+        Vector2 nextRoomPlayerPos = Vector2.zero;
+        Door[] nextRoomDoors = RoomManager.GetCurrentRoom().GetComponentsInChildren<Door>();
+        bool foundDoor = false;
+        foreach (Door nextRoomDoor in nextRoomDoors)
         {
             if(nextRoomDoor.doorId == nextRoomDoorId)
             {
-                // NOTE: Maybe change agent's position not directly but through Movement
-                interactionAgent.transform.position = nextRoomDoor.transform.position + (Vector3)nextRoomDoor.playerTeleportOffset;
+                nextRoomPlayerPos = nextRoomDoor.transform.position + (Vector3)nextRoomDoor.playerTeleportOffset;
+                foundDoor = true;
                 break;
             }
         }
+
+        if(!foundDoor)
+        {
+            Debug.LogError($"Could not find the door with ID {nextRoomDoorId}");
+            if(nextRoomDoors.Length != 0)
+            {
+                nextRoomPlayerPos = nextRoomDoors[0].transform.position + (Vector3)nextRoomDoors[0].playerTeleportOffset;
+            }
+        }
+
+        // NOTE: Maybe change agent's position not directly but through Movement
+        interactionAgent.transform.position = nextRoomPlayerPos;
     }
 
     private void OnDrawGizmosSelected()
