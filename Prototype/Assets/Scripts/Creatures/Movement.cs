@@ -23,6 +23,9 @@ public class Movement : MonoBehaviour
 
     private MovementState state;
 
+    private bool isGrounded = true;
+    private float jumpingPartVerticalVelocity;
+
     //private bool isWalking = true;
     private float moveSpeed = 1f;
     private Vector2 targetMoveDir = Vector2.zero;
@@ -45,7 +48,7 @@ public class Movement : MonoBehaviour
 
     public void StartKnockback(Vector2 origin, float distance, float time)
     {
-        if (state != MovementState.Walking) return;
+        if (state == MovementState.KnockedBack) return;
         state = MovementState.KnockedBack;
 
         knockbackTime = time;
@@ -55,15 +58,24 @@ public class Movement : MonoBehaviour
         knockbackAcceleration = -(knockbackStartVelocity / time);
     }
 
-    public void StartJump(Vector2 target, float time) //TODO
+    public void StartJump(Vector2 target, float time)
     {
-        if (state != MovementState.Walking) return;
+        if (jumpingPart == null)
+        {
+            Debug.LogError($"GameObject {gameObject.name} can't jump. It's jumping part is not set.");
+            return;
+        }
+
+        //if (state != MovementState.Walking || !isGrounded) return;
+        if (!isGrounded) return;
         state = MovementState.Jumping;
 
         jumpStartTime = Time.time;
         jumpTime = time;
         jumpXYVelocity = (target - (Vector2)transform.position) / time;
-        jumpStartUpVelocity = Shortcuts.g * jumpTime / 2f;
+        //jumpStartUpVelocity = Shortcuts.g * jumpTime / 2f;
+        isGrounded = false;
+        jumpingPartVerticalVelocity = Shortcuts.g * jumpTime / 2f;
     }
 
     /// <summary>
@@ -133,7 +145,7 @@ public class Movement : MonoBehaviour
     {
         if (jumpingPart != null)
         {
-            jumpingPartOffset = jumpingPart.localPosition;
+            jumpingPartOffset = jumpingPart.localPosition; // If jumpingPart is set after Start() then this breaks but it's okay, I think
         }
     }
 
@@ -149,6 +161,20 @@ public class Movement : MonoBehaviour
             case MovementState.KnockedBack:
                 HandleKnockedBack();
                 break;
+        }
+
+        if(jumpingPart != null && !isGrounded)
+        {
+            jumpingPartVerticalVelocity -= Shortcuts.g * Time.deltaTime / 2;
+            jumpingPart.localPosition += Vector3.up * jumpingPartVerticalVelocity * Time.deltaTime;
+            jumpingPartVerticalVelocity -= Shortcuts.g * Time.deltaTime - (Shortcuts.g * Time.deltaTime / 2);
+
+            if(jumpingPart.localPosition.y <= jumpingPartOffset.y)
+            {
+                isGrounded = true;
+                jumpingPart.localPosition = jumpingPartOffset;
+                jumpingPartVerticalVelocity = 0f;
+            }
         }
     }
 
@@ -175,11 +201,11 @@ public class Movement : MonoBehaviour
     private void HandleJumping() //TODO
     {
         float timePassed = Time.time - jumpStartTime;
-        jumpingPart.localPosition = jumpingPartOffset + Vector3.up * (jumpStartUpVelocity * timePassed - (Shortcuts.g * timePassed * timePassed) / 2);
+        //jumpingPart.localPosition = jumpingPartOffset + Vector3.up * (jumpStartUpVelocity * timePassed - (Shortcuts.g * timePassed * timePassed) / 2);
         rb.velocity = jumpXYVelocity;
         if (timePassed >= jumpTime)
         {
-            jumpingPart.localPosition = jumpingPartOffset;
+            //jumpingPart.localPosition = jumpingPartOffset;
             rb.velocity = Vector2.zero;
 
             state = MovementState.Walking;

@@ -629,11 +629,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!1 &785549725 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3110448896672116035, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-  m_PrefabInstance: {fileID: 948793581}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &948793581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7362,11 +7357,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 281818084809436086, guid: 9e0e9641555fdeb418169291f418761c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.329
+      value: -1.646
       objectReference: {fileID: 0}
     - target: {fileID: 281818084809436086, guid: 9e0e9641555fdeb418169291f418761c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.095
+      value: 0.406
       objectReference: {fileID: 0}
     - target: {fileID: 281818084809436086, guid: 9e0e9641555fdeb418169291f418761c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7400,10 +7395,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 684281856982836685, guid: 9e0e9641555fdeb418169291f418761c, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 785549725}
     - target: {fileID: 4320989075820332494, guid: 9e0e9641555fdeb418169291f418761c, type: 3}
       propertyPath: m_Name
       value: Rat
