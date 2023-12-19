@@ -66,8 +66,7 @@ public class Movement : MonoBehaviour
             return;
         }
 
-        //if (state != MovementState.Walking || !isGrounded) return;
-        if (!isGrounded) return;
+        if (state != MovementState.Walking || !isGrounded) return;
         state = MovementState.Jumping;
 
         jumpStartTime = Time.time;
