@@ -24,7 +24,7 @@ public class Door : Interactable
     {
         if(hasALock && isLocked)
         {
-            if(!interactionAgent.HasItem(requiredKey))
+            if(interactionAgent.Inventory.GetItemCount(requiredKey) <= 0)
             {
                 Debug.Log("You don's have the required key"); //TODO: Add some player feedback
                 return;

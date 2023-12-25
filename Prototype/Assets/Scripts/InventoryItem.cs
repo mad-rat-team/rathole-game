@@ -7,6 +7,6 @@ using UnityEngine;
 public class InventoryItem : ScriptableObject
 {
     public string itemName;
-    public Sprite sprite;
-    public bool visibleInInventory = true;
+    //public Sprite menuSprite;
+    //public bool visibleInInventory = true;
 }

@@ -8,16 +8,20 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private float interactionRadius = 0.75f;
 
     private Inventory inventory;
+    public Inventory Inventory
+    {
+        get => inventory;
+    }
 
     public float GetInteractionRadiusSquared()
     {
         return interactionRadius * interactionRadius;
     }
 
-    public bool HasItem(InventoryItem item)
-    {
-        return inventory.GetItemCount(item) > 0;
-    }
+    //public bool HasItem(InventoryItem item)
+    //{
+    //    return inventory.GetItemCount(item) > 0;
+    //}
 
     private void Awake()
     {
@@ -34,6 +38,7 @@ public class PlayerInteractions : MonoBehaviour
 
     //Debug
     [SerializeField] private bool drawDebugGizmos = false;
+
     private void OnDrawGizmosSelected()
     {
         if (!drawDebugGizmos) return;
