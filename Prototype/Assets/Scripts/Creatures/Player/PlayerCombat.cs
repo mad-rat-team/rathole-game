@@ -33,12 +33,6 @@ public class PlayerCombat : MonoBehaviour
             Vector2 dir = ((Vector2)playerCamera.ScreenToWorldPoint(Input.mousePosition) - (Vector2)attackTrailRotator.transform.position).normalized;
             Attack(dir);
         }
-
-        //Debug.DrawRay(
-        //    attackTrail.transform.position,
-        //    ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)(attackTrailRotator.transform.position)).normalized,
-        //    Color.white
-        //    );
     }
 
     private void Attack(Vector2 dir)

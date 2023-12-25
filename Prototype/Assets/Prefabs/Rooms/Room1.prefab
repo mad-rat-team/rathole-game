@@ -517,7 +517,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: ca8b4661de163884291dd0e1c82ff551, type: 2}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 0ffae25b3f844d44f867de9709977c1b, type: 2}
+    m_Data: {fileID: 11400000, guid: 6e4da54afeaa50247814c7da054d7a65, type: 2}
   - m_RefCount: 6
     m_Data: {fileID: 11400000, guid: 1ba8acfaf5fed094f9fce8bc8dc376b3, type: 2}
   - m_RefCount: 6
@@ -542,7 +542,7 @@ Tilemap:
   - m_RefCount: 5
     m_Data: {fileID: 21300000, guid: c094e3b52ce470045b97b3667e25e462, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: d43a6fef8588e4341b94509e38c85cd7, type: 3}
+    m_Data: {fileID: 21300000, guid: 6f109bd75a1dc2b4fb699fd51b3b3e01, type: 3}
   - m_RefCount: 6
     m_Data: {fileID: 21300000, guid: 730ebc5a34217f4469dfb9a57869ef7d, type: 3}
   - m_RefCount: 6
@@ -2241,7 +2241,7 @@ GameObject:
   - component: {fileID: 4446137042898529048}
   m_Layer: 0
   m_Name: Room1
-  m_TagString: Untagged
+  m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2293,9 +2293,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2149416900395024933, guid: 5588711a275fda74ca5e4ef5db95694e, type: 3}
+      propertyPath: hasALock
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149416900395024933, guid: 5588711a275fda74ca5e4ef5db95694e, type: 3}
       propertyPath: nextRoom
       value: 
       objectReference: {fileID: 6894907776462079673, guid: 8fbc6b7ecca7ba447859d66aa3024a21, type: 3}
+    - target: {fileID: 2149416900395024933, guid: 5588711a275fda74ca5e4ef5db95694e, type: 3}
+      propertyPath: requiredKey
+      value: 
+      objectReference: {fileID: 11400000, guid: dd443982b05a8b04fb49c6db261939b8, type: 2}
     - target: {fileID: 2149416900395024933, guid: 5588711a275fda74ca5e4ef5db95694e, type: 3}
       propertyPath: playerTeleportOffset.x
       value: -0.25

@@ -9,8 +9,29 @@ public class Door : Interactable
     [SerializeField] private int nextRoomDoorId; //ID of a door in the nextRoom to which the player will be teloported
     [SerializeField] private Vector2 playerTeleportOffset;
 
+    [Header(header: "Lock")]
+    [SerializeField] private bool hasALock;
+    [SerializeField] InventoryItem requiredKey;
+
+    private bool isLocked = true;
+
+    public void SetIsLocked(bool newIsLocked)
+    {
+        isLocked = newIsLocked; //TODO: save this somehow so it stays unlocked when reentering the room
+    }
+
     public override void Interact(PlayerInteractions interactionAgent)
     {
+        if(hasALock && isLocked)
+        {
+            if(!interactionAgent.HasItem(requiredKey))
+            {
+                Debug.Log("You don's have the required key"); //TODO: Add some player feedback
+                return;
+            }
+            SetIsLocked(true);
+        }
+
         RoomManager.ChangeRoom(nextRoom);
 
         Vector2 nextRoomPlayerPos = Vector2.zero;

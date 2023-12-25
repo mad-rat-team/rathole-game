@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu(menuName = "Custom/BrickWallTile")]
+[CreateAssetMenu(menuName = "Custom/Experimental/BrickWallTile")]
 public class BrickWallTile : TileBase
 {
     [SerializeField] private Sprite[] brickLeftFrontSprites;

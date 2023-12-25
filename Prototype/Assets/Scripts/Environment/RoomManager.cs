@@ -1,15 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
     //[SerializeField] private Grid grid;
-    [SerializeField] private GameObject currentRoom;
 
     private static RoomManager rm;
 
+    private GameObject currentRoom;
     public static event Action OnRoomChanged;
 
     public static GameObject GetCurrentRoom()
@@ -31,12 +29,26 @@ public class RoomManager : MonoBehaviour
         {
             Debug.LogWarning("More than 1 RoomManager in the scene");
         }
-
         rm = this;
 
-        if(currentRoom == null)
+        GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
+        if (rooms.Length == 0)
         {
-            Debug.LogWarning("No current room is set in RoomManager");
+            Debug.LogError("No gameobjects with tag \"Room\" present in the scene");
         }
+        else
+        {
+            currentRoom = rooms[0];
+            if(rooms.Length > 1)
+            {
+                Debug.LogWarning("More than 1 gameobject with tag \"Room\" in the scene");
+            }
+        }
+
+
+        //if(currentRoom == null)
+        //{
+        //    Debug.LogWarning("No current room is set in RoomManager");
+        //}
     }
 }
