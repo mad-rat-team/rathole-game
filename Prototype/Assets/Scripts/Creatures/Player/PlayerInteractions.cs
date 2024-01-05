@@ -18,11 +18,6 @@ public class PlayerInteractions : MonoBehaviour
         return interactionRadius * interactionRadius;
     }
 
-    //public bool HasItem(InventoryItem item)
-    //{
-    //    return inventory.GetItemCount(item) > 0;
-    //}
-
     private void Awake()
     {
         inventory = GetComponent<Inventory>();

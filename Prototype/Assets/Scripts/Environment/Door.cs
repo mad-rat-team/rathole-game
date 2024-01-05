@@ -29,7 +29,7 @@ public class Door : Interactable
                 Debug.Log("You don's have the required key"); //TODO: Add some player feedback
                 return;
             }
-            SetIsLocked(true);
+            SetIsLocked(false);
         }
 
         RoomManager.ChangeRoom(nextRoom);
