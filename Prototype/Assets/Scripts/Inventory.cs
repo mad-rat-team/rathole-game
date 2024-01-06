@@ -38,6 +38,11 @@ public class Inventory : MonoBehaviour
     {
         foreach (StartingItem startingItem in startingItems)
         {
+            if(startingItem.item == null)
+            {
+                Debug.LogWarning("StartingItem cannot be null");
+                continue;
+            }
             StoreItems(startingItem.item, startingItem.count);
         }
     }
