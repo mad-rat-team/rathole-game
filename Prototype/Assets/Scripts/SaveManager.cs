@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -13,9 +15,9 @@ public class SaveManager : MonoBehaviour
     [Serializable]
     public class RoomObjectData
     {
-        public string name;
-        public string type;
-        public object state;
+        //public string name;
+        public Type type;
+        public object data;
     }
 
     [Serializable]
@@ -26,9 +28,23 @@ public class SaveManager : MonoBehaviour
         public RoomObjectData[] objects;
     }
 
-    public static void SaveRoom()
+    public static void SaveRoom(GameObject room)
     {
+        ISavable[] savables = room.GetComponentsInChildren<GameObject>().OfType<ISavable>().ToArray();
+        RoomData roomData = new();
+        roomData.name = "phRoomName"; // PH: Maybe add a room class with field name
+        roomData.objects = new RoomObjectData[savables.Length];
 
+        for (int i = 0; i < savables.Length; i++)
+        {
+            roomData.objects[i].type = savables[i].GetType(); //NOTE: I'm not sure if this will serialize
+            roomData.objects[i].data = savables[i].GetSaveData();
+        }
+
+        string path = sm.saveFolderPath + "/" + "phRoomSaveName";
+        FileStream file = new FileStream(path, FileMode.Create);
+        sm.binFormatter.Serialize(file, roomData);
+        file.Close();
     }
 
     private void Start()
