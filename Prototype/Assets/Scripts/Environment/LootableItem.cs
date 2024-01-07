@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//[RequireComponent(typeof(LootableItemSavable))]
 public class LootableItem : Interactable, ISavable
 {
     private class SaveData
@@ -19,7 +20,7 @@ public class LootableItem : Interactable, ISavable
         Destroy(gameObject);
     }
 
-    public object GetSaveData()
+    public object GetState()
     {
         SaveData saveData = new();
         saveData.item = inventoryItem;
@@ -28,10 +29,25 @@ public class LootableItem : Interactable, ISavable
         return saveData;
     }
 
-    public void LoadSaveData(object saveDataObject)
+    public void LoadState(object state)
     {
-        SaveData saveData = (SaveData)saveDataObject;
+        SaveData saveData = (SaveData)state;
         inventoryItem = saveData.item;
         count = saveData.count;
     }
 }
+
+//[RequireComponent(typeof(LootableItem))]
+//public class LootableItemSavable : SavableRoomObject
+//{
+//    private LootableItem lootableItem;
+
+//    private void Awake()
+//    {
+//        lootableItem = GetComponent<LootableItem>();
+//    }
+
+//    public override object GetSaveData() => lootableItem.GetSaveData();
+
+//    public override void LoadSaveData(object saveData) => lootableItem.LoadSaveData(saveData);
+//}
