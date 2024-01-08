@@ -5,6 +5,8 @@ public class RoomManager : MonoBehaviour
 {
     private static RoomManager rm;
 
+    //[SerializeField] private string startingRoomName;
+
     private GameObject currentRoom;
     public static event Action OnRoomChanged;
 
@@ -36,10 +38,18 @@ public class RoomManager : MonoBehaviour
         else
         {
             currentRoom = rooms[0];
-            if(rooms.Length > 1)
+            if (rooms.Length > 1)
             {
                 Debug.LogWarning("More than 1 gameobject with tag \"Room\" in the scene");
             }
         }
+
+        //if(startingRoomName == "")
+        //{
+        //    Debug.LogError("Starting room name has not been set");
+        //    return;
+        //}
+
+        //currentRoom = RuntimeSaveManager.LoadRoom(startingRoomName);
     }
 }

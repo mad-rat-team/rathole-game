@@ -37,8 +37,7 @@ public static class PrefabBaker
             //Debug.Log(fileInfo.Name.TrimEnd(prefabExtension.ToCharArray()));
 
             string newRoomPrefabPath = outputFolderPath + "/" + fileInfo.Name;
-            //SaveManager.SaveRoom(initialRoomPrefab, fileInfo.Name.TrimEnd(prefabExtension.ToCharArray()), newRoomPrefabPath);
-            saveSystem.SerializeRoom(roomPrefab, fileInfo.Name.TrimEnd(prefabExtension.ToCharArray()), newRoomPrefabPath);
+            saveSystem.SaveRoomToSystem(roomPrefab, fileInfo.Name.TrimEnd(prefabExtension.ToCharArray()), newRoomPrefabPath);
 
             foreach (SavableRoomObject savable in SavableRoomObject.GetSavableRoomObjects(roomPrefab))
             {
@@ -47,6 +46,6 @@ public static class PrefabBaker
 
             PrefabUtility.SaveAsPrefabAsset(roomPrefab, newRoomPrefabPath);
         }
-        saveSystem.SaveRoomDataToFile();
+        saveSystem.SaveGameDataToInitialSave();
     }
 }

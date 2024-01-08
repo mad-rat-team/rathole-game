@@ -3,15 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class SaveSystem
 {
     private static string saveFolderPath = Application.dataPath + "/TempSaves"; // TODO: Replace with persistentDataPath
+    private static string initialSavePath = Application.dataPath + "/TempSaves" + "/initialSave" + saveExtension;
+    private static string saveExtension = ".save";
 
     private BinaryFormatter binFormatter = new();
-    private Dictionary<string, RoomData> serializedRoomsData = new();
+    //private Dictionary<string, RoomData> roomDataDict = new();
+    private GameData gameData = new();
 
     [Serializable]
     public class RoomData
@@ -26,10 +30,15 @@ public class SaveSystem
     public class GameData
     {
         // TODO: Player info
-        public RoomData[] roomsData;
+        public Dictionary<string, RoomData> roomDataDict;
+        
+        public GameData()
+        {
+            roomDataDict = new();
+        }
     }
 
-    public void SerializeRoom(GameObject room, string roomName, string roomPrefabResourcePath)
+    public void SaveRoomToSystem(GameObject room, string roomName, string roomPrefabResourcePath)
     {
         RoomData roomData = new();
         roomData.prefabResourcePath = roomPrefabResourcePath;
@@ -40,77 +49,66 @@ public class SaveSystem
             roomData.objects[i] = savables[i].GetData();
         }
 
-        serializedRoomsData[roomName] = roomData;
+        gameData.roomDataDict[roomName] = roomData;
     }
 
-    public void SaveRoomDataToFile() // PH: Should save to different save files instead of just 1
+    public GameObject LoadRoom(string roomName)
     {
-        FileStream fStream = new FileStream(saveFolderPath + "/" + "testSaveFile.save", FileMode.Create);
-        binFormatter.Serialize(fStream, serializedRoomsData);
-        fStream.Close();
+        RoomData roomData;
+        try
+        {
+            roomData = gameData.roomDataDict[roomName];
+        }
+        catch
+        {
+            foreach (var key in gameData.roomDataDict.Keys) Debug.Log(key);
+            throw new Exception("Room with given name does not exist");
+        }
+        
+        //A lot of path-related exceptions can be thrown here
 
-        //foreach (var item in serializedRoomsData)
+        GameObject room = GameObject.Instantiate((GameObject)Resources.Load(roomData.prefabResourcePath));
+
+        foreach (SavableRoomObject.RoomObjectData objectData in roomData.objects)
+        {
+            GameObject roomObject = GameObject.Instantiate((GameObject)Resources.Load(objectData.prefabResourcePath), room.transform);
+            roomObject.GetComponent<SavableRoomObject>().LoadState(objectData.state);
+        }
+
+        return room;
+    }
+
+    public void SaveGameDataToInitialSave()
+    {
+        SaveGameDataToFile(initialSavePath);
+    }
+
+    public void LoadGameDataFromInitialSave()
+    {
+        LoadGameDataFromFile(initialSavePath);
+    }
+
+    /// <summary>
+    /// Does not handle exceptions
+    /// </summary>
+    private void SaveGameDataToFile(string filePath)
+    {
+        FileStream fStream = new FileStream(filePath, FileMode.Create);
+        binFormatter.Serialize(fStream, gameData);
+        fStream.Close();
+        //foreach (var item in roomDataDict)
         //{
         //    Debug.Log($"{item.Key}: {item.Value.objects.Length}");
         //}
     }
 
-    public void LoadRoomDataFromFile()
+    /// <summary>
+    /// Does not handle exceptions
+    /// </summary>
+    private void LoadGameDataFromFile(string filePath)
     {
-        FileStream fStream = new FileStream(saveFolderPath + "/" + "testSaveFile.save", FileMode.Open);
-        serializedRoomsData = (Dictionary<string, RoomData>)binFormatter.Deserialize(fStream);
+        FileStream fStream = new FileStream(filePath, FileMode.Open);
+        gameData = (GameData)binFormatter.Deserialize(fStream);
         fStream.Close();
     }
-
-    //private void Start()
-    //{
-    //    if (sm != null)
-    //    {
-    //        Debug.LogWarning("More than 1 SaveManager in the scene");
-    //    }
-    //    sm = this;
-
-    //    //    //test
-    //    //    RoomData testRoomData = new RoomData();
-    //    //    testRoomData.name = "testRoomName";
-    //    //    RoomObjectData testObjectData1 = new();
-    //    //    testObjectData1.name = "testObj1";
-    //    //    testObjectData1.type = "testType";
-    //    //    testObjectData1.state = 3;
-    //    //    //testObjectData1.health = 3;
-
-    //    //    RoomObjectData testObjectData2 = new();
-    //    //    testObjectData2.name = "testObj2";
-    //    //    testObjectData2.type = "testType";
-    //    //    testObjectData2.state = "qwerty";
-    //    //    //testObjectData2.note = "qwerty";
-
-    //    //    testRoomData.objects = new RoomObjectData[] { testObjectData1, testObjectData2 };
-
-    //    //    string testJson = JsonUtility.ToJson(testRoomData);
-    //    //    Debug.Log(testJson);
-
-    //    //    //System.Runtime.Serialization.Json.DataContractJsonSerializer jsonSerializer = new(typeof(RoomObjectData));
-    //    //    //BinaryFormatter
-
-    //    //    //BinaryWriter bw = new BinaryWriter();
-
-    //    //    //Debug.Log(Application.persistentDataPath);
-    //    //    BinaryFormatter bf = new BinaryFormatter();
-    //    //    string path = Application.dataPath + "/testSaveFile.bin";
-    //    //    FileStream fStream = new FileStream(path, FileMode.Create);
-    //    //    bf.Serialize(fStream, testRoomData);
-    //    //    fStream.Close();
-
-    //    //    fStream = new FileStream(path, FileMode.Open);
-    //    //    RoomData copy = (RoomData)bf.Deserialize(fStream);
-    //    //    fStream.Close();
-
-
-    //    //    Debug.Log(testRoomData.objects[1].state);
-    //    //    Debug.Log(copy.objects[1].state);
-    //    //    testRoomData.objects[1].state = 5;
-    //    //    Debug.Log(testRoomData.objects[1].state);
-    //    //    Debug.Log(copy.objects[1].state);
-    //}
 }
