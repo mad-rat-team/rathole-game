@@ -11,10 +11,7 @@ public class SavableRoomObject : MonoBehaviour
 {
     [SerializeField] private string prefabResourcePath;
 
-    //public string GetObjectType() {
-    //    return GetType().ToString();
-    //}
-
+    [Serializable]
     public class RoomObjectData
     {
         public string prefabResourcePath;
@@ -32,6 +29,20 @@ public class SavableRoomObject : MonoBehaviour
     public void LoadState(object state)
     {
         getSavableComponent().LoadState(state);
+    }
+
+    public static SavableRoomObject[] GetSavableRoomObjects(GameObject room)
+    {
+        return room.GetComponentsInChildren<SavableRoomObject>().Where(
+            savable =>
+                {
+                    if (savable.gameObject == null)
+                    {
+                        Debug.LogError("One GameObject cannot have multiple SavableRoomObject components.");
+                        return false;
+                    }
+                    return true;
+                }).ToArray();
     }
 
     /// <exception cref="Exception">Throws an exception if there are more or less than 1 component that implement ISavable</exception>

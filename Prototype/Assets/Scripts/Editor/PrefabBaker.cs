@@ -27,25 +27,26 @@ public static class PrefabBaker
     [MenuItem("Custom/Bake Room Prefabs")]
     private static void BakeRoomPrefabs()
     {
+        SaveSystem saveSystem = new();
         DirectoryInfo dirInfo = new DirectoryInfo(inputFolderPath);
         foreach (FileInfo fileInfo in dirInfo.GetFiles())
         {
             if (fileInfo.Extension != prefabExtension) continue;
-            GameObject initialRoomPrefab = PrefabUtility.LoadPrefabContents(fileInfo.FullName);
-            if (initialRoomPrefab.tag != roomTag) continue;
+            GameObject roomPrefab = PrefabUtility.LoadPrefabContents(fileInfo.FullName);
+            if (roomPrefab.tag != roomTag) continue;
             //Debug.Log(fileInfo.Name.TrimEnd(prefabExtension.ToCharArray()));
 
             string newRoomPrefabPath = outputFolderPath + "/" + fileInfo.Name;
             //SaveManager.SaveRoom(initialRoomPrefab, fileInfo.Name.TrimEnd(prefabExtension.ToCharArray()), newRoomPrefabPath);
+            saveSystem.SerializeRoom(roomPrefab, fileInfo.Name.TrimEnd(prefabExtension.ToCharArray()), newRoomPrefabPath);
 
-            foreach (SavableRoomObject savable in initialRoomPrefab.GetComponentsInChildren<SavableRoomObject>())
+            foreach (SavableRoomObject savable in SavableRoomObject.GetSavableRoomObjects(roomPrefab))
             {
-                if (savable.gameObject == null) continue;
                 GameObject.DestroyImmediate(savable.gameObject);
             }
 
-            PrefabUtility.SaveAsPrefabAsset(initialRoomPrefab, newRoomPrefabPath);
+            PrefabUtility.SaveAsPrefabAsset(roomPrefab, newRoomPrefabPath);
         }
-        //GameObject prefabGO = PrefabUtility.LoadPrefabContents(inputFolderPath + "/");
+        saveSystem.SaveRoomDataToFile();
     }
 }

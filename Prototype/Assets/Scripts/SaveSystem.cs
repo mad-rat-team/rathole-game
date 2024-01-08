@@ -6,47 +6,60 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public static class SaveManager
+public class SaveSystem
 {
-    //private static SaveManager sm;
-    private static BinaryFormatter binFormatter;
     private static string saveFolderPath = Application.dataPath + "/TempSaves"; // TODO: Replace with persistentDataPath
 
-    //[Serializable]
-    //public class RoomObjectData
-    //{
-    //    //public string name;
-    //    public Type type;
-    //    public object data;
-    //}
+    private BinaryFormatter binFormatter = new();
+    private Dictionary<string, RoomData> serializedRoomsData = new();
 
     [Serializable]
     public class RoomData
     {
-        public string name;
+        //public string name;
         //public bool cleared;
+        public string prefabResourcePath;
         public SavableRoomObject.RoomObjectData[] objects;
     }
 
-    public static void SaveRoom(GameObject room, string roomName, string roomPrefabResourcePath)
+    [Serializable]
+    public class GameData
     {
-        //ISavable[] savables = room.GetComponentsInChildren<GameObject>().OfType<ISavable>().ToArray();
-        //RoomData roomData = new();
-        //roomData.name = "phRoomName"; // PH: Maybe add a room class with field name
-        //roomData.objects = new RoomObjectData[savables.Length];
+        // TODO: Player info
+        public RoomData[] roomsData;
+    }
 
-        //for (int i = 0; i < savables.Length; i++)
+    public void SerializeRoom(GameObject room, string roomName, string roomPrefabResourcePath)
+    {
+        RoomData roomData = new();
+        roomData.prefabResourcePath = roomPrefabResourcePath;
+        SavableRoomObject[] savables = SavableRoomObject.GetSavableRoomObjects(room);
+        roomData.objects = new SavableRoomObject.RoomObjectData[savables.Length];
+        for (int i = 0; i < savables.Length; i++)
+        {
+            roomData.objects[i] = savables[i].GetData();
+        }
+
+        serializedRoomsData[roomName] = roomData;
+    }
+
+    public void SaveRoomDataToFile() // PH: Should save to different save files instead of just 1
+    {
+        FileStream fStream = new FileStream(saveFolderPath + "/" + "testSaveFile.save", FileMode.Create);
+        binFormatter.Serialize(fStream, serializedRoomsData);
+        fStream.Close();
+
+        //foreach (var item in serializedRoomsData)
         //{
-        //    roomData.objects[i].type = savables[i].GetType(); //NOTE: I'm not sure if this will serialize
-        //    roomData.objects[i].data = savables[i].GetSaveData();
+        //    Debug.Log($"{item.Key}: {item.Value.objects.Length}");
         //}
+    }
 
-        //string path = sm.saveFolderPath + "/" + "phRoomSaveName";
-        //FileStream file = new FileStream(path, FileMode.Create);
-        //sm.binFormatter.Serialize(file, roomData);
-        //file.Close();
-
-        throw new Exception("Unimplemented");
+    public void LoadRoomDataFromFile()
+    {
+        FileStream fStream = new FileStream(saveFolderPath + "/" + "testSaveFile.save", FileMode.Open);
+        serializedRoomsData = (Dictionary<string, RoomData>)binFormatter.Deserialize(fStream);
+        fStream.Close();
     }
 
     //private void Start()
