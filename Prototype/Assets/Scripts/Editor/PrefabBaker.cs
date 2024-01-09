@@ -7,7 +7,11 @@ using System.IO;
 public static class PrefabBaker
 {
     private static string inputFolderPath = Application.dataPath + "/Prefabs/Rooms";
-    private static string outputFolderPath = Application.dataPath + "/Prefabs/Resources";
+    private static string outputFolderResourcePath = "";
+    private static string outputFolderPath =
+        Application.dataPath + "/Prefabs/Resources"
+        + (outputFolderResourcePath != "" ? ("/" + outputFolderResourcePath) : "");
+
     private static string prefabExtension = ".prefab";
     private static string roomTag = "Room";
 
@@ -34,16 +38,19 @@ public static class PrefabBaker
             if (fileInfo.Extension != prefabExtension) continue;
             GameObject roomPrefab = PrefabUtility.LoadPrefabContents(fileInfo.FullName);
             if (roomPrefab.tag != roomTag) continue;
-            //Debug.Log(fileInfo.Name.TrimEnd(prefabExtension.ToCharArray()));
 
-            string newRoomPrefabPath = outputFolderPath + "/" + fileInfo.Name;
-            saveSystem.SaveRoomToSystem(roomPrefab, fileInfo.Name.TrimEnd(prefabExtension.ToCharArray()), newRoomPrefabPath);
+            string roomName = fileInfo.Name.TrimEnd(prefabExtension.ToCharArray());
+            string roomResourcePath = (outputFolderResourcePath != "" ? (outputFolderResourcePath + "/") : "") + roomName;
+
+            //saveSystem.SaveRoomToSystem(roomPrefab, fileInfo.Name.TrimEnd(prefabExtension.ToCharArray()), newRoomPrefabPath);
+            saveSystem.SaveRoomToSystem(roomPrefab, roomResourcePath, roomResourcePath);
 
             foreach (SavableRoomObject savable in SavableRoomObject.GetSavableRoomObjects(roomPrefab))
             {
                 GameObject.DestroyImmediate(savable.gameObject);
             }
 
+            string newRoomPrefabPath = outputFolderPath + "/" + fileInfo.Name;
             PrefabUtility.SaveAsPrefabAsset(roomPrefab, newRoomPrefabPath);
         }
         saveSystem.SaveGameDataToInitialSave();

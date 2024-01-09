@@ -9,8 +9,8 @@ using UnityEngine;
 
 public class SaveSystem
 {
-    private static string saveFolderPath = Application.dataPath + "/TempSaves"; // TODO: Replace with persistentDataPath
-    private static string initialSavePath = Application.dataPath + "/TempSaves" + "/initialSave" + saveExtension;
+    private static string saveFilePath = Application.dataPath + "/TempSaves"; // TODO: Replace with persistentDataPath
+    private static string initialSavePath = Application.dataPath + "/PrebakedData/initialSave" + saveExtension;
     private static string saveExtension = ".save";
 
     private BinaryFormatter binFormatter = new();
@@ -64,9 +64,8 @@ public class SaveSystem
             foreach (var key in gameData.roomDataDict.Keys) Debug.Log(key);
             throw new Exception("Room with given name does not exist");
         }
-        
-        //A lot of path-related exceptions can be thrown here
 
+        //A lot of path-related exceptions can be thrown here
         GameObject room = GameObject.Instantiate((GameObject)Resources.Load(roomData.prefabResourcePath));
 
         foreach (SavableRoomObject.RoomObjectData objectData in roomData.objects)

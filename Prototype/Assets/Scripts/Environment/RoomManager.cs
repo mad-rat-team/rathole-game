@@ -5,7 +5,7 @@ public class RoomManager : MonoBehaviour
 {
     private static RoomManager rm;
 
-    //[SerializeField] private string startingRoomName;
+    [SerializeField] private string startingRoomName;
 
     private GameObject currentRoom;
     public static event Action OnRoomChanged;
@@ -24,32 +24,35 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
+        //Debug.Log("RoomManager Start");
+
         if (rm != null)
         {
             Debug.LogWarning("More than 1 RoomManager in the scene");
+            return;
         }
         rm = this;
 
-        GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
-        if (rooms.Length == 0)
-        {
-            Debug.LogError("No gameobjects with tag \"Room\" present in the scene");
-        }
-        else
-        {
-            currentRoom = rooms[0];
-            if (rooms.Length > 1)
-            {
-                Debug.LogWarning("More than 1 gameobject with tag \"Room\" in the scene");
-            }
-        }
-
-        //if(startingRoomName == "")
+        //GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
+        //if (rooms.Length == 0)
         //{
-        //    Debug.LogError("Starting room name has not been set");
-        //    return;
+        //    Debug.LogError("No gameobjects with tag \"Room\" present in the scene");
+        //}
+        //else
+        //{
+        //    currentRoom = rooms[0];
+        //    if (rooms.Length > 1)
+        //    {
+        //        Debug.LogWarning("More than 1 gameobject with tag \"Room\" in the scene");
+        //    }
         //}
 
-        //currentRoom = RuntimeSaveManager.LoadRoom(startingRoomName);
+        if (startingRoomName == "")
+        {
+            Debug.LogError("Starting room name has not been set");
+            return;
+        }
+
+        currentRoom = RuntimeSaveManager.LoadRoom(startingRoomName);
     }
 }

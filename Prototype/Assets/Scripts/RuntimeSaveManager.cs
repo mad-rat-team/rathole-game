@@ -1,32 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RuntimeSaveManager : MonoBehaviour
 {
-    //private static RuntimeSaveManager rsm;
+    private static RuntimeSaveManager rsm;
 
-    private static SaveSystem saveSystem;
+    private SaveSystem saveSystem;
+    
     public static GameObject LoadRoom(string roomName)
     {
-        LazyInit();
-        return RuntimeSaveManager.saveSystem.LoadRoom(roomName);
+        //LazyInit();
+        return rsm.saveSystem.LoadRoom(roomName);
     }
 
-    private static void LazyInit()
+    //private static void LazyInit() // Idk how to do this nicer
+    //{
+    //    if (saveSystem != null) return;
+    //}
+
+    //private void Init()
+    //{
+    //    rsm.saveSystem = new SaveSystem();
+    //    rsm.saveSystem.LoadGameDataFromInitialSave();
+    //}
+
+    private void Awake()
     {
-        if (saveSystem != null) return;
-        saveSystem = new();
+        //Debug.Log("RuntimeSaveManager Awake");
+
+        if (rsm != null)
+        {
+            if (rsm != this)
+            {
+                Debug.LogWarning("More than 1 RuntimeSaveManager in the scene");
+            }
+            return;
+        }
+
+        rsm = this;
+        saveSystem = new SaveSystem();
         saveSystem.LoadGameDataFromInitialSave();
     }
-
-    //private void Awake() //Should be awake instead of start since other scripts depend on this being initialized
-    //{
-    //    if(rsm != null)
-    //    {
-    //        Debug.LogWarning("More than 1 RuntimeSaveManager in the scene");
-    //    }
-
-    //    saveSystem.LoadGameDataFromInitialSave();
-    //}
 }

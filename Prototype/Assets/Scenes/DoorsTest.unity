@@ -312,7 +312,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5033537708373484599, guid: 582581fbcc2e08b478dce28a8b2336f5, type: 3}
       propertyPath: m_ColliderPaths.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8992580904958166151, guid: 582581fbcc2e08b478dce28a8b2336f5, type: 3}
       propertyPath: m_Name
@@ -320,7 +320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8992580904958166151, guid: 582581fbcc2e08b478dce28a8b2336f5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -345,10 +345,6 @@ PrefabInstance:
     - target: {fileID: 2482397440151752519, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
       propertyPath: m_Name
       value: Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4328195439025380549, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
-      propertyPath: startingRoomName
-      value: Room1
       objectReference: {fileID: 0}
     - target: {fileID: 8362519724292382408, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
       propertyPath: m_LocalPosition.x
@@ -390,8 +386,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5047078076130308501, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
