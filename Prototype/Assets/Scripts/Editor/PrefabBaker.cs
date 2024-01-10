@@ -7,10 +7,8 @@ using System.IO;
 public static class PrefabBaker
 {
     private static string inputFolderPath = Application.dataPath + "/Prefabs/Rooms";
-    private static string outputFolderResourcePath = "";
-    private static string outputFolderPath =
-        Application.dataPath + "/Prefabs/Resources"
-        + (outputFolderResourcePath != "" ? ("/" + outputFolderResourcePath) : "");
+    //private static string outputFolderResourcePath = "";
+    private static string outputFolderPath = Application.dataPath + "/Prefabs/Resources"; // Should be a Resources folder
 
     private static string prefabExtension = ".prefab";
     private static string roomTag = "Room";
@@ -39,11 +37,10 @@ public static class PrefabBaker
             GameObject roomPrefab = PrefabUtility.LoadPrefabContents(fileInfo.FullName);
             if (roomPrefab.tag != roomTag) continue;
 
-            string roomName = fileInfo.Name.TrimEnd(prefabExtension.ToCharArray());
-            string roomResourcePath = (outputFolderResourcePath != "" ? (outputFolderResourcePath + "/") : "") + roomName;
+            string roomResourcePath = fileInfo.Name.TrimEnd(prefabExtension.ToCharArray());
 
             //saveSystem.SaveRoomToSystem(roomPrefab, fileInfo.Name.TrimEnd(prefabExtension.ToCharArray()), newRoomPrefabPath);
-            saveSystem.SaveRoomToSystem(roomPrefab, roomResourcePath, roomResourcePath);
+            saveSystem.SaveRoomToSystem(roomPrefab, roomResourcePath);
 
             foreach (SavableRoomObject savable in SavableRoomObject.GetSavableRoomObjects(roomPrefab))
             {

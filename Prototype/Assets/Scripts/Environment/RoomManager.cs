@@ -5,7 +5,7 @@ public class RoomManager : MonoBehaviour
 {
     private static RoomManager rm;
 
-    [SerializeField] private string startingRoomName;
+    [SerializeField] private string startingRoomPrefabResourcePath;
 
     private GameObject currentRoom;
     public static event Action OnRoomChanged;
@@ -30,17 +30,18 @@ public class RoomManager : MonoBehaviour
         OnRoomChanged?.Invoke();
     }
 
-    private void Start()
+    private void Awake()
     {
-        //Debug.Log("RoomManager Start");
-
         if (rm != null)
         {
             Debug.LogWarning("More than 1 RoomManager in the scene");
             return;
         }
         rm = this;
+    }
 
+    private void Start()
+    {
         //GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
         //if (rooms.Length == 0)
         //{
@@ -55,12 +56,12 @@ public class RoomManager : MonoBehaviour
         //    }
         //}
 
-        if (startingRoomName == "")
+        if (startingRoomPrefabResourcePath == "")
         {
-            Debug.LogError("Starting room name has not been set");
+            Debug.LogError("Starting room prefab resource path has not been set");
             return;
         }
 
-        currentRoom = RuntimeSaveManager.LoadRoom(startingRoomName);
+        currentRoom = RuntimeSaveManager.LoadRoom(startingRoomPrefabResourcePath);
     }
 }
