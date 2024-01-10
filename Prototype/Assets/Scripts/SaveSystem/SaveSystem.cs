@@ -81,7 +81,7 @@ public class SaveSystem
         catch
         {
             //foreach (var key in gameData.roomDataDict.Keys) Debug.Log(key);
-            throw new Exception("Room with given name does not exist");
+            throw new Exception("Room with given name does not exist: " + roomName);
         }
 
         //A lot of path-related exceptions can be thrown here

@@ -15,10 +15,18 @@ public class RoomManager : MonoBehaviour
         return rm.currentRoom;
     }
 
-    public static void ChangeRoom(GameObject newRoom)
+    //public static void ChangeRoom(GameObject newRoom)
+    //{
+    //    DestroyImmediate(rm.currentRoom); // Can't use normal Destroy(), because InteractionManager is getting the list of interactable on the same frame
+    //    rm.currentRoom = Instantiate(newRoom);
+    //    OnRoomChanged?.Invoke();
+    //}
+
+    public static void ChangeRoom(string newRoomName)
     {
+        //RuntimeSaveManager.SaveRoom
         DestroyImmediate(rm.currentRoom); // Can't use normal Destroy(), because InteractionManager is getting the list of interactable on the same frame
-        rm.currentRoom = Instantiate(newRoom);
+        rm.currentRoom = RuntimeSaveManager.LoadRoom(newRoomName);
         OnRoomChanged?.Invoke();
     }
 

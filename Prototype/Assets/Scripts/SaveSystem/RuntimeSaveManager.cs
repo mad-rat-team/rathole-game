@@ -15,16 +15,10 @@ public class RuntimeSaveManager : MonoBehaviour
         return rsm.saveSystem.LoadRoom(roomName);
     }
 
-    //private static void LazyInit() // Idk how to do this nicer
-    //{
-    //    if (saveSystem != null) return;
-    //}
-
-    //private void Init()
-    //{
-    //    rsm.saveSystem = new SaveSystem();
-    //    rsm.saveSystem.LoadGameDataFromInitialSave();
-    //}
+    public static void SaveRoom(GameObject room)
+    {
+        //rsm.saveSystem.SaveRoomToSystem(room, )
+    }
 
     private void Awake()
     {

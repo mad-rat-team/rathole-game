@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestSavable : MonoBehaviour, ISavable
+public class TestSavable : Interactable, ISavable
 {
     [System.Serializable] private class State
     {
@@ -11,6 +11,11 @@ public class TestSavable : MonoBehaviour, ISavable
     }
 
     [SerializeField] private string someData;
+
+    public override void Interact(PlayerInteractions interactionAgent)
+    {
+        Destroy(this.gameObject);
+    }
 
     public object GetState()
     {

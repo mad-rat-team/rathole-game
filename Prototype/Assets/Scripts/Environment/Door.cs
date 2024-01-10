@@ -5,6 +5,7 @@ using UnityEngine;
 public class Door : Interactable
 {
     [SerializeField] private GameObject nextRoom;
+    [SerializeField] private string nextRoomName;
     [SerializeField] private int doorId; //ID of the door
     [SerializeField] private int nextRoomDoorId; //ID of a door in the nextRoom to which the player will be teloported
     [SerializeField] private Vector2 playerTeleportOffset;
@@ -32,7 +33,8 @@ public class Door : Interactable
             SetIsLocked(false);
         }
 
-        RoomManager.ChangeRoom(nextRoom);
+        //RoomManager.ChangeRoom(nextRoom);
+        RoomManager.ChangeRoom(nextRoomName);
 
         Vector2 nextRoomPlayerPos = Vector2.zero;
         Door[] nextRoomDoors = RoomManager.GetCurrentRoom().GetComponentsInChildren<Door>();
