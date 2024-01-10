@@ -31,7 +31,7 @@ public static class PrefabBaker
     [MenuItem("Custom/Bake Room Prefabs")]
     private static void BakeRoomPrefabs()
     {
-        SaveSystem saveSystem = new();
+        SaveSystem saveSystem = new SaveSystem(SaveSystem.SaveFileType.Initial);
         DirectoryInfo dirInfo = new DirectoryInfo(inputFolderPath);
         foreach (FileInfo fileInfo in dirInfo.GetFiles())
         {
@@ -53,6 +53,6 @@ public static class PrefabBaker
             string newRoomPrefabPath = outputFolderPath + "/" + fileInfo.Name;
             PrefabUtility.SaveAsPrefabAsset(roomPrefab, newRoomPrefabPath);
         }
-        saveSystem.SaveGameDataToInitialSave();
+        saveSystem.SaveToDisk();
     }
 }

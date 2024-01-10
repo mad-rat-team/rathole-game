@@ -12,7 +12,6 @@ public class RuntimeSaveManager : MonoBehaviour
     
     public static GameObject LoadRoom(string roomName)
     {
-        //LazyInit();
         return rsm.saveSystem.LoadRoom(roomName);
     }
 
@@ -41,7 +40,7 @@ public class RuntimeSaveManager : MonoBehaviour
         }
 
         rsm = this;
-        saveSystem = new SaveSystem();
-        saveSystem.LoadGameDataFromInitialSave();
+        SaveSystem.CreateNewSaveFile(); // PH: This should be handled by main menu
+        saveSystem = new SaveSystem(SaveSystem.SaveFileType.Existing);
     }
 }

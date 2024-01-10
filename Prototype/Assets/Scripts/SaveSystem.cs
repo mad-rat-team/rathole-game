@@ -9,13 +9,14 @@ using UnityEngine;
 
 public class SaveSystem
 {
-    private static string saveFilePath = Application.dataPath + "/TempSaves"; // TODO: Replace with persistentDataPath
-    private static string initialSavePath = Application.dataPath + "/PrebakedData/initialSave" + saveExtension;
     private static string saveExtension = ".save";
+    private static string normalSavePath = Application.dataPath + "/TempSaves/saveFile" + saveExtension; // TODO: Replace with persistentDataPath
+    private static string initialSavePath = Application.dataPath + "/PrebakedData/initialSave" + saveExtension;
 
     private BinaryFormatter binFormatter = new();
     //private Dictionary<string, RoomData> roomDataDict = new();
     private GameData gameData = new();
+    private string savePath;
 
     [Serializable]
     public class RoomData
@@ -31,12 +32,30 @@ public class SaveSystem
     {
         // TODO: Player info
         public Dictionary<string, RoomData> roomDataDict;
-        
+
         public GameData()
         {
             roomDataDict = new();
         }
     }
+
+    public enum SaveFileType
+    {
+        //New,
+        Existing,
+        Initial
+    }
+
+    public SaveSystem(SaveFileType saveFileType)
+    {
+        savePath = saveFileType == SaveFileType.Initial ? initialSavePath : normalSavePath;
+        if (saveFileType == SaveFileType.Existing)
+        {
+            LoadGameDataFromFile(savePath);
+        }
+    }
+
+    private SaveSystem() { }
 
     public void SaveRoomToSystem(GameObject room, string roomName, string roomPrefabResourcePath)
     {
@@ -61,7 +80,7 @@ public class SaveSystem
         }
         catch
         {
-            foreach (var key in gameData.roomDataDict.Keys) Debug.Log(key);
+            //foreach (var key in gameData.roomDataDict.Keys) Debug.Log(key);
             throw new Exception("Room with given name does not exist");
         }
 
@@ -77,14 +96,36 @@ public class SaveSystem
         return room;
     }
 
-    public void SaveGameDataToInitialSave()
+    //public void SaveGameDataToDisk()
+    //{
+    //    SaveGameDataToFile(saveFilePath);
+    //}
+
+    //public void SaveGameDataToInitialSave()
+    //{
+    //    SaveGameDataToFile(initialSavePath);
+    //}
+
+    //public void LoadGameDataFromInitialSave()
+    //{
+    //    LoadGameDataFromFile(initialSavePath);
+    //}
+
+    public void SaveToDisk()
     {
-        SaveGameDataToFile(initialSavePath);
+        SaveGameDataToFile(savePath);
     }
 
-    public void LoadGameDataFromInitialSave()
+    //public void LoadFromDisk()
+    //{
+    //    SaveGameDataToFile(savePath);
+    //}
+
+    public static void CreateNewSaveFile()
     {
-        LoadGameDataFromFile(initialSavePath);
+        SaveSystem initialSaveSystem = new SaveSystem();
+        initialSaveSystem.LoadGameDataFromFile(initialSavePath);
+        initialSaveSystem.SaveGameDataToFile(normalSavePath);
     }
 
     /// <summary>
