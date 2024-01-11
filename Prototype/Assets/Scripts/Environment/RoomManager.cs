@@ -5,9 +5,10 @@ public class RoomManager : MonoBehaviour
 {
     private static RoomManager rm;
 
-    [SerializeField] private string startingRoomPrefabResourcePath;
+    [SerializeField] private string startingRoomName;
 
     private GameObject currentRoom;
+    private string currentRoomName;
     public static event Action OnRoomChanged;
 
     public static GameObject GetCurrentRoom()
@@ -24,9 +25,10 @@ public class RoomManager : MonoBehaviour
 
     public static void ChangeRoom(string newRoomName)
     {
-        //RuntimeSaveManager.SaveRoom
+        RuntimeSaveManager.SaveRoom(rm.currentRoom, rm.currentRoomName);
         DestroyImmediate(rm.currentRoom); // Can't use normal Destroy(), because InteractionManager is getting the list of interactable on the same frame
         rm.currentRoom = RuntimeSaveManager.LoadRoom(newRoomName);
+        rm.currentRoomName = newRoomName;
         OnRoomChanged?.Invoke();
     }
 
@@ -56,12 +58,13 @@ public class RoomManager : MonoBehaviour
         //    }
         //}
 
-        if (startingRoomPrefabResourcePath == "")
+        if (startingRoomName == "")
         {
             Debug.LogError("Starting room prefab resource path has not been set");
             return;
         }
 
-        currentRoom = RuntimeSaveManager.LoadRoom(startingRoomPrefabResourcePath);
+        currentRoom = RuntimeSaveManager.LoadRoom(startingRoomName);
+        currentRoomName = startingRoomName;
     }
 }

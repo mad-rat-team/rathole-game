@@ -57,7 +57,7 @@ public class SaveSystem
 
     private SaveSystem() { }
 
-    public void SaveRoomToSystem(GameObject room, string roomPrefabResourcePath)
+    public void SaveRoomToSystem(GameObject room, string roomName)
     {
         RoomData roomData = new();
         //roomData.prefabResourcePath = roomPrefabResourcePath;
@@ -67,25 +67,23 @@ public class SaveSystem
         {
             roomData.objects[i] = savables[i].GetData();
         }
-
-        gameData.roomDataDict[roomPrefabResourcePath] = roomData;
+        gameData.roomDataDict[roomName] = roomData;
     }
 
-    public GameObject LoadRoom(string roomPrefabResourcePath)
+    public GameObject LoadRoom(string roomName)
     {
         RoomData roomData;
         try
         {
-            roomData = gameData.roomDataDict[roomPrefabResourcePath];
+            roomData = gameData.roomDataDict[roomName];
         }
         catch
         {
-            //foreach (var key in gameData.roomDataDict.Keys) Debug.Log(key);
-            throw new Exception("Room with given path does not exist: " + roomPrefabResourcePath);
+            throw new Exception("Room with given name does not exist: " + roomName);
         }
 
         //A lot of path-related exceptions can be thrown here
-        GameObject room = GameObject.Instantiate((GameObject)Resources.Load(roomPrefabResourcePath));
+        GameObject room = GameObject.Instantiate((GameObject)Resources.Load(roomName));
 
         foreach (SavableRoomObject.RoomObjectData objectData in roomData.objects)
         {

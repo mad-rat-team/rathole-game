@@ -15,15 +15,13 @@ public class RuntimeSaveManager : MonoBehaviour
         return rsm.saveSystem.LoadRoom(roomName);
     }
 
-    public static void SaveRoom(GameObject room)
+    public static void SaveRoom(GameObject room, string roomName)
     {
-        //rsm.saveSystem.SaveRoomToSystem(room, )
+        rsm.saveSystem.SaveRoomToSystem(room, roomName);
     }
 
     private void Awake()
     {
-        //Debug.Log("RuntimeSaveManager Awake");
-
         if (rsm != null)
         {
             if (rsm != this)
