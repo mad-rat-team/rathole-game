@@ -8,7 +8,7 @@ public static class PrefabBaker
 {
     private static string inputFolderPath = Application.dataPath + "/Prefabs/Rooms";
     //private static string outputFolderResourcePath = "";
-    private static string outputFolderPath = Application.dataPath + "/Prefabs/Resources"; // Should be a Resources folder
+    private static string outputFolderPath = Application.dataPath + "/Prefabs/Rooms/Resources"; // Should be a Resources folder
 
     private static string prefabExtension = ".prefab";
     private static string roomTag = "Room";
