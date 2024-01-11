@@ -5,10 +5,12 @@ using UnityEngine;
 //[RequireComponent(typeof(LootableItemSavable))]
 public class LootableItem : Interactable, ISavable
 {
+    [System.Serializable]
     private class SaveData
     {
-        public InventoryItem item;
+        public string itemName;
         public int count;
+        public SerializableVector3 position;
     }
 
     [SerializeField] private InventoryItem inventoryItem;
@@ -23,8 +25,9 @@ public class LootableItem : Interactable, ISavable
     public object GetState()
     {
         SaveData saveData = new();
-        saveData.item = inventoryItem;
+        saveData.itemName = inventoryItem.name;
         saveData.count = count;
+        saveData.position = new SerializableVector3(transform.position);
 
         return saveData;
     }
@@ -32,8 +35,10 @@ public class LootableItem : Interactable, ISavable
     public void LoadState(object state)
     {
         SaveData saveData = (SaveData)state;
-        inventoryItem = saveData.item;
+        //inventoryItem = saveData.item;
+        inventoryItem = Resources.Load<InventoryItem>(saveData.itemName);
         count = saveData.count;
+        transform.position = saveData.position.GetVector3();
     }
 }
 
