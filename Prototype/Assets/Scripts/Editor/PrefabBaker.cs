@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using System.Linq;
 
 public static class PrefabBaker
 {
@@ -42,7 +43,7 @@ public static class PrefabBaker
             //saveSystem.SaveRoomToSystem(roomPrefab, fileInfo.Name.TrimEnd(prefabExtension.ToCharArray()), newRoomPrefabPath);
             saveSystem.SaveRoomToSystem(roomPrefab, roomName);
 
-            foreach (SavableRoomObject savable in SavableRoomObject.GetSavableRoomObjects(roomPrefab))
+            foreach (SavableRoomObject savable in GetSavableRoomObjects(roomPrefab))
             {
                 GameObject.DestroyImmediate(savable.gameObject);
             }
@@ -51,5 +52,19 @@ public static class PrefabBaker
             PrefabUtility.SaveAsPrefabAsset(roomPrefab, newRoomPrefabPath);
         }
         saveSystem.SaveToDisk();
+    }
+
+    private static SavableRoomObject[] GetSavableRoomObjects(GameObject room)
+    {
+        return room.GetComponentsInChildren<SavableRoomObject>().Where(
+            savable =>
+            {
+                if (savable.gameObject == null)
+                {
+                    Debug.LogError("One GameObject cannot have multiple SavableRoomObject components.");
+                    return false;
+                }
+                return true;
+            }).ToArray();
     }
 }

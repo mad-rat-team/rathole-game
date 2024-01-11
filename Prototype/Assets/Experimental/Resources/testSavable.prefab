@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3916582679898805465}
   - component: {fileID: 5765642485972225973}
-  - component: {fileID: 4348053871522570884}
+  - component: {fileID: -4851115531409246646}
   m_Layer: 0
   m_Name: testSavable
   m_TagString: Untagged
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabResourcePath: testSavable
---- !u!114 &4348053871522570884
+--- !u!114 &-4851115531409246646
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,4 +143,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78afe050a940b844a966accb99bdb547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  someData: blabla
+  someData: 

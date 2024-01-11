@@ -61,7 +61,7 @@ public class SaveSystem
     {
         RoomData roomData = new();
         //roomData.prefabResourcePath = roomPrefabResourcePath;
-        SavableRoomObject[] savables = SavableRoomObject.GetSavableRoomObjects(room);
+        SavableRoomObject[] savables = room.GetComponentsInChildren<SavableRoomObject>();
         roomData.objects = new SavableRoomObject.RoomObjectData[savables.Length];
         for (int i = 0; i < savables.Length; i++)
         {
@@ -88,7 +88,7 @@ public class SaveSystem
         foreach (SavableRoomObject.RoomObjectData objectData in roomData.objects)
         {
             GameObject roomObject = GameObject.Instantiate((GameObject)Resources.Load(objectData.prefabResourcePath), room.transform);
-            roomObject.GetComponent<SavableRoomObject>().LoadState(objectData.state);
+            roomObject.GetComponent<SavableRoomObject>().LoadData(objectData);
         }
 
         return room;

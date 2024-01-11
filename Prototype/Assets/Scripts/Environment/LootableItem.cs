@@ -10,7 +10,7 @@ public class LootableItem : Interactable, ISavable
     {
         public string itemName;
         public int count;
-        public SerializableVector3 position;
+        //public SerializableVector3 position;
     }
 
     [SerializeField] private InventoryItem inventoryItem;
@@ -27,7 +27,7 @@ public class LootableItem : Interactable, ISavable
         SaveData saveData = new();
         saveData.itemName = inventoryItem.name;
         saveData.count = count;
-        saveData.position = new SerializableVector3(transform.position);
+        //saveData.position = new SerializableVector3(transform.position);
 
         return saveData;
     }
@@ -38,21 +38,6 @@ public class LootableItem : Interactable, ISavable
         //inventoryItem = saveData.item;
         inventoryItem = Resources.Load<InventoryItem>(saveData.itemName);
         count = saveData.count;
-        transform.position = saveData.position.GetVector3();
+        //transform.position = saveData.position.GetVector3();
     }
 }
-
-//[RequireComponent(typeof(LootableItem))]
-//public class LootableItemSavable : SavableRoomObject
-//{
-//    private LootableItem lootableItem;
-
-//    private void Awake()
-//    {
-//        lootableItem = GetComponent<LootableItem>();
-//    }
-
-//    public override object GetSaveData() => lootableItem.GetSaveData();
-
-//    public override void LoadSaveData(object saveData) => lootableItem.LoadSaveData(saveData);
-//}

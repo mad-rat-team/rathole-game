@@ -12,52 +12,56 @@ public class SavableRoomObject : MonoBehaviour
     [SerializeField] private string prefabResourcePath;
 
     [Serializable]
+    public class SavableComponentData
+    {
+        public Type type;
+        public object state;
+    }
+
+    [Serializable]
     public class RoomObjectData
     {
         public string prefabResourcePath;
-        public object state;
+        //public object state;
+        public SavableComponentData[] savableComponents;
     }
 
     public RoomObjectData GetData()
     {
         RoomObjectData data = new();
         data.prefabResourcePath = prefabResourcePath;
-        data.state = getSavableComponent().GetState();
+        //data.state = getSavableComponent().GetState();
+        ISavable[] savableComponents = getSavableComponents();
+        data.savableComponents = new SavableComponentData[savableComponents.Length];
+        for (int i = 0; i < savableComponents.Length; i++)
+        {
+            data.savableComponents[i] = new SavableComponentData();
+            data.savableComponents[i].type = savableComponents[i].GetType();
+            data.savableComponents[i].state = savableComponents[i].GetState();
+        }
 
         return data;
     }
-    public void LoadState(object state)
+
+    public void LoadData(RoomObjectData data)
     {
-        getSavableComponent().LoadState(state);
+        //getSavableComponent().LoadState(state);
+        foreach (SavableComponentData componentData in data.savableComponents)
+        {
+            Component component;
+            bool success = TryGetComponent(componentData.type, out component);
+            if (!success)
+            {
+                throw new Exception($"Gameobject {gameObject.name} does not have component {componentData.type}");
+            }
+
+            ISavable savable = (ISavable)component;
+            savable.LoadState(componentData.state);
+        }
     }
 
-    public static SavableRoomObject[] GetSavableRoomObjects(GameObject room)
+    private ISavable[] getSavableComponents()
     {
-        return room.GetComponentsInChildren<SavableRoomObject>().Where(
-            savable =>
-                {
-                    if (savable.gameObject == null)
-                    {
-                        Debug.LogError("One GameObject cannot have multiple SavableRoomObject components.");
-                        return false;
-                    }
-                    return true;
-                }).ToArray();
-    }
-
-    /// <exception cref="Exception">Throws an exception if there are more or less than 1 component that implement ISavable</exception>
-    private ISavable getSavableComponent()
-    {
-        ISavable[] savableComponents = GetComponents<Component>().OfType<ISavable>().ToArray();
-        if (savableComponents.Length == 0)
-        {
-            throw new Exception("No component that implements ISavable was found on object with Component SavableRoomObject.");
-        }
-        if (savableComponents.Length > 1)
-        {
-            throw new Exception("Object should not have more than 1 component that implements ISavable.");
-        }
-
-        return savableComponents[0];
+        return GetComponents<Component>().OfType<ISavable>().ToArray();
     }
 }
