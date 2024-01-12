@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Door : Interactable
 {
-    [SerializeField] private GameObject nextRoom;
     [SerializeField] private string nextRoomName;
     [SerializeField] private int doorId; //ID of the door
     [SerializeField] private int nextRoomDoorId; //ID of a door in the nextRoom to which the player will be teloported
