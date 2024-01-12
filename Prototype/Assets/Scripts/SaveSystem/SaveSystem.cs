@@ -10,8 +10,11 @@ using UnityEngine;
 public class SaveSystem
 {
     private static string saveExtension = ".save";
-    private static string normalSavePath = Application.dataPath + "/TempSaves/saveFile" + saveExtension; // TODO: Replace with persistentDataPath
-    private static string initialSavePath = Application.dataPath + "/PrebakedData/initialSave" + saveExtension;
+    //private static string normalSavePath = Application.dataPath + "/TempSaves/saveFile" + saveExtension; // TODO: Replace with persistentDataPath
+    //private static string initialSavePath = Application.dataPath + "/PrebakedData/initialSave" + saveExtension;
+    private static string normalSavePath = Application.persistentDataPath + "/saveFile" + saveExtension;
+    private static string initialSaveResourcePath = "initialSave";
+    private static string initialSavePath = Application.dataPath + "/PrebakedData/Resources/" + initialSaveResourcePath + ".bytes";
 
     private BinaryFormatter binFormatter = new();
     //private Dictionary<string, RoomData> roomDataDict = new();
@@ -43,11 +46,16 @@ public class SaveSystem
     {
         //New,
         Existing,
-        Initial
+        Initial //Only in editor
     }
 
     public SaveSystem(SaveFileType saveFileType)
     {
+        if(saveFileType == SaveFileType.Initial && Application.isPlaying)
+        {
+            throw new Exception("Can't initialize SaveSystem to work with Initial save file while in play mode");
+        }
+
         savePath = saveFileType == SaveFileType.Initial ? initialSavePath : normalSavePath;
         if (saveFileType == SaveFileType.Existing)
         {
@@ -121,9 +129,13 @@ public class SaveSystem
 
     public static void CreateNewSaveFile()
     {
-        SaveSystem initialSaveSystem = new SaveSystem();
-        initialSaveSystem.LoadGameDataFromFile(initialSavePath);
-        initialSaveSystem.SaveGameDataToFile(normalSavePath);
+        SaveSystem saveSystem = new SaveSystem();
+        //initialSaveSystem.LoadGameDataFromFile(initialSavePath);
+        //saveSystem.gameData = Resources.Load(initialSaveResourcePath);
+        //Debug.Log(Resources.Load<TextAsset>(initialSaveResourcePath).bytes);
+        saveSystem.gameData = (GameData)saveSystem.binFormatter.Deserialize(new MemoryStream(Resources.Load<TextAsset>(initialSaveResourcePath).bytes));
+        
+        saveSystem.SaveGameDataToFile(normalSavePath);
     }
 
     /// <summary>

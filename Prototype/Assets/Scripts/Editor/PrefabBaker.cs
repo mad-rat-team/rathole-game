@@ -36,6 +36,7 @@ public static class PrefabBaker
         {
             if (fileInfo.Extension != prefabExtension) continue;
             GameObject roomPrefab = PrefabUtility.LoadPrefabContents(fileInfo.FullName);
+            //Debug.Log(fileInfo.Name);
             if (roomPrefab.tag != roomTag) continue;
 
             string roomName = fileInfo.Name.TrimEnd(prefabExtension.ToCharArray());
@@ -50,6 +51,8 @@ public static class PrefabBaker
 
             string newRoomPrefabPath = outputFolderPath + "/" + fileInfo.Name;
             PrefabUtility.SaveAsPrefabAsset(roomPrefab, newRoomPrefabPath);
+
+            PrefabUtility.UnloadPrefabContents(roomPrefab);
         }
         saveSystem.SaveToDisk();
     }
