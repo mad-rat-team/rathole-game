@@ -35,13 +35,11 @@ public static class PrefabBaker
         foreach (FileInfo fileInfo in dirInfo.GetFiles())
         {
             if (fileInfo.Extension != prefabExtension) continue;
+
             GameObject roomPrefab = PrefabUtility.LoadPrefabContents(fileInfo.FullName);
-            //Debug.Log(fileInfo.Name);
             if (roomPrefab.tag != roomTag) continue;
 
             string roomName = fileInfo.Name.TrimEnd(prefabExtension.ToCharArray());
-
-            //saveSystem.SaveRoomToSystem(roomPrefab, fileInfo.Name.TrimEnd(prefabExtension.ToCharArray()), newRoomPrefabPath);
             saveSystem.SaveRoomToSystem(roomPrefab, roomName);
 
             foreach (SavableRoomObject savable in GetSavableRoomObjects(roomPrefab))

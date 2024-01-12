@@ -34,7 +34,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         foreach (StartingItem startingItem in startingItems)
         {

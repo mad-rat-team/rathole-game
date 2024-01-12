@@ -16,13 +16,6 @@ public class RoomManager : MonoBehaviour
         return rm.currentRoom;
     }
 
-    //public static void ChangeRoom(GameObject newRoom)
-    //{
-    //    DestroyImmediate(rm.currentRoom); // Can't use normal Destroy(), because InteractionManager is getting the list of interactable on the same frame
-    //    rm.currentRoom = Instantiate(newRoom);
-    //    OnRoomChanged?.Invoke();
-    //}
-
     public static void ChangeRoom(string newRoomName)
     {
         RuntimeSaveManager.SaveRoom(rm.currentRoom, rm.currentRoomName);
@@ -40,30 +33,16 @@ public class RoomManager : MonoBehaviour
             return;
         }
         rm = this;
-    }
-
-    private void Start()
-    {
-        //GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
-        //if (rooms.Length == 0)
-        //{
-        //    Debug.LogError("No gameobjects with tag \"Room\" present in the scene");
-        //}
-        //else
-        //{
-        //    currentRoom = rooms[0];
-        //    if (rooms.Length > 1)
-        //    {
-        //        Debug.LogWarning("More than 1 gameobject with tag \"Room\" in the scene");
-        //    }
-        //}
 
         if (startingRoomName == "")
         {
             Debug.LogError("Starting room prefab resource path has not been set");
             return;
         }
+    }
 
+    private void Start()
+    {
         currentRoom = RuntimeSaveManager.LoadRoom(startingRoomName);
         currentRoomName = startingRoomName;
     }

@@ -67,16 +67,19 @@ public class InteractionManager : MonoBehaviour
         im.interactables.Remove(interactable);
     }
 
-    private void Start()
+    private void Awake()
     {
-        if(im != null)
+        if (im != null)
         {
             Debug.LogWarning("More than 1 InteractionManager in the scene");
         }
 
         im = this;
-        UpdateInteractables();
+    }
 
+    private void Start()
+    {
+        UpdateInteractables();
         RoomManager.OnRoomChanged += UpdateInteractables;
     }
 

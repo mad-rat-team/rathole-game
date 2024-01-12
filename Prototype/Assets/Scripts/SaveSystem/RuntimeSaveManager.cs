@@ -32,6 +32,7 @@ public class RuntimeSaveManager : MonoBehaviour
         }
 
         rsm = this;
+
         SaveSystem.CreateNewSaveFile(); // PH: This should be handled by main menu
         saveSystem = new SaveSystem(SaveSystem.SaveFileType.Existing);
     }
