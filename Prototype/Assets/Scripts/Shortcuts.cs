@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Shortcuts
 {
+    public const float g = 9.81f / 1.5f; // MAYBE TODO: Make convertion functions from meters to units and backwards for all axis
+
     public static Vector2 IsoToReal(Vector2 isoVec)
     {
         isoVec.y *= 2;

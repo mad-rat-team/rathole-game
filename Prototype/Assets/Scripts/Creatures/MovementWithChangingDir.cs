@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public abstract class MovementWithChangingDir : MonoBehaviour
@@ -14,13 +13,13 @@ public abstract class MovementWithChangingDir : MonoBehaviour
     private float moveDirChangeFactor = 0f;
     
     /// <summary>
-    /// Should be called every frame.
+    /// Should be called every Fixed update step.
     /// </summary>
     /// <returns>
     /// Movement direction (iso-vector)
     /// </returns>
     /// <param name="newTargetIsoMoveDir">New target move dir. Should be a normalized iso-vector.</param>
-    protected Vector2 UpdateMoveDir(Vector2 newTargetIsoMoveDir) //Should be called every FixedUpdate step
+    protected Vector2 UpdateMoveDir(Vector2 newTargetIsoMoveDir)
     {
         if (newTargetIsoMoveDir != targetMoveDir)
         {
