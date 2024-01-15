@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 /// <summary>
@@ -20,6 +21,8 @@ public class Movement : MonoBehaviour
         Jumping,
         KnockedBack
     }
+
+    private readonly float isMovingThreshold = 0.01f; // Minimum moveDir.SqrMagnitude value at which it is considered that the object moving
 
     private MovementState state;
 
@@ -133,6 +136,11 @@ public class Movement : MonoBehaviour
                 return knockbackDir;
         }
         return Vector2.zero;
+    }
+
+    public bool IsMoving()
+    {
+        return moveDir.sqrMagnitude < isMovingThreshold;
     }
 
     private void Awake()

@@ -44,7 +44,7 @@ public class Rat : MonoBehaviour
             movement.SetTargetMoveDir(Vector2.zero);
         }
 
-        //GetComponentInChildren<Animator>().SetFloat("WalkDir", ((Vector2.SignedAngle(Vector2.right, movement.GetWalkDir()) + 360f) % 360f) / 360f); // Not PH
-        GetComponentInChildren<Animator>().SetFloat("WalkDir", ((Vector2.SignedAngle(Vector2.right, movement.GetMoveDir()) + 360f) % 360f) / 360f); //PH
+        //GetComponentInChildren<Animator>().SetFloat("WalkDir", Shortcuts.GetAnimationDir(movement.GetWalkDir())); // Not PH
+        GetComponentInChildren<Animator>().SetFloat("WalkDir", Shortcuts.GetAnimationDir(movement.GetMoveDir())); //PH
     }
 }
