@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    [SerializeField] GameObject attackTrailRotator;
-    [SerializeField] GameObject attackTrail;
-    [SerializeField] Camera playerCamera;
-    [SerializeField] ContactFilter2D enemiesContactFilter;
+    [SerializeField] private GameObject attackTrailRotator;
+    [SerializeField] private GameObject attackTrail;
+    [SerializeField] private Camera playerCamera;
+    [SerializeField] private ContactFilter2D enemiesContactFilter;
+    [SerializeField] private AttackStats playerAttackStats;
+    [SerializeField] private float attackCoolown = 0.5f;
 
+    private float lastAttackTime;
     private Collider2D attackTrailColl;
     private Animator attackTrailAnimator;
 
@@ -27,11 +30,16 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if(Input.GetKey(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse0))
         {
-            // Casting camera world pos to Vector2 is necessary so that its Z component doesn't affect the calculation
-            Vector2 dir = ((Vector2)playerCamera.ScreenToWorldPoint(Input.mousePosition) - (Vector2)attackTrailRotator.transform.position).normalized;
-            Attack(dir);
+            if (Time.time - lastAttackTime >= attackCoolown)
+            {
+                lastAttackTime = Time.time;
+                // Casting camera world pos to Vector2 is necessary so that its Z component doesn't affect the calculation
+                Vector2 dir = ((Vector2)playerCamera.ScreenToWorldPoint(Input.mousePosition) - (Vector2)attackTrailRotator.transform.position).normalized;
+                Attack(dir);
+                lastAttackTime = Time.time;
+            }
         }
     }
 
@@ -57,13 +65,11 @@ public class PlayerCombat : MonoBehaviour
         {
             Health enemyHealth = enemyColl.GetComponentInParent<Health>();
 
-            //PH
-            HitInfo hitInfo = new HitInfo();
-            hitInfo.origin = attackTrailRotator.transform.position;
-            hitInfo.knockbackDistance = 3f;
-            hitInfo.knockbackTime = 0.5f;
+            HitInfo hitInfo = new HitInfo(attackTrailRotator.transform.position, Shortcuts.NormalizeIso(dir), playerAttackStats);
+            //hitInfo.origin = attackTrailRotator.transform.position;
+            //hitInfo.knockbackDistance = 3f;
+            //hitInfo.knockbackTime = 0.5f;
             enemyHealth.TakeHit(hitInfo);
-            //PH
         }
 
         attackTrailAnimator.SetTrigger("Attacked");

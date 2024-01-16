@@ -5,6 +5,23 @@ using UnityEngine;
 public class HitInfo
 {
     public Vector2 origin;
+    public Vector2 isoDirection;
+    //public float knockbackDistance;
+    //public float knockbackTime;
+    public readonly AttackStats attackStats;
+
+    public HitInfo(Vector2 origin, Vector2 isoDirection, AttackStats attackStats)
+    {
+        this.origin = origin;
+        this.isoDirection = isoDirection;
+        this.attackStats = attackStats;
+    }
+}
+
+[System.Serializable]
+public class AttackStats
+{
     public float knockbackDistance;
     public float knockbackTime;
+    //public float damage;
 }

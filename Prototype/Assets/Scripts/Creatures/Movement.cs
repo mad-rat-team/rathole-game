@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 
 /// <summary>
-/// If <c>isMoving</c> is set to true, moves in the direction of <c>target</c>
+/// If <c>isMoving</c> is set to true, moves in the isoDirection of <c>target</c>
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour
@@ -49,14 +49,15 @@ public class Movement : MonoBehaviour
 
     private Rigidbody2D rb;
 
-    public void StartKnockback(Vector2 origin, float distance, float time)
+    public void StartKnockback(Vector2 direction, float distance, float time)
     {
         if (state == MovementState.KnockedBack) return;
         state = MovementState.KnockedBack;
 
         knockbackTime = time;
         knockbackStartTime = Time.time;
-        knockbackDir = Shortcuts.NormalizeIso((Vector2)centerTransform.position - origin);
+        //knockbackDir = Shortcuts.NormalizeIso((Vector2)centerTransform.position - origin);
+        knockbackDir = direction;
         knockbackStartVelocity = (2 * distance) / time;
         knockbackAcceleration = -(knockbackStartVelocity / time);
     }
@@ -81,10 +82,10 @@ public class Movement : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets new target movement direction.
+    /// Sets new target movement isoDirection.
     /// </summary>
     /// <returns>
-    /// Movement direction (iso-vector)
+    /// Movement isoDirection (iso-vector)
     /// </returns>
     /// <param name="newTargetMoveDir">New target move dir. Should be a normalized iso-vector.</param>
     public void SetTargetMoveDir(Vector2 newTargetMoveDir)
@@ -112,7 +113,7 @@ public class Movement : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns walking direction as an iso-vector. If the object is not in Walking state, returns the last direction in which it was walking.
+    /// Returns walking isoDirection as an iso-vector. If the object is not in Walking state, returns the last isoDirection in which it was walking.
     /// </summary>
     /// <returns>An iso-vector</returns>
     public Vector2 GetWalkDir()
@@ -121,7 +122,7 @@ public class Movement : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns movement direction as an iso-vector no matter the movement state.
+    /// Returns movement isoDirection as an iso-vector no matter the movement state.
     /// </summary>
     /// <returns>An iso-vector</returns>
     public Vector2 GetMoveDir()
