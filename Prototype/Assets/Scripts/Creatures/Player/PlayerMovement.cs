@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     /// Gets input move dir.
     /// </summary>
     /// <returns>
-    /// <b>Non-iso-vector</b> of movement.
+    /// <b>Non-iso-vector</b> of movement. 
     /// </returns>
     private Vector2 GetInputMoveDir()
     {

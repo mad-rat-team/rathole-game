@@ -196,34 +196,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6161051263559759676, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-      propertyPath: moveSpeed
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6161051263559759676, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-      propertyPath: spriteObject
-      value: 
-      objectReference: {fileID: 854234637}
     - target: {fileID: 6956284265177250919, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 2113014928}
-    - target: {fileID: 8832446331690224016, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-      propertyPath: m_Size.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8832446331690224016, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-      propertyPath: m_Size.y
-      value: 1.296875
-      objectReference: {fileID: 0}
-    - target: {fileID: 8832446331690224016, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -147489500, guid: 73daefe543e965b4fbd4b8056c6827a9, type: 3}
-    - target: {fileID: 8832446331690224016, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9129454694115212814, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -267,42 +243,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3515851601742699477, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 854234640}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
 --- !u!4 &211122535 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9129454694115212814, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
   m_PrefabInstance: {fileID: 211122534}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &854234637 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3515851601742699477, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-  m_PrefabInstance: {fileID: 211122534}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &854234640
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 854234637}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ce5811ecb8960a743bfdef7149349f90, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!20 &2113014928 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 2768348733256467111, guid: e47b061738533c048a29a60e40425420, type: 3}
@@ -322,10 +269,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4328195439025380549, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
       propertyPath: startingRoomName
-      value: Room1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4328195439025380549, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
-      propertyPath: startingRoomPrefabResourcePath
       value: Room1
       objectReference: {fileID: 0}
     - target: {fileID: 8362519724292382408, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
