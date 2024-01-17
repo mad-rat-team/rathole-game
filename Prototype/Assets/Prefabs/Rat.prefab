@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 684281856982836685}
   - component: {fileID: 6378737003923258912}
   - component: {fileID: 2524258866838498096}
+  - component: {fileID: 6005674519879703240}
   m_Layer: 0
   m_Name: Rat
   m_TagString: Untagged
@@ -269,6 +270,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 0.4
   jumpTime: 0.75
+  animator: {fileID: 908966715357712636}
+  attackColl: {fileID: 1641737929165310928}
 --- !u!114 &6378737003923258912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c853445286550524199add0c798616b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 2
 --- !u!114 &2524258866838498096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +301,26 @@ MonoBehaviour:
   centerTransform: {fileID: 7804137294470179776}
   moveDirChangeTime: 0.15
   accCurveFlatness: 0.1
+--- !u!114 &6005674519879703240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320989075820332494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8747492aa763234684810d9213be1ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHitboxLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  attackStats:
+    damage: 1
+    knockbackDistance: 1
+    knockbackTime: 0.5
+  attackCoolown: 0.5
 --- !u!1 &4748526360611822770
 GameObject:
   m_ObjectHideFlags: 0

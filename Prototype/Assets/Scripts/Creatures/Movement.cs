@@ -16,6 +16,8 @@ public class Movement : MonoBehaviour
     [SerializeField] [Range(0.01f, 2f)] private float moveDirChangeTime = 0.15f;
     [SerializeField] [Range(0.01f, 0.99f)] private float accCurveFlatness = 0.1f;
 
+    public event System.Action OnJumpEnd;
+
     public enum MovementState {
         Walking,
         Jumping,
@@ -218,6 +220,8 @@ public class Movement : MonoBehaviour
 
             state = MovementState.Walking;
             ResetMoveDir();
+
+            OnJumpEnd?.Invoke();
         }
     }
 
