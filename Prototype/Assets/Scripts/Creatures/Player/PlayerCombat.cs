@@ -8,11 +8,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private GameObject attackTrailRotator;
     [SerializeField] private GameObject attackTrail;
     [SerializeField] private Camera playerCamera;
-    //[SerializeField] private ContactFilter2D enemiesContactFilter;
-    //[SerializeField] private AttackStats playerAttackStats;
-    //[SerializeField] private float attackCoolown = 0.5f;
 
-    //private float lastAttackTime;
     private Attacker attacker;
     private Collider2D attackTrailColl;
     private Animator attackTrailAnimator;
@@ -47,35 +43,11 @@ public class PlayerCombat : MonoBehaviour
 
     private void Attack(Vector2 dir)
     {
-        //Debug.Log($"Attacked to {dir}");
         float attackAngle = Vector2.SignedAngle(Vector2.right, dir);
-
         attackTrailRotator.transform.eulerAngles = Vector3.forward * attackAngle;
-
-        //attackTrailRotator.transform.localScale =
-        //    new Vector3(
-        //        attackTrailRotator.transform.localScale.x,
-        //        Mathf.Abs(attackAngle) > 90 ? -1 : 1,
-        //        attackTrailRotator.transform.localScale.z
-        //        );
-
         Physics2D.SyncTransforms(); // Force update collider's position according to attackTrailRotator's rotation and scale
 
-        //List<Collider2D> enemyColliders = new List<Collider2D>();
-        //attackTrailColl.OverlapCollider(enemiesContactFilter, enemyColliders);
-
-        //foreach (var enemyColl in enemyColliders)
-        //{
-        //    Health enemyHealth = enemyColl.GetComponentInParent<Health>();
-
-        //    HitInfo hitInfo = new HitInfo(attackTrailRotator.transform.position, Shortcuts.NormalizeIso(dir), playerAttackStats);
-        //    //hitInfo.origin = attackTrailRotator.transform.position;
-        //    //hitInfo.knockbackDistance = 3f;
-        //    //hitInfo.knockbackTime = 0.5f;
-        //    enemyHealth.TakeHit(hitInfo);
-        //}
-
-        attacker.QuickAttack(attackTrailColl, attackTrailRotator.transform.position, Shortcuts.RealToIso(dir));
+        attacker.FixedDurationAttack(attackTrailColl, attackTrailRotator.transform, Shortcuts.RealToIso(dir));
 
         attackTrailAnimator.SetTrigger("Attacked");
     }

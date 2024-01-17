@@ -6,18 +6,22 @@ public class Attacker : MonoBehaviour
 {
     [SerializeField] private LayerMask enemyHitboxLayerMask;
     [SerializeField] private AttackStats attackStats;
-    [SerializeField] private float attackCoolown = 0.5f;
+    [SerializeField] private float attackCooldown = 0.5f;
+    [SerializeField] private float lastingAttackDuration = 0.1f;
 
     private ContactFilter2D enemyHitboxContactFilter;
 
     private float lastAttackTime;
     private bool isAttacking;
     private Collider2D lastingAttackColl;
-    private Vector2 lastingAttackOrigin;
+    private Transform lastingAttackOrigin;
     private Vector2 lastingAttackIsoDir;
-    private HashSet<Collider2D> damagedColliders = new();
+    private HashSet<Collider2D> hitEnemyColliders = new();
 
-    public void QuickAttack(Collider2D attackColl, Vector2 attackOrigin, Vector2 attackIsoDir)
+    private bool fixedDurationAttackActive;
+    private float fixedDurationAttackEndTime;
+
+    public void OneFrameAttack(Collider2D attackColl, Vector2 attackOrigin, Vector2 attackIsoDir)
     {
         if (!CanAttack()) return;
         lastAttackTime = Time.time;
@@ -33,27 +37,24 @@ public class Attacker : MonoBehaviour
         }
     }
 
-    public void StartLastingAttack(Collider2D attackColl, Vector2 attackOrigin, Vector2 attackIsoDir)
+    public void FixedDurationAttack(Collider2D attackColl, Transform attackOrigin, Vector2 attackIsoDir)
+    {
+        StartLastingAttack(attackColl, attackOrigin, attackIsoDir);
+        fixedDurationAttackActive = true;
+        fixedDurationAttackEndTime = Time.time + lastingAttackDuration;
+    }
+
+    public void StartLastingAttack(Collider2D attackColl, Transform attackOrigin, Vector2 attackIsoDir)
     {
         if (!CanAttack()) return;
         isAttacking = true;
         lastingAttackColl = attackColl;
         lastingAttackOrigin = attackOrigin;
         lastingAttackIsoDir = attackIsoDir;
-        damagedColliders.Clear();
+        hitEnemyColliders.Clear();
     }
 
-    public void UpdateLastingAttackOrigin(Vector2 newAttackOrigin)
-    {
-        lastingAttackOrigin = newAttackOrigin;
-    }
-
-    public void UpdateLastingAttackDir(Vector2 newAttackIsoDir)
-    {
-        lastingAttackIsoDir = newAttackIsoDir;
-    }
-
-    public void HandleLastingAttack()
+    private void HandleLastingAttack()
     {
         if (!isAttacking)
         {
@@ -66,24 +67,26 @@ public class Attacker : MonoBehaviour
 
         foreach (Collider2D enemyColl in enemyColliders)
         {
-            if (damagedColliders.Contains(enemyColl)) continue;
+            if (hitEnemyColliders.Contains(enemyColl)) continue;
+
             Health enemyHealth = enemyColl.GetComponentInParent<Health>();
 
-            HitInfo hitInfo = new HitInfo(lastingAttackOrigin, lastingAttackIsoDir, attackStats);
+            HitInfo hitInfo = new HitInfo(lastingAttackOrigin.position, lastingAttackIsoDir, attackStats);
             enemyHealth.TakeHit(hitInfo);
-            damagedColliders.Add(enemyColl);
+            hitEnemyColliders.Add(enemyColl);
         }
     }
 
     public void StopLastingAttack()
     {
+        if (!isAttacking) return;
         isAttacking = false;
         lastAttackTime = Time.time;
     }
 
     public bool CanAttack()
     {
-        return Time.time - lastAttackTime >= attackCoolown && !isAttacking;
+        return Time.time - lastAttackTime >= attackCooldown && !isAttacking;
     }
 
     public bool IsAttacking()
@@ -96,5 +99,22 @@ public class Attacker : MonoBehaviour
         enemyHitboxContactFilter = new ContactFilter2D();
         enemyHitboxContactFilter.layerMask = enemyHitboxLayerMask;
         enemyHitboxContactFilter.useLayerMask = true;
+    }
+
+    private void Update()
+    {
+        if (fixedDurationAttackActive)
+        {
+            if (Time.time >= fixedDurationAttackEndTime)
+            {
+                StopLastingAttack();
+                fixedDurationAttackActive = false;
+            }
+        }
+
+        if (isAttacking)
+        {
+            HandleLastingAttack();
+        }
     }
 }

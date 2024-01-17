@@ -315,7 +315,8 @@ MonoBehaviour:
     hasKnockback: 1
     knockbackDistance: 2
     knockbackTime: 0.5
-  attackCoolown: 0.5
+  attackCooldown: 0.5
+  lastingAttackDuration: 0.25
 --- !u!114 &8203572169344648860
 MonoBehaviour:
   m_ObjectHideFlags: 0

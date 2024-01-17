@@ -33,7 +33,7 @@ public class Rat : MonoBehaviour
         };
 
         //Not this one though
-        movement.OnJumpEnd += attacker.StopLastingAttack;
+        movement.OnStateChange += HandleMovementStateChange;
     }
 
     private void Start()
@@ -46,19 +46,18 @@ public class Rat : MonoBehaviour
     {
         switch (movement.GetMovementState())
         {
-            case Movement.MovementState.Jumping:
-                if (attacker.IsAttacking())
-                {
-                    attacker.UpdateLastingAttackOrigin(attackColl.transform.position);
-                    attacker.HandleLastingAttack();
-                }
-                else
-                {
-                    attacker.StartLastingAttack(attackColl, attackColl.transform.position, movement.GetMoveDir());
-                }
-                break;
+            //case Movement.MovementState.Jumping:
+            //    if (attacker.IsAttacking())
+            //    {
+            //        attacker.HandleLastingAttack();
+            //    }
+            //    else
+            //    {
+            //        attacker.StartLastingAttack(attackColl, attackColl.transform, movement.GetMoveDir());
+            //    }
+            //    break;
             case Movement.MovementState.Walking:
-                if (Shortcuts.IsoToReal(player.transform.position - transform.position).sqrMagnitude < 3 * 3)
+                if (Shortcuts.IsoToReal(player.transform.position - transform.position).sqrMagnitude < 3 * 3 && attacker.CanAttack())
                 {
                     movement.StartJump(player.transform.position, jumpTime);
                 }
@@ -75,7 +74,20 @@ public class Rat : MonoBehaviour
                 break;
         }
 
-        //GetComponentInChildren<Animator>().SetFloat("WalkDir", Shortcuts.GetAnimationDir(movement.GetWalkDir())); // Not PH
+        //animator.SetFloat("WalkDir", Shortcuts.GetAnimationDir(movement.GetWalkDir())); // Not PH
         animator.SetFloat("WalkDir", Shortcuts.GetAnimationDir(movement.GetMoveDir())); //PH
+    }
+
+    private void HandleMovementStateChange(Movement.MovementState from, Movement.MovementState to)
+    {
+        if (from == Movement.MovementState.Jumping)
+        {
+            attacker.StopLastingAttack();
+        }
+
+        if (to == Movement.MovementState.Jumping)
+        {
+            attacker.StartLastingAttack(attackColl, attackColl.transform, movement.GetMoveDir());
+        }
     }
 }
