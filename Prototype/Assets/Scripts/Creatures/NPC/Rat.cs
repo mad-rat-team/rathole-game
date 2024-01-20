@@ -11,12 +11,14 @@ public class Rat : MonoBehaviour
     [SerializeField] private float jumpTime = 1f;
     [SerializeField] private Animator animator;
     [SerializeField] private Collider2D attackColl;
+    [SerializeField] private GameObject corpseGO;
 
     private Movement movement;
     private Health health;
     private Attacker attacker;
 
     private GameObject player;
+    private bool alive = true;
 
     private void Awake()
     {
@@ -28,8 +30,8 @@ public class Rat : MonoBehaviour
         health.OnKnockbackReceived += movement.StartKnockback;
         health.OnDeath += () => 
         {
-            Debug.Log($"{gameObject.name} is dead");
-            Destroy(gameObject); //PH
+            alive = false;
+            //animator.gameObject.GetComponent<SpriteRenderer>().flipY = true; // PH
         };
 
         //Not this one though
@@ -46,17 +48,9 @@ public class Rat : MonoBehaviour
     {
         switch (movement.GetMovementState())
         {
-            //case Movement.MovementState.Jumping:
-            //    if (attacker.IsAttacking())
-            //    {
-            //        attacker.HandleLastingAttack();
-            //    }
-            //    else
-            //    {
-            //        attacker.StartLastingAttack(attackColl, attackColl.transform, movement.GetMoveDir());
-            //    }
-            //    break;
             case Movement.MovementState.Walking:
+                if (!alive) break;
+
                 if (Shortcuts.IsoToReal(player.transform.position - transform.position).sqrMagnitude < 3 * 3 && attacker.CanAttack())
                 {
                     movement.StartJump(player.transform.position, jumpTime);
@@ -80,14 +74,33 @@ public class Rat : MonoBehaviour
 
     private void HandleMovementStateChange(Movement.MovementState from, Movement.MovementState to)
     {
-        if (from == Movement.MovementState.Jumping)
+        switch (from)
         {
-            attacker.StopLastingAttack();
+            case Movement.MovementState.Jumping:
+                attacker.StopLastingAttack();
+                break;
+            case Movement.MovementState.KnockedBack:
+                //animator.SetBool("KnockedBack", false);
+                animator.enabled = true;
+                break;
         }
 
-        if (to == Movement.MovementState.Jumping)
+        switch (to)
         {
-            attacker.StartLastingAttack(attackColl, attackColl.transform, movement.GetMoveDir());
+            case Movement.MovementState.Jumping:
+                attacker.StartLastingAttack(attackColl, attackColl.transform, movement.GetMoveDir());
+                break;
+            case Movement.MovementState.Walking:
+                if (!alive)
+                {
+                    Instantiate(corpseGO, transform.position, Quaternion.identity, transform.parent);
+                    Destroy(gameObject);
+                }
+                break;
+            case Movement.MovementState.KnockedBack:
+                //animator.SetBool("KnockedBack", true);
+                animator.enabled = false;
+                break;
         }
     }
 }

@@ -170,6 +170,8 @@ GameObject:
   - component: {fileID: 6378737003923258912}
   - component: {fileID: 2524258866838498096}
   - component: {fileID: 6005674519879703240}
+  - component: {fileID: 3069114475039578497}
+  - component: {fileID: 365257489736995315}
   m_Layer: 0
   m_Name: Rat
   m_TagString: Untagged
@@ -186,7 +188,7 @@ Transform:
   m_GameObject: {fileID: 4320989075820332494}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.329, y: 0.095, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -272,6 +274,7 @@ MonoBehaviour:
   jumpTime: 0.75
   animator: {fileID: 908966715357712636}
   attackColl: {fileID: 1641737929165310928}
+  corpseGO: {fileID: 4320989075820332494, guid: d1ab1999d96b1554b9dc8560db207aa8, type: 3}
 --- !u!114 &6378737003923258912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,9 +321,36 @@ MonoBehaviour:
     m_Bits: 256
   attackStats:
     damage: 1
+    hasKnockback: 0
     knockbackDistance: 1
     knockbackTime: 0.5
-  attackCoolown: 0.5
+  attackCooldown: 0.5
+  lastingAttackDuration: 0.1
+--- !u!114 &3069114475039578497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320989075820332494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e0bc957a743e042bc28069e0edff92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &365257489736995315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320989075820332494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89d1a4a1e0ebc304f9991a4f1152b6d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabResourcePath: Rat
 --- !u!1 &4748526360611822770
 GameObject:
   m_ObjectHideFlags: 0

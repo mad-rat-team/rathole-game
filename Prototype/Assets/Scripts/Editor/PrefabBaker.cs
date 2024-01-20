@@ -53,6 +53,7 @@ public static class PrefabBaker
             PrefabUtility.UnloadPrefabContents(roomPrefab);
         }
         saveSystem.SaveToDisk();
+        AssetDatabase.Refresh();
     }
 
     private static SavableRoomObject[] GetSavableRoomObjects(GameObject room)
