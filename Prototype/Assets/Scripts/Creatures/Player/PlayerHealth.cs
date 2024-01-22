@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
         {
             //PH
             Debug.Log("You died");
+            //Time.timeScale = 0f;
         };
     }
 }

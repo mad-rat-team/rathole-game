@@ -54,6 +54,11 @@ public class Attacker : MonoBehaviour
         hitEnemyColliders.Clear();
     }
 
+    public float GetAttackCooldown()
+    {
+        return attackCooldown;
+    }
+
     private void HandleLastingAttack()
     {
         if (!isAttacking)

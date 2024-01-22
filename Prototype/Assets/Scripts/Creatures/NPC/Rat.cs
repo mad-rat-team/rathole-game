@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 [RequireComponent(typeof(Movement))]
 [RequireComponent(typeof(Health))]
@@ -9,6 +10,9 @@ public class Rat : MonoBehaviour
 {
     [SerializeField] private float walkSpeed = 1f;
     [SerializeField] private float jumpTime = 1f;
+    [SerializeField] private float minJumpOffset = 0.125f;
+    [SerializeField] private float maxJumpOffset = 1f;
+    [SerializeField] private float maxAdditionalJumpCooldown = 1f;
     [SerializeField] private Animator animator;
     [SerializeField] private Collider2D attackColl;
     [SerializeField] private GameObject corpseGO;
@@ -19,6 +23,7 @@ public class Rat : MonoBehaviour
 
     private GameObject player;
     private bool alive = true;
+    private float nextAttackTime;
 
     private void Awake()
     {
@@ -46,18 +51,22 @@ public class Rat : MonoBehaviour
 
     private void Update()
     {
+        Vector2 vectorToPlayer = player.transform.position - transform.position;
         switch (movement.GetMovementState())
         {
             case Movement.MovementState.Walking:
                 if (!alive) break;
 
-                if (Shortcuts.IsoToReal(player.transform.position - transform.position).sqrMagnitude < 3 * 3 && attacker.CanAttack())
+                if (Shortcuts.IsoToReal(vectorToPlayer).sqrMagnitude < 2 * 2 && Time.time >= nextAttackTime && attacker.CanAttack())
                 {
-                    movement.StartJump(player.transform.position, jumpTime);
+                    Vector2 offset = Shortcuts.NormalizeIso(vectorToPlayer) * Random.Range(minJumpOffset, maxJumpOffset);
+                    Vector2 jumpTarget = (Vector2)player.transform.position + offset;
+                    movement.StartJump(jumpTarget, jumpTime);
+                    nextAttackTime = Time.time + attacker.GetAttackCooldown() + Random.Range(0, maxAdditionalJumpCooldown);
                 }
-                else if (Shortcuts.IsoToReal(player.transform.position - transform.position).sqrMagnitude < 7 * 7)
+                else if (Shortcuts.IsoToReal(vectorToPlayer).sqrMagnitude < 7 * 7)
                 {
-                    movement.SetTargetMoveDir(Shortcuts.NormalizeIso(player.transform.position - transform.position));
+                    movement.SetTargetMoveDir(Shortcuts.NormalizeIso(vectorToPlayer));
                 }
                 else
                 {

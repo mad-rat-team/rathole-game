@@ -340,6 +340,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 0.4
   jumpTime: 0.75
+  minJumpOffset: 0.25
+  maxJumpOffset: 1
   animator: {fileID: 908966715357712636}
   attackColl: {fileID: 1641737929165310928}
   corpseGO: {fileID: 4320989075820332494, guid: d1ab1999d96b1554b9dc8560db207aa8, type: 3}
