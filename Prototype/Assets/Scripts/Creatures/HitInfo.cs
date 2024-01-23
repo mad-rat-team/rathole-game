@@ -21,7 +21,8 @@ public class HitInfo
 [System.Serializable]
 public class AttackStats
 {
+    public int damage;
+    public bool hasKnockback;
     public float knockbackDistance;
     public float knockbackTime;
-    //public float damage;
 }

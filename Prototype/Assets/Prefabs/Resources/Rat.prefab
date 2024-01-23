@@ -33,6 +33,73 @@ Transform:
   - {fileID: 7804137294470179776}
   m_Father: {fileID: 316582904935220506}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1997566364596235563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7878620618401846161}
+  - component: {fileID: 5125993810362968398}
+  m_Layer: 9
+  m_Name: EnemyDistanceHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7878620618401846161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1997566364596235563}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 281818084809436086}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &5125993810362968398
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1997566364596235563}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 503
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.15
 --- !u!1 &2080514948283578018
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,6 +236,9 @@ GameObject:
   - component: {fileID: 684281856982836685}
   - component: {fileID: 6378737003923258912}
   - component: {fileID: 2524258866838498096}
+  - component: {fileID: 6005674519879703240}
+  - component: {fileID: 3069114475039578497}
+  - component: {fileID: 365257489736995315}
   m_Layer: 0
   m_Name: Rat
   m_TagString: Untagged
@@ -185,12 +255,13 @@ Transform:
   m_GameObject: {fileID: 4320989075820332494}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.329, y: 0.095, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7927247393742592794}
   - {fileID: 316582904935220506}
+  - {fileID: 7878620618401846161}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &1641737929165310928
@@ -269,6 +340,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 0.4
   jumpTime: 0.75
+  minJumpOffset: 0.25
+  maxJumpOffset: 1
+  animator: {fileID: 908966715357712636}
+  attackColl: {fileID: 1641737929165310928}
+  corpseGO: {fileID: 4320989075820332494, guid: d1ab1999d96b1554b9dc8560db207aa8, type: 3}
 --- !u!114 &6378737003923258912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c853445286550524199add0c798616b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 2
 --- !u!114 &2524258866838498096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +374,53 @@ MonoBehaviour:
   centerTransform: {fileID: 7804137294470179776}
   moveDirChangeTime: 0.15
   accCurveFlatness: 0.1
+--- !u!114 &6005674519879703240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320989075820332494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8747492aa763234684810d9213be1ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHitboxLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  attackStats:
+    damage: 1
+    hasKnockback: 0
+    knockbackDistance: 1
+    knockbackTime: 0.5
+  attackCooldown: 0.5
+  lastingAttackDuration: 0.1
+--- !u!114 &3069114475039578497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320989075820332494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e0bc957a743e042bc28069e0edff92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &365257489736995315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320989075820332494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89d1a4a1e0ebc304f9991a4f1152b6d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabResourcePath: Rat
 --- !u!1 &4748526360611822770
 GameObject:
   m_ObjectHideFlags: 0

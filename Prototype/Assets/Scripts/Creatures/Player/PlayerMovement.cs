@@ -8,22 +8,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 10f;
-    [SerializeField] private GameObject spriteObject;
+    [SerializeField] private Animator animator;
 
     private Movement movement;
-    private Animator animator;
 
     private void Awake()
     {
         movement = GetComponent<Movement>();
-        try
-        {
-            animator = spriteObject.GetComponent<Animator>();
-        }
-        catch
-        {
-            throw new System.Exception("Player's sprite object does not have an Animator component");
-        }
     }
 
     private void Start()

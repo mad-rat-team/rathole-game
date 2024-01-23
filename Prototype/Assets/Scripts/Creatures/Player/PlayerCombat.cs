@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Attacker))]
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] private GameObject attackTrailRotator;
     [SerializeField] private GameObject attackTrail;
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private ContactFilter2D enemiesContactFilter;
-    [SerializeField] private AttackStats playerAttackStats;
-    [SerializeField] private float attackCoolown = 0.5f;
 
-    private float lastAttackTime;
+    private Attacker attacker;
     private Collider2D attackTrailColl;
     private Animator attackTrailAnimator;
 
     private void Awake()
     {
+        attacker = GetComponent<Attacker>();
+
         if (!attackTrail.TryGetComponent<Collider2D>(out attackTrailColl))
         {
             Debug.LogError("attackTrail does not have a Collider2D component");
@@ -32,45 +32,22 @@ public class PlayerCombat : MonoBehaviour
     {
         if(InputManager.GetButtonDown(InputManager.InputButton.Attack) || InputManager.GetButton(InputManager.InputButton.Attack))
         {
-            if (Time.time - lastAttackTime >= attackCoolown)
+            if (attacker.CanAttack())
             {
-                lastAttackTime = Time.time;
                 // Casting camera world pos to Vector2 is necessary so that its Z component doesn't affect the calculation
                 Vector2 dir = ((Vector2)playerCamera.ScreenToWorldPoint(Input.mousePosition) - (Vector2)attackTrailRotator.transform.position).normalized;
                 Attack(dir);
-                lastAttackTime = Time.time;
             }
         }
     }
 
     private void Attack(Vector2 dir)
     {
-        //Debug.Log($"Attacked to {dir}");
         float attackAngle = Vector2.SignedAngle(Vector2.right, dir);
-
         attackTrailRotator.transform.eulerAngles = Vector3.forward * attackAngle;
-
-        //attackTrailRotator.transform.localScale =
-        //    new Vector3(
-        //        attackTrailRotator.transform.localScale.x,
-        //        Mathf.Abs(attackAngle) > 90 ? -1 : 1,
-        //        attackTrailRotator.transform.localScale.z
-        //        );
-
         Physics2D.SyncTransforms(); // Force update collider's position according to attackTrailRotator's rotation and scale
-        List<Collider2D> enemyColliders = new List<Collider2D>();
-        attackTrailColl.OverlapCollider(enemiesContactFilter, enemyColliders);
 
-        foreach (var enemyColl in enemyColliders)
-        {
-            Health enemyHealth = enemyColl.GetComponentInParent<Health>();
-
-            HitInfo hitInfo = new HitInfo(attackTrailRotator.transform.position, Shortcuts.NormalizeIso(dir), playerAttackStats);
-            //hitInfo.origin = attackTrailRotator.transform.position;
-            //hitInfo.knockbackDistance = 3f;
-            //hitInfo.knockbackTime = 0.5f;
-            enemyHealth.TakeHit(hitInfo);
-        }
+        attacker.FixedDurationAttack(attackTrailColl, attackTrailRotator.transform, Shortcuts.RealToIso(dir));
 
         attackTrailAnimator.SetTrigger("Attacked");
     }
