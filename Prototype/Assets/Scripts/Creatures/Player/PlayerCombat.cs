@@ -30,7 +30,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKey(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse0))
+        if(InputManager.GetButtonDown(InputManager.InputButton.Attack) || InputManager.GetButton(InputManager.InputButton.Attack))
         {
             if (Time.time - lastAttackTime >= attackCoolown)
             {

@@ -25,7 +25,7 @@ public class PlayerInteractions : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(InputManager.GetButtonDown(InputManager.InputButton.Interact))
         {
             InteractionManager.Interact(this);
         }   

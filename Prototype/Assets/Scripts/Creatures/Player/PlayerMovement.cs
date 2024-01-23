@@ -33,20 +33,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        movement.SetTargetMoveDir(Shortcuts.RealToIso(GetInputMoveDir()));
+        movement.SetTargetMoveDir(Shortcuts.RealToIso(InputManager.GetInputMoveDir()));
 
         animator.SetFloat("WalkDir", Shortcuts.GetAnimationDir(movement.GetWalkDir()));
         animator.SetBool("IsWalking", movement.GetMovementState() == Movement.MovementState.Walking && !movement.IsMoving());
-    }
-
-    /// <summary>
-    /// Gets input move dir.
-    /// </summary>
-    /// <returns>
-    /// <b>Non-iso-vector</b> of movement.
-    /// </returns>
-    private Vector2 GetInputMoveDir()
-    {
-        return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
     }
 }
