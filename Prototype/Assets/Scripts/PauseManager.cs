@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PauseManager : MonoBehaviour
 {
+    [SerializeField] GameObject pauseMenu;
+
     private static PauseManager pm;
     private bool paused = false;
 
@@ -11,6 +13,7 @@ public class PauseManager : MonoBehaviour
     {
         pm.paused = newPaused;
         Time.timeScale = newPaused ? 0f : 1f;
+        pm.pauseMenu.SetActive(newPaused);
     }
 
     public static bool GetPaused()
@@ -26,6 +29,8 @@ public class PauseManager : MonoBehaviour
             return;
         }
         pm = this;
+
+        pauseMenu.SetActive(false);
     }
 
     private void Update()
