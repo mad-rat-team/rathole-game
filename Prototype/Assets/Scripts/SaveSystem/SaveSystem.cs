@@ -55,7 +55,7 @@ public class SaveSystem
         savePath = saveFileType == SaveFileType.Initial ? initialSavePath : normalSavePath;
         if (saveFileType == SaveFileType.Existing)
         {
-            LoadGameDataFromFile(savePath);
+            LoadFromDisk();
         }
     }
 
@@ -100,6 +100,11 @@ public class SaveSystem
     public void SaveToDisk()
     {
         SaveGameDataToFile(savePath);
+    }
+
+    public void LoadFromDisk()
+    {
+        LoadGameDataFromFile(savePath);
     }
 
     public static void CreateNewSaveFile()

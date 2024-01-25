@@ -20,6 +20,16 @@ public class RuntimeSaveManager : MonoBehaviour
         rsm.saveSystem.SaveRoomToSystem(room, roomName);
     }
 
+    public static void SaveGame()
+    {
+        rsm.saveSystem.SaveToDisk();
+    }
+
+    public static void LoadGame()
+    {
+        rsm.saveSystem.LoadFromDisk();
+    }
+
     private void Awake()
     {
         if (rsm != null)

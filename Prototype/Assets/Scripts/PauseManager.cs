@@ -30,7 +30,7 @@ public class PauseManager : MonoBehaviour
         }
         pm = this;
 
-        pauseMenu.SetActive(false);
+        SetPaused(false);
     }
 
     private void Update()
