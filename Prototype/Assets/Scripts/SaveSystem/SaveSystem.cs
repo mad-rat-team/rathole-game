@@ -31,6 +31,8 @@ public class SaveSystem
         // TODO: Player inventory
         public string currentRoomName;
         public SerializableVector3 playerPosition;
+        public object playerInventoryState;
+
         public Dictionary<string, RoomData> roomDataDict;
 
         public GameData()
@@ -97,10 +99,11 @@ public class SaveSystem
         return room;
     }
 
-    public void SavePlayerData(string currentRoomName, Vector2 playerPosition)
+    public void SavePlayerData(string currentRoomName, Vector2 playerPosition, object playerInventoryState)
     {
         gameData.currentRoomName = currentRoomName;
         gameData.playerPosition = new SerializableVector3(playerPosition);
+        gameData.playerInventoryState = playerInventoryState;
     }
 
     public string GetSavedRoomName()
@@ -111,6 +114,11 @@ public class SaveSystem
     public Vector2 GetSavedPlayerPosition()
     {
         return gameData.playerPosition.GetVector3();
+    }
+
+    public object GetPlayerInventoryState()
+    {
+        return gameData.playerInventoryState;
     }
 
     public void SaveToDisk()

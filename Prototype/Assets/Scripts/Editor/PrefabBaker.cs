@@ -67,7 +67,7 @@ public static class PrefabBaker
                         break;
                     }
                 }
-                saveSystem.SavePlayerData(roomName, playerPos);
+                saveSystem.SavePlayerData(roomName, playerPos, Inventory.GetEmptyState());
                 if (!foundPlayerStartPos)
                 {
                     Debug.LogWarning("Starting room has no GameObject with tag \"PlayerStartPos\"");
