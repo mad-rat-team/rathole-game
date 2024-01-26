@@ -3,19 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Attacker))]
+[RequireComponent(typeof(Inventory))]
 public class PlayerCombat : MonoBehaviour
 {
+    [SerializeField] private InventoryItem weaponItem;
     [SerializeField] private GameObject attackTrailRotator;
     [SerializeField] private GameObject attackTrail;
     [SerializeField] private Camera playerCamera;
 
     private Attacker attacker;
+    private Inventory inventory;
     private Collider2D attackTrailColl;
     private Animator attackTrailAnimator;
+
+    private bool hasWeapon = false;
 
     private void Awake()
     {
         attacker = GetComponent<Attacker>();
+        inventory = GetComponent<Inventory>();
+        inventory.OnStoreItems += (InventoryItem item, int count) =>
+        {
+            if (item == weaponItem)
+            {
+                hasWeapon = true;
+            }
+        };
 
         if (!attackTrail.TryGetComponent<Collider2D>(out attackTrailColl))
         {
@@ -30,6 +43,8 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
+        if (!hasWeapon) return;
+
         if(InputManager.GetButtonDown(InputManager.InputButton.Attack) || InputManager.GetButton(InputManager.InputButton.Attack))
         {
             if (attacker.CanAttack())

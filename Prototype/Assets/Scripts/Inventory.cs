@@ -13,6 +13,8 @@ public class Inventory : MonoBehaviour, ISavable
 
     //[SerializeField] private StartingItem[] startingItems;
 
+    public event Action<InventoryItem, int> OnStoreItems;
+
     private Dictionary<InventoryItem, int> itemCounts = new();
 
     public int GetItemCount(InventoryItem item)
@@ -32,6 +34,7 @@ public class Inventory : MonoBehaviour, ISavable
         {
             itemCounts[item] = count;
         }
+        OnStoreItems?.Invoke(item, count);
     }
 
     //private void Awake()
@@ -63,7 +66,8 @@ public class Inventory : MonoBehaviour, ISavable
         itemCounts = new();
         foreach(var pair in (Dictionary<string, int>)state)
         {
-            itemCounts[Resources.Load<InventoryItem>(pair.Key)] = pair.Value;
+            //itemCounts[Resources.Load<InventoryItem>(pair.Key)] = pair.Value;
+            StoreItems(Resources.Load<InventoryItem>(pair.Key), pair.Value);
         }
     }
 
