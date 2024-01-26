@@ -8,8 +8,6 @@ using UnityEngine;
 public class SaveSystem
 {
     private static string saveExtension = ".save";
-    //private static string normalSavePath = Application.dataPath + "/TempSaves/saveFile" + saveExtension; // TODO: Replace with persistentDataPath
-    //private static string initialSavePath = Application.dataPath + "/PrebakedData/initialSave" + saveExtension;
     private static string normalSavePath = Application.persistentDataPath + "/saveFile" + saveExtension;
     private static string initialSaveResourcePath = "initialSave";
     private static string initialSavePath = Application.dataPath + "/PrebakedData/Resources/" + initialSaveResourcePath + ".bytes";
@@ -28,11 +26,11 @@ public class SaveSystem
     [Serializable]
     public class GameData
     {
-        // TODO: Player inventory
-        public string currentRoomName;
-        public SerializableVector3 playerPosition;
-        public object playerInventoryState;
+        //public string currentRoomName;
+        //public SerializableVector3 playerPosition;
+        //public object playerInventoryState;
 
+        public object playerState;
         public Dictionary<string, RoomData> roomDataDict;
 
         public GameData()
@@ -99,26 +97,14 @@ public class SaveSystem
         return room;
     }
 
-    public void SavePlayerData(string currentRoomName, Vector2 playerPosition, object playerInventoryState)
+    public void SavePlayerState(object playerState)
     {
-        gameData.currentRoomName = currentRoomName;
-        gameData.playerPosition = new SerializableVector3(playerPosition);
-        gameData.playerInventoryState = playerInventoryState;
+        gameData.playerState = playerState;
     }
 
-    public string GetSavedRoomName()
+    public object GetPlayerState()
     {
-        return gameData.currentRoomName;
-    }
-
-    public Vector2 GetSavedPlayerPosition()
-    {
-        return gameData.playerPosition.GetVector3();
-    }
-
-    public object GetPlayerInventoryState()
-    {
-        return gameData.playerInventoryState;
+        return gameData.playerState;
     }
 
     public void SaveToDisk()
