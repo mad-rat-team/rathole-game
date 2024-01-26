@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -30,7 +28,9 @@ public class SaveSystem
     [Serializable]
     public class GameData
     {
-        // TODO: Player info
+        // TODO: Player inventory
+        public string currentRoomName;
+        public SerializableVector3 playerPosition;
         public Dictionary<string, RoomData> roomDataDict;
 
         public GameData()
@@ -97,6 +97,22 @@ public class SaveSystem
         return room;
     }
 
+    public void SavePlayerData(string currentRoomName, Vector2 playerPosition)
+    {
+        gameData.currentRoomName = currentRoomName;
+        gameData.playerPosition = new SerializableVector3(playerPosition);
+    }
+
+    public string GetSavedRoomName()
+    {
+        return gameData.currentRoomName;
+    }
+
+    public Vector2 GetSavedPlayerPosition()
+    {
+        return gameData.playerPosition.GetVector3();
+    }
+
     public void SaveToDisk()
     {
         SaveGameDataToFile(savePath);
@@ -112,6 +128,12 @@ public class SaveSystem
         SaveSystem saveSystem = new SaveSystem();
         saveSystem.gameData = (GameData)saveSystem.binFormatter.Deserialize(new MemoryStream(Resources.Load<TextAsset>(initialSaveResourcePath).bytes));
         saveSystem.SaveGameDataToFile(normalSavePath);
+    }
+
+    public static bool SaveFileExists()
+    {
+        FileInfo fileInfo = new FileInfo(normalSavePath);
+        return fileInfo.Exists;
     }
 
     /// <summary>

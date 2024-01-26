@@ -23,13 +23,15 @@ public class RuntimeSaveManager : MonoBehaviour
     public static void SaveGame()
     {
         SaveRoom(RoomManager.GetCurrentRoom(), RoomManager.GetCurrentRoomName());
+        rsm.saveSystem.SavePlayerData(RoomManager.GetCurrentRoomName(), GameManager.GetPlayer().transform.position);
         rsm.saveSystem.SaveToDisk();
     }
 
     public static void LoadGame()
     {
         rsm.saveSystem.LoadFromDisk();
-        RoomManager.ChangeRoomWithoutSaving(RoomManager.GetCurrentRoomName()); //PH
+        RoomManager.ChangeRoomWithoutSaving(rsm.saveSystem.GetSavedRoomName());
+        GameManager.GetPlayer().transform.position = rsm.saveSystem.GetSavedPlayerPosition();
     }
 
     private void Awake()
@@ -45,7 +47,12 @@ public class RuntimeSaveManager : MonoBehaviour
 
         rsm = this;
 
-        SaveSystem.CreateNewSaveFile(); // PH: This should be handled by main menu
+        //SaveSystem.CreateNewSaveFile(); // PH: This should be handled by main menu
         saveSystem = new SaveSystem(SaveSystem.SaveFileType.Existing);
+    }
+
+    private void Start()
+    {
+        LoadGame();
     }
 }

@@ -7,6 +7,10 @@ using System.Linq;
 
 public static class PrefabBaker
 {
+    //private static string startingRoomName = "StartRoom";
+    private static string startingRoomName = "Room1";
+    private static string playerStartPosTag = "PlayerStartPos";
+
     private static string inputFolderPath = Application.dataPath + "/Prefabs/Rooms";
     //private static string outputFolderResourcePath = "";
     private static string outputFolderPath = Application.dataPath + "/Prefabs/Rooms/Resources"; // Should be a Resources folder
@@ -32,6 +36,7 @@ public static class PrefabBaker
     {
         SaveSystem saveSystem = new SaveSystem(SaveSystem.SaveFileType.Initial);
         DirectoryInfo dirInfo = new DirectoryInfo(inputFolderPath);
+        bool foundStartingRoom = false;
         foreach (FileInfo fileInfo in dirInfo.GetFiles())
         {
             if (fileInfo.Extension != prefabExtension) continue;
@@ -47,11 +52,38 @@ public static class PrefabBaker
                 GameObject.DestroyImmediate(savable.gameObject);
             }
 
+            // Assigning starting room and player position
+            if (!foundStartingRoom && roomName == startingRoomName)
+            {
+                foundStartingRoom = true;
+                Vector2 playerPos = Vector2.zero;
+                bool foundPlayerStartPos = false;
+                foreach(Transform child in roomPrefab.transform)
+                {
+                    if (child.tag == playerStartPosTag)
+                    {
+                        foundPlayerStartPos = true;
+                        playerPos = child.position;
+                        break;
+                    }
+                }
+                saveSystem.SavePlayerData(roomName, playerPos);
+                if (!foundPlayerStartPos)
+                {
+                    Debug.LogWarning("Starting room has no GameObject with tag \"PlayerStartPos\"");
+                }
+            }
+
             string newRoomPrefabPath = outputFolderPath + "/" + fileInfo.Name;
             PrefabUtility.SaveAsPrefabAsset(roomPrefab, newRoomPrefabPath);
 
             PrefabUtility.UnloadPrefabContents(roomPrefab);
         }
+        if (!foundStartingRoom)
+        {
+            Debug.LogWarning($"No room with name \"{startingRoomName}\" was found. Starting room was not assigned in the save file.");
+        }
+
         saveSystem.SaveToDisk();
         AssetDatabase.Refresh();
     }

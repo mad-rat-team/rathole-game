@@ -5,22 +5,40 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject player;
+    private static GameManager gm;
+
     //const string MainSceneName = "MainLocation";
-    const string MainSceneName = "DoorsTest";
+    const string MainSceneName = "Main";
     const string MainMenuSceneName = "MainMenu";
 
-    public void ExitGame()
+    public static void ExitGame()
     {
         Application.Quit();
     }
 
-    public void LoadMainScene()
+    public static void LoadMainScene()
     {
         SceneManager.LoadScene(MainSceneName);
     }
 
-    public void LoadMainMenuScene()
+    public static void LoadMainMenuScene()
     {
         SceneManager.LoadScene(MainMenuSceneName);
+    }
+
+    public static GameObject GetPlayer()
+    {
+        return gm.player;
+    }
+
+    private void Awake()
+    {
+        if (gm != null)
+        {
+            Debug.LogWarning("More than 1 GameManager in the scene");
+            return;
+        }
+        gm = this;
     }
 }
