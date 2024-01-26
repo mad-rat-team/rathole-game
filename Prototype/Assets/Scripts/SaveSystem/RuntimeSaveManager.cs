@@ -22,12 +22,14 @@ public class RuntimeSaveManager : MonoBehaviour
 
     public static void SaveGame()
     {
+        SaveRoom(RoomManager.GetCurrentRoom(), RoomManager.GetCurrentRoomName());
         rsm.saveSystem.SaveToDisk();
     }
 
     public static void LoadGame()
     {
         rsm.saveSystem.LoadFromDisk();
+        RoomManager.ChangeRoomWithoutSaving(RoomManager.GetCurrentRoomName()); //PH
     }
 
     private void Awake()

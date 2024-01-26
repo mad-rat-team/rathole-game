@@ -13,9 +13,9 @@ public class PlayerInteractions : MonoBehaviour
         get => inventory;
     }
 
-    public float GetInteractionRadiusSquared()
+    public float GetInteractionRadius()
     {
-        return interactionRadius * interactionRadius;
+        return interactionRadius;
     }
 
     private void Awake()
