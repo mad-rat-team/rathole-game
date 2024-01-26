@@ -7,5 +7,6 @@ public class SaveTotem : Interactable
     public override void Interact(PlayerInteractions interactionAgent)
     {
         RuntimeSaveManager.SaveGame();
+        interactionAgent.GetComponent<Health>().RestoreAllHealth();
     }
 }

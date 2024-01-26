@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Inventory))]
+[RequireComponent(typeof(Health))]
 public class PlayerData : MonoBehaviour, ISavable
 {
     private Inventory inventory;
@@ -31,6 +32,7 @@ public class PlayerData : MonoBehaviour, ISavable
         transform.position = castState.position.GetVector3();
         RoomManager.ChangeRoomWithoutSaving(castState.currentRoomName);
         inventory.LoadState(castState.inventoryState);
+        GetComponent<Health>().RestoreAllHealth();
     }
 
     public void Awake()

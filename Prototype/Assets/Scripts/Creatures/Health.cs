@@ -31,6 +31,11 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void RestoreAllHealth()
+    {
+        currentHealth = maxHealth;
+    }
+
     public bool IsAlive()
     {
         return currentHealth > 0;
