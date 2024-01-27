@@ -19,7 +19,10 @@ public class InteractionManager : MonoBehaviour
         List<Interactable> interactablesWithinRadius = new List<Interactable>();
         foreach (var interactable in im.interactables)
         {
-            if (Shortcuts.IsoToReal(agentPos - (Vector2)interactable.transform.position).SqrMagnitude() <= interactionAgent.GetInteractionRadiusSquared())
+            float distanceToInteractable = Shortcuts.IsoToReal(agentPos - (Vector2)interactable.transform.position).SqrMagnitude();
+            float maxAllowedDistance = interactionAgent.GetInteractionRadius() + interactable.GetInteractionRadius();
+            maxAllowedDistance *= maxAllowedDistance;
+            if (distanceToInteractable <= maxAllowedDistance)
             {
                 interactablesWithinRadius.Add(interactable);
             }
@@ -67,16 +70,19 @@ public class InteractionManager : MonoBehaviour
         im.interactables.Remove(interactable);
     }
 
-    private void Start()
+    private void Awake()
     {
-        if(im != null)
+        if (im != null)
         {
             Debug.LogWarning("More than 1 InteractionManager in the scene");
         }
 
         im = this;
-        UpdateInteractables();
+    }
 
+    private void Start()
+    {
+        UpdateInteractables();
         RoomManager.OnRoomChanged += UpdateInteractables;
     }
 

@@ -30,4 +30,9 @@ public class Shortcuts
         isoVec.y /= 2;
         return isoVec;
     }
+
+    public static float GetAnimationDir(Vector2 dir)
+    {
+        return ((Vector2.SignedAngle(Vector2.right, dir) + 360f) % 360f) / 360f;
+    }
 }

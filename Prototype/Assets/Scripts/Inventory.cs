@@ -3,15 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, ISavable
 {
-    [Serializable] private struct StartingItem
-    {
-        public InventoryItem item;
-        public int count;
-    }
+    //[Serializable] private struct StartingItem
+    //{
+    //    public InventoryItem item;
+    //    public int count;
+    //}
 
-    [SerializeField] private StartingItem[] startingItems;
+    //[SerializeField] private StartingItem[] startingItems;
+
+    public event Action<InventoryItem, int> OnStoreItems;
 
     private Dictionary<InventoryItem, int> itemCounts = new();
 
@@ -32,18 +34,45 @@ public class Inventory : MonoBehaviour
         {
             itemCounts[item] = count;
         }
+        OnStoreItems?.Invoke(item, count);
     }
 
-    private void Start()
+    //private void Awake()
+    //{
+    //    foreach (StartingItem startingItem in startingItems)
+    //    {
+    //        if(startingItem.item == null)
+    //        {
+    //            Debug.LogWarning("StartingItem cannot be null");
+    //            continue;
+    //        }
+    //        StoreItems(startingItem.item, startingItem.count);
+    //    }
+    //}
+
+    public object GetState()
     {
-        foreach (StartingItem startingItem in startingItems)
+        Dictionary<string, int> itemCountsState = new();
+        foreach(var pair in itemCounts)
         {
-            if(startingItem.item == null)
-            {
-                Debug.LogWarning("StartingItem cannot be null");
-                continue;
-            }
-            StoreItems(startingItem.item, startingItem.count);
+            itemCountsState[pair.Key.name] = pair.Value;
         }
+
+        return itemCountsState;
+    }
+
+    public void LoadState(object state)
+    {
+        itemCounts = new();
+        foreach(var pair in (Dictionary<string, int>)state)
+        {
+            //itemCounts[Resources.Load<InventoryItem>(pair.Key)] = pair.Value;
+            StoreItems(Resources.Load<InventoryItem>(pair.Key), pair.Value);
+        }
+    }
+
+    public static object GetEmptyState()
+    {
+        return new Dictionary<string, int>();
     }
 }

@@ -13,9 +13,9 @@ public class PlayerInteractions : MonoBehaviour
         get => inventory;
     }
 
-    public float GetInteractionRadiusSquared()
+    public float GetInteractionRadius()
     {
-        return interactionRadius * interactionRadius;
+        return interactionRadius;
     }
 
     private void Awake()
@@ -25,7 +25,7 @@ public class PlayerInteractions : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(InputManager.GetButtonDown(InputManager.InputButton.Interact))
         {
             InteractionManager.Interact(this);
         }   

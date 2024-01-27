@@ -20,6 +20,26 @@ public class RuntimeSaveManager : MonoBehaviour
         rsm.saveSystem.SaveRoomToSystem(room, roomName);
     }
 
+    public static void SaveGame()
+    {
+        SaveRoom(RoomManager.GetCurrentRoom(), RoomManager.GetCurrentRoomName());
+        //GameObject player = GameManager.GetPlayer();
+        //rsm.saveSystem.SavePlayerData(RoomManager.GetCurrentRoomName(), player.transform.position, player.GetComponent<Inventory>().GetState());
+        rsm.saveSystem.SavePlayerState(GameManager.GetPlayer().GetComponent<PlayerData>().GetState());
+        //NOTE: GetComponent() here is not good, it would be better to have a component on player that stores other Player... components
+        rsm.saveSystem.SaveToDisk();
+    }
+
+    public static void LoadGame()
+    {
+        rsm.saveSystem.LoadFromDisk();
+        //RoomManager.ChangeRoomWithoutSaving(rsm.saveSystem.GetSavedRoomName());
+        //GameObject player = GameManager.GetPlayer();
+        //player.transform.position = rsm.saveSystem.GetSavedPlayerPosition();
+        //player.GetComponent<Inventory>().LoadState(rsm.saveSystem.GetPlayerInventoryState());
+        GameManager.GetPlayer().GetComponent<PlayerData>().LoadState(rsm.saveSystem.GetPlayerState());
+    }
+
     private void Awake()
     {
         if (rsm != null)
@@ -32,7 +52,13 @@ public class RuntimeSaveManager : MonoBehaviour
         }
 
         rsm = this;
-        SaveSystem.CreateNewSaveFile(); // PH: This should be handled by main menu
+
+        //SaveSystem.CreateNewSaveFile(); // PH: This should be handled by main menu
         saveSystem = new SaveSystem(SaveSystem.SaveFileType.Existing);
+    }
+
+    private void Start()
+    {
+        LoadGame();
     }
 }

@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 /// <summary>
-/// If <c>isMoving</c> is set to true, moves in the direction of <c>target</c>
+/// If <c>isMoving</c> is set to true, moves in the isoDirection of <c>target</c>
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour
@@ -15,11 +16,17 @@ public class Movement : MonoBehaviour
     [SerializeField] [Range(0.01f, 2f)] private float moveDirChangeTime = 0.15f;
     [SerializeField] [Range(0.01f, 0.99f)] private float accCurveFlatness = 0.1f;
 
+    //public event System.Action OnJumpEnd;
+    public delegate void StateChangeHandler(MovementState from, MovementState to);
+    public event StateChangeHandler OnStateChange;
+
     public enum MovementState {
         Walking,
         Jumping,
         KnockedBack
     }
+
+    private readonly float isMovingThreshold = 0.01f; // Minimum moveDir.SqrMagnitude value at which it is considered that the object moving
 
     private MovementState state;
 
@@ -46,14 +53,16 @@ public class Movement : MonoBehaviour
 
     private Rigidbody2D rb;
 
-    public void StartKnockback(Vector2 origin, float distance, float time)
+    public void StartKnockback(Vector2 direction, float distance, float time)
     {
         if (state == MovementState.KnockedBack) return;
-        state = MovementState.KnockedBack;
+        //state = MovementState.KnockedBack;
+        ChangeState(MovementState.KnockedBack);
 
         knockbackTime = time;
         knockbackStartTime = Time.time;
-        knockbackDir = Shortcuts.NormalizeIso((Vector2)centerTransform.position - origin);
+        //knockbackDir = Shortcuts.NormalizeIso((Vector2)centerTransform.position - origin);
+        knockbackDir = direction;
         knockbackStartVelocity = (2 * distance) / time;
         knockbackAcceleration = -(knockbackStartVelocity / time);
     }
@@ -67,7 +76,8 @@ public class Movement : MonoBehaviour
         }
 
         if (state != MovementState.Walking || !isGrounded) return;
-        state = MovementState.Jumping;
+        //state = MovementState.Jumping;
+        ChangeState(MovementState.Jumping);
 
         jumpStartTime = Time.time;
         jumpTime = time;
@@ -78,10 +88,10 @@ public class Movement : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets new target movement direction.
+    /// Sets new target movement isoDirection.
     /// </summary>
     /// <returns>
-    /// Movement direction (iso-vector)
+    /// Movement isoDirection (iso-vector)
     /// </returns>
     /// <param name="newTargetMoveDir">New target move dir. Should be a normalized iso-vector.</param>
     public void SetTargetMoveDir(Vector2 newTargetMoveDir)
@@ -109,7 +119,7 @@ public class Movement : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns walking direction as an iso-vector. If the object is not in Walking state, returns the last direction in which it was walking.
+    /// Returns walking isoDirection as an iso-vector. If the object is not in Walking state, returns the last isoDirection in which it was walking.
     /// </summary>
     /// <returns>An iso-vector</returns>
     public Vector2 GetWalkDir()
@@ -118,7 +128,7 @@ public class Movement : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns movement direction as an iso-vector no matter the movement state.
+    /// Returns movement isoDirection as an iso-vector no matter the movement state.
     /// </summary>
     /// <returns>An iso-vector</returns>
     public Vector2 GetMoveDir()
@@ -133,6 +143,11 @@ public class Movement : MonoBehaviour
                 return knockbackDir;
         }
         return Vector2.zero;
+    }
+
+    public bool IsMoving()
+    {
+        return moveDir.sqrMagnitude < isMovingThreshold;
     }
 
     private void Awake()
@@ -207,8 +222,11 @@ public class Movement : MonoBehaviour
             //jumpingPart.localPosition = jumpingPartOffset;
             rb.velocity = Vector2.zero;
 
-            state = MovementState.Walking;
-            ResetMoveDir();
+            //state = MovementState.Walking;
+            ChangeState(MovementState.Walking);
+            ResetMoveDir(); // NOTE: Maybe it would be cool to keep momentum
+
+            //OnJumpEnd?.Invoke();
         }
     }
 
@@ -220,9 +238,18 @@ public class Movement : MonoBehaviour
         if (timePassed >= knockbackTime)
         {
             rb.velocity = Vector2.zero;
-            state = MovementState.Walking;
+            //state = MovementState.Walking;
+            ChangeState(MovementState.Walking);
             ResetMoveDir();
         }
+    }
+
+    private void ChangeState(MovementState newState)
+    {
+        MovementState oldState = state;
+        state = newState;
+        //Debug.Log(oldState.ToString() + " -> " + newState.ToString());
+        OnStateChange?.Invoke(oldState, newState);
     }
 
     private float SmootheningFunction(float a, float b, float factor)

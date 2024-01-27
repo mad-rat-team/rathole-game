@@ -2,38 +2,35 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class SaveSystem
 {
     private static string saveExtension = ".save";
-    //private static string normalSavePath = Application.dataPath + "/TempSaves/saveFile" + saveExtension; // TODO: Replace with persistentDataPath
-    //private static string initialSavePath = Application.dataPath + "/PrebakedData/initialSave" + saveExtension;
     private static string normalSavePath = Application.persistentDataPath + "/saveFile" + saveExtension;
     private static string initialSaveResourcePath = "initialSave";
     private static string initialSavePath = Application.dataPath + "/PrebakedData/Resources/" + initialSaveResourcePath + ".bytes";
 
     private BinaryFormatter binFormatter = new();
-    //private Dictionary<string, RoomData> roomDataDict = new();
     private GameData gameData = new();
     private string savePath;
 
     [Serializable]
     public class RoomData
     {
-        //public string name;
         //public bool cleared;
-        //public string prefabResourcePath;
         public SavableRoomObject.RoomObjectData[] objects;
     }
 
     [Serializable]
     public class GameData
     {
-        // TODO: Player info
+        //public string currentRoomName;
+        //public SerializableVector3 playerPosition;
+        //public object playerInventoryState;
+
+        public object playerState;
         public Dictionary<string, RoomData> roomDataDict;
 
         public GameData()
@@ -44,7 +41,6 @@ public class SaveSystem
 
     public enum SaveFileType
     {
-        //New,
         Existing,
         Initial //Only in editor
     }
@@ -59,7 +55,7 @@ public class SaveSystem
         savePath = saveFileType == SaveFileType.Initial ? initialSavePath : normalSavePath;
         if (saveFileType == SaveFileType.Existing)
         {
-            LoadGameDataFromFile(savePath);
+            LoadFromDisk();
         }
     }
 
@@ -68,7 +64,6 @@ public class SaveSystem
     public void SaveRoomToSystem(GameObject room, string roomName)
     {
         RoomData roomData = new();
-        //roomData.prefabResourcePath = roomPrefabResourcePath;
         SavableRoomObject[] savables = room.GetComponentsInChildren<SavableRoomObject>();
         roomData.objects = new SavableRoomObject.RoomObjectData[savables.Length];
         for (int i = 0; i < savables.Length; i++)
@@ -102,40 +97,37 @@ public class SaveSystem
         return room;
     }
 
-    //public void SaveGameDataToDisk()
-    //{
-    //    SaveGameDataToFile(saveFilePath);
-    //}
+    public void SavePlayerState(object playerState)
+    {
+        gameData.playerState = playerState;
+    }
 
-    //public void SaveGameDataToInitialSave()
-    //{
-    //    SaveGameDataToFile(initialSavePath);
-    //}
-
-    //public void LoadGameDataFromInitialSave()
-    //{
-    //    LoadGameDataFromFile(initialSavePath);
-    //}
+    public object GetPlayerState()
+    {
+        return gameData.playerState;
+    }
 
     public void SaveToDisk()
     {
         SaveGameDataToFile(savePath);
     }
 
-    //public void LoadFromDisk()
-    //{
-    //    SaveGameDataToFile(savePath);
-    //}
+    public void LoadFromDisk()
+    {
+        LoadGameDataFromFile(savePath);
+    }
 
     public static void CreateNewSaveFile()
     {
         SaveSystem saveSystem = new SaveSystem();
-        //initialSaveSystem.LoadGameDataFromFile(initialSavePath);
-        //saveSystem.gameData = Resources.Load(initialSaveResourcePath);
-        //Debug.Log(Resources.Load<TextAsset>(initialSaveResourcePath).bytes);
         saveSystem.gameData = (GameData)saveSystem.binFormatter.Deserialize(new MemoryStream(Resources.Load<TextAsset>(initialSaveResourcePath).bytes));
-        
         saveSystem.SaveGameDataToFile(normalSavePath);
+    }
+
+    public static bool SaveFileExists()
+    {
+        FileInfo fileInfo = new FileInfo(normalSavePath);
+        return fileInfo.Exists;
     }
 
     /// <summary>
@@ -146,10 +138,6 @@ public class SaveSystem
         FileStream fStream = new FileStream(filePath, FileMode.Create);
         binFormatter.Serialize(fStream, gameData);
         fStream.Close();
-        //foreach (var item in roomDataDict)
-        //{
-        //    Debug.Log($"{item.Key}: {item.Value.objects.Length}");
-        //}
     }
 
     /// <summary>

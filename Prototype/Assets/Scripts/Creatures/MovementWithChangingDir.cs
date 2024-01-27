@@ -16,7 +16,7 @@ public abstract class MovementWithChangingDir : MonoBehaviour
     /// Should be called every Fixed update step.
     /// </summary>
     /// <returns>
-    /// Movement direction (iso-vector)
+    /// Movement isoDirection (iso-vector)
     /// </returns>
     /// <param name="newTargetIsoMoveDir">New target move dir. Should be a normalized iso-vector.</param>
     protected Vector2 UpdateMoveDir(Vector2 newTargetIsoMoveDir)

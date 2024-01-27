@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    private static RoomManager rm;
+    const string enemyTag = "Enemy";
 
-    [SerializeField] private string startingRoomName;
+    private static RoomManager rm;
 
     private GameObject currentRoom;
     private string currentRoomName;
+
     public static event Action OnRoomChanged;
 
     public static GameObject GetCurrentRoom()
@@ -16,20 +17,37 @@ public class RoomManager : MonoBehaviour
         return rm.currentRoom;
     }
 
-    //public static void ChangeRoom(GameObject newRoom)
-    //{
-    //    DestroyImmediate(rm.currentRoom); // Can't use normal Destroy(), because InteractionManager is getting the list of interactable on the same frame
-    //    rm.currentRoom = Instantiate(newRoom);
-    //    OnRoomChanged?.Invoke();
-    //}
+    public static string GetCurrentRoomName()
+    {
+        return rm.currentRoomName;
+    }
 
     public static void ChangeRoom(string newRoomName)
     {
         RuntimeSaveManager.SaveRoom(rm.currentRoom, rm.currentRoomName);
-        DestroyImmediate(rm.currentRoom); // Can't use normal Destroy(), because InteractionManager is getting the list of interactable on the same frame
+        ChangeRoomWithoutSaving(newRoomName);
+    }
+
+    public static void ChangeRoomWithoutSaving(string newRoomName)
+    {
+        // Can't use normal Destroy(), because InteractionManager is getting the list of interactable on the same frame
+        if (rm.currentRoom != null) DestroyImmediate(rm.currentRoom);
         rm.currentRoom = RuntimeSaveManager.LoadRoom(newRoomName);
         rm.currentRoomName = newRoomName;
         OnRoomChanged?.Invoke();
+    }
+
+    public static int GetCurrentRoomEnemyCount()
+    {
+        int count = 0;
+        foreach (Transform child in rm.currentRoom.transform)
+        {
+            if (child.CompareTag(enemyTag))
+            {
+                count++;
+            }
+        }
+        return count;
     }
 
     private void Awake()
@@ -40,31 +58,5 @@ public class RoomManager : MonoBehaviour
             return;
         }
         rm = this;
-    }
-
-    private void Start()
-    {
-        //GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
-        //if (rooms.Length == 0)
-        //{
-        //    Debug.LogError("No gameobjects with tag \"Room\" present in the scene");
-        //}
-        //else
-        //{
-        //    currentRoom = rooms[0];
-        //    if (rooms.Length > 1)
-        //    {
-        //        Debug.LogWarning("More than 1 gameobject with tag \"Room\" in the scene");
-        //    }
-        //}
-
-        if (startingRoomName == "")
-        {
-            Debug.LogError("Starting room prefab resource path has not been set");
-            return;
-        }
-
-        currentRoom = RuntimeSaveManager.LoadRoom(startingRoomName);
-        currentRoomName = startingRoomName;
     }
 }

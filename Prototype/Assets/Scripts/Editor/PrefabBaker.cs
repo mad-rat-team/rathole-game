@@ -7,6 +7,10 @@ using System.Linq;
 
 public static class PrefabBaker
 {
+    //private static string startingRoomName = "StartRoom";
+    private static string startingRoomName = "Room1";
+
+    private static string playerStartPosTag = "PlayerStartPos";
     private static string inputFolderPath = Application.dataPath + "/Prefabs/Rooms";
     //private static string outputFolderResourcePath = "";
     private static string outputFolderPath = Application.dataPath + "/Prefabs/Rooms/Resources"; // Should be a Resources folder
@@ -32,16 +36,15 @@ public static class PrefabBaker
     {
         SaveSystem saveSystem = new SaveSystem(SaveSystem.SaveFileType.Initial);
         DirectoryInfo dirInfo = new DirectoryInfo(inputFolderPath);
+        bool foundStartingRoom = false;
         foreach (FileInfo fileInfo in dirInfo.GetFiles())
         {
             if (fileInfo.Extension != prefabExtension) continue;
+
             GameObject roomPrefab = PrefabUtility.LoadPrefabContents(fileInfo.FullName);
-            //Debug.Log(fileInfo.Name);
             if (roomPrefab.tag != roomTag) continue;
 
             string roomName = fileInfo.Name.TrimEnd(prefabExtension.ToCharArray());
-
-            //saveSystem.SaveRoomToSystem(roomPrefab, fileInfo.Name.TrimEnd(prefabExtension.ToCharArray()), newRoomPrefabPath);
             saveSystem.SaveRoomToSystem(roomPrefab, roomName);
 
             foreach (SavableRoomObject savable in GetSavableRoomObjects(roomPrefab))
@@ -49,12 +52,47 @@ public static class PrefabBaker
                 GameObject.DestroyImmediate(savable.gameObject);
             }
 
+            // Assigning starting room and player position
+            if (!foundStartingRoom && roomName == startingRoomName)
+            {
+                foundStartingRoom = true;
+                Vector2 playerPos = Vector2.zero;
+                bool foundPlayerStartPos = false;
+                foreach(Transform child in roomPrefab.transform)
+                {
+                    if (child.tag == playerStartPosTag)
+                    {
+                        foundPlayerStartPos = true;
+                        playerPos = child.position;
+                        break;
+                    }
+                }
+                //saveSystem.SavePlayerData(roomName, playerPos, Inventory.GetEmptyState());
+                saveSystem.SavePlayerState(new PlayerData.State
+                {
+                    position = new SerializableVector3(playerPos),
+                    currentRoomName = roomName,
+                    inventoryState = Inventory.GetEmptyState()
+                });
+
+                if (!foundPlayerStartPos)
+                {
+                    Debug.LogWarning("Starting room has no GameObject with tag \"PlayerStartPos\"");
+                }
+            }
+
             string newRoomPrefabPath = outputFolderPath + "/" + fileInfo.Name;
             PrefabUtility.SaveAsPrefabAsset(roomPrefab, newRoomPrefabPath);
 
             PrefabUtility.UnloadPrefabContents(roomPrefab);
         }
+        if (!foundStartingRoom)
+        {
+            Debug.LogWarning($"No room with name \"{startingRoomName}\" was found. Starting room was not assigned in the save file.");
+        }
+
         saveSystem.SaveToDisk();
+        AssetDatabase.Refresh();
     }
 
     private static SavableRoomObject[] GetSavableRoomObjects(GameObject room)
