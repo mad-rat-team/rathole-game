@@ -66,4 +66,14 @@ public class PlayerCombat : MonoBehaviour
 
         attackTrailAnimator.SetTrigger("Attacked");
     }
+
+    //public void Reset()
+    //{
+    //    hasWeapon = false;
+    //}
+
+    public void ResetHasWeapon()
+    {
+        hasWeapon = inventory.GetItemCount(weaponItem) > 0;
+    }
 }

@@ -7,10 +7,10 @@ using System.Linq;
 
 public static class PrefabBaker
 {
-    private static string startingRoomName = "StartRoom";
-    //private static string startingRoomName = "Room1";
-    private static string playerStartPosTag = "PlayerStartPos";
+    //private static string startingRoomName = "StartRoom";
+    private static string startingRoomName = "Room1";
 
+    private static string playerStartPosTag = "PlayerStartPos";
     private static string inputFolderPath = Application.dataPath + "/Prefabs/Rooms";
     //private static string outputFolderResourcePath = "";
     private static string outputFolderPath = Application.dataPath + "/Prefabs/Rooms/Resources"; // Should be a Resources folder

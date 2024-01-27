@@ -32,6 +32,7 @@ public class PlayerData : MonoBehaviour, ISavable
         transform.position = castState.position.GetVector3();
         RoomManager.ChangeRoomWithoutSaving(castState.currentRoomName);
         inventory.LoadState(castState.inventoryState);
+        GetComponent<PlayerCombat>().ResetHasWeapon();
         GetComponent<Health>().RestoreAllHealth();
     }
 
