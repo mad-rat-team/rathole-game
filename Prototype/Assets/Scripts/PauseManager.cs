@@ -13,7 +13,12 @@ public class PauseManager : MonoBehaviour
     {
         pm.paused = newPaused;
         Time.timeScale = newPaused ? 0f : 1f;
-        pm.pauseMenu.SetActive(newPaused);
+        //pm.pauseMenu.SetActive(newPaused);
+    }
+
+    public static void TogglePauseMenu(bool active)
+    {
+        pm.pauseMenu.SetActive(active);
     }
 
     public static bool GetPaused()
@@ -30,7 +35,7 @@ public class PauseManager : MonoBehaviour
         }
         pm = this;
 
-        SetPaused(false);
+        TogglePauseMenu(false);
     }
 
     private void Update()
@@ -38,6 +43,7 @@ public class PauseManager : MonoBehaviour
         if (InputManager.GetButtonDown(InputManager.InputButton.Pause))
         {
             SetPaused(!paused);
+            TogglePauseMenu(paused);
         }
     }
 }

@@ -6,11 +6,19 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject deathScreen;
+
     private static GameManager gm;
 
-    //const string MainSceneName = "MainLocation";
     const string MainSceneName = "Main";
     const string MainMenuSceneName = "MainMenu";
+
+    public static void HandleDeath()
+    {
+        PauseManager.SetPaused(true);
+        gm.player.SetActive(false);
+        gm.deathScreen.SetActive(true);
+    }
 
     public static void ExitGame()
     {
@@ -19,11 +27,13 @@ public class GameManager : MonoBehaviour
 
     public static void LoadMainScene()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(MainSceneName);
     }
 
     public static void LoadMainMenuScene()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(MainMenuSceneName);
     }
 
