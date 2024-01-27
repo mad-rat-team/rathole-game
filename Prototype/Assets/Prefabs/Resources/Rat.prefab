@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 365257489736995315}
   m_Layer: 0
   m_Name: Rat
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -342,6 +342,7 @@ MonoBehaviour:
   jumpTime: 0.75
   minJumpOffset: 0.25
   maxJumpOffset: 1
+  maxAdditionalJumpCooldown: 1
   animator: {fileID: 908966715357712636}
   attackColl: {fileID: 1641737929165310928}
   corpseGO: {fileID: 4320989075820332494, guid: d1ab1999d96b1554b9dc8560db207aa8, type: 3}

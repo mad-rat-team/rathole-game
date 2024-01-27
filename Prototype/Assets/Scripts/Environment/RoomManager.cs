@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
+    const string enemyTag = "Enemy";
+
     private static RoomManager rm;
 
     private GameObject currentRoom;
     private string currentRoomName;
+
     public static event Action OnRoomChanged;
 
     public static GameObject GetCurrentRoom()
@@ -34,6 +37,19 @@ public class RoomManager : MonoBehaviour
         OnRoomChanged?.Invoke();
     }
 
+    public static int GetCurrentRoomEnemyCount()
+    {
+        int count = 0;
+        foreach (Transform child in rm.currentRoom.transform)
+        {
+            if (child.CompareTag(enemyTag))
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
     private void Awake()
     {
         if (rm != null)
@@ -43,10 +59,4 @@ public class RoomManager : MonoBehaviour
         }
         rm = this;
     }
-
-    //private void Start()
-    //{
-    //    currentRoom = RuntimeSaveManager.LoadRoom(startingRoomName);
-    //    currentRoomName = startingRoomName;
-    //}
 }

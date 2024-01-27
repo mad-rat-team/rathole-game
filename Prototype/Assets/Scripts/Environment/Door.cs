@@ -22,6 +22,12 @@ public class Door : Interactable
 
     public override void Interact(PlayerInteractions interactionAgent)
     {
+        if (RoomManager.GetCurrentRoomEnemyCount() > 0)
+        {
+            Debug.Log("Can't open the door while there are enemies in the room"); //TODO: Add some player feedback
+            return;
+        }
+
         if(hasALock && isLocked)
         {
             if(interactionAgent.Inventory.GetItemCount(requiredKey) <= 0)
