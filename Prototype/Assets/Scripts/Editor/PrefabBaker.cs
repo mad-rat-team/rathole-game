@@ -7,8 +7,8 @@ using System.Linq;
 
 public static class PrefabBaker
 {
-    //private static string startingRoomName = "StartRoom";
-    private static string startingRoomName = "Room1";
+    private static string startingRoomName = "StartRoom";
+    //private static string startingRoomName = "Room1";
     private static string playerStartPosTag = "PlayerStartPos";
 
     private static string inputFolderPath = Application.dataPath + "/Prefabs/Rooms";
