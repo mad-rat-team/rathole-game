@@ -38,7 +38,8 @@ public class Door : Interactable
             SetIsLocked(false);
         }
 
-        //RoomManager.ChangeRoom(nextRoom);
+        // All conditions to go through the door have been met
+
         RoomManager.ChangeRoom(nextRoomName);
 
         Vector2 nextRoomPlayerPos = Vector2.zero;
