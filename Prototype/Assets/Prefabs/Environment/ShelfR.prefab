@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3069215744021777009, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
       propertyPath: m_Name
-      value: ShelfL
+      value: ShelfR
       objectReference: {fileID: 0}
     - target: {fileID: 3069215744021777009, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
       propertyPath: m_Layer
@@ -27,7 +27,7 @@ PrefabInstance:
     - target: {fileID: 7147324491222390422, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1a5e2aa94735e40479da7474bbe85be5, type: 3}
+      objectReference: {fileID: 21300000, guid: c4a3a6f64f11acb4f8efa587417533e6, type: 3}
     - target: {fileID: 7147324491222390422, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -133,8 +133,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.359375, y: 0.0625}
-      - {x: 0.125, y: 0.1875}
-      - {x: -0.359375, y: -0.0625}
-      - {x: -0.125, y: -0.1875}
+    - - {x: -0.359375, y: 0.0625}
+      - {x: 0.125, y: -0.1875}
+      - {x: 0.359375, y: -0.0625}
+      - {x: -0.125, y: 0.1875}
   m_UseDelaunayMesh: 0
