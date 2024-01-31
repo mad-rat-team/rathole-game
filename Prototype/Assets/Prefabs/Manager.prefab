@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3109042070348594002}
   - component: {fileID: 165948323011160036}
   - component: {fileID: 79254965113300105}
+  - component: {fileID: 4972650843789508284}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -73,7 +74,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854de11c0163d314e93a12ca956df6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadGameFadeInDuration: 0
+  loadGameFadeInRestDuration: 0.25
+  loadGameFadeInDuration: 1
 --- !u!114 &3109042070348594002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,3 +116,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 0}
+--- !u!114 &4972650843789508284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2482397440151752519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd3a8f844d6a45941ba216cbcff107cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
