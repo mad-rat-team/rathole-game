@@ -14,9 +14,11 @@ public class ScreenEffectManager : MonoBehaviour
     private float startTime;
     private float lerpDuration;
     private bool isLerping = false;
+    private bool useUnscaledTime;
 
-    public static void Fade(Color start, Color target, float restDuration, float fadeDuration)
+    public static void Fade(Color start, Color target, float fadeDuration, float restDuration, bool useUnscaledTime)
     {
+        sem.useUnscaledTime = useUnscaledTime;
         sem.isLerping = true;
         sem.startColor = start;
         sem.targetColor = target;
@@ -29,12 +31,12 @@ public class ScreenEffectManager : MonoBehaviour
         {
             restDuration = 0;
         }
-        sem.startTime = Time.time + restDuration;
+        sem.startTime = (useUnscaledTime ? Time.unscaledTime : Time.time) + restDuration;
     }
 
-    public static void FadeFromCurrent(Color target, float duration, float restDuration)
+    public static void FadeFromCurrent(Color target, float fadeDuration, float restDuration, bool useUnscaledTime)
     {
-        Fade(sem.fadeImage.color, target, duration, restDuration);
+        Fade(sem.fadeImage.color, target, fadeDuration, restDuration, useUnscaledTime);
     }
 
     private void Awake()
@@ -52,10 +54,12 @@ public class ScreenEffectManager : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log($"{Time.deltaTime} {Time.unscaledDeltaTime}");
         if (isLerping)
         {
-            fadeImage.color = Color.Lerp(startColor, targetColor, (Time.time - startTime) / lerpDuration);
-            if (Time.time > startTime + lerpDuration)
+            float currentTime = (useUnscaledTime ? Time.unscaledTime : Time.time);
+            fadeImage.color = Color.Lerp(startColor, targetColor, (currentTime - startTime) / lerpDuration);
+            if (currentTime > startTime + lerpDuration)
             {
                 isLerping = false;
             }

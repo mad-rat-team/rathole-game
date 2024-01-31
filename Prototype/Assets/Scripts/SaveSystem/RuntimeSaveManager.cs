@@ -35,7 +35,8 @@ public class RuntimeSaveManager : MonoBehaviour
     {
         rsm.saveSystem.LoadFromDisk();
         GameManager.GetPlayer().GetComponent<PlayerData>().LoadState(rsm.saveSystem.GetPlayerState());
-        ScreenEffectManager.Fade(Color.black, new Color(0, 0, 0, 0), rsm.loadGameFadeInRestDuration, rsm.loadGameFadeInDuration);
+        ScreenEffectManager.Fade(Color.black, new Color(0, 0, 0, 0), rsm.loadGameFadeInDuration, rsm.loadGameFadeInRestDuration, false);
+        //PauseManager.SetManualPauseProhibited(true);
     }
 
     private void Awake()
