@@ -31,8 +31,8 @@ public class Shortcuts
         return isoVec;
     }
 
-    public static float GetAnimationDir(Vector2 dir)
+    public static float RealVectorToAnimationDir(Vector2 realVec)
     {
-        return ((Vector2.SignedAngle(Vector2.right, dir) + 360f) % 360f) / 360f;
+        return ((Vector2.SignedAngle(Vector2.right, realVec) + 360f) % 360f) / 360f;
     }
 }

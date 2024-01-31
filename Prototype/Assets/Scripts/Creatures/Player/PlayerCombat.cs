@@ -4,22 +4,26 @@ using UnityEngine;
 
 [RequireComponent(typeof(Attacker))]
 [RequireComponent(typeof(Inventory))]
+[RequireComponent(typeof(Movement))]
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] private InventoryItem weaponItem;
     [SerializeField] private GameObject attackTrailRotator;
     [SerializeField] private GameObject attackTrail;
     [SerializeField] private Camera playerCamera;
+    [SerializeField] private Animator animator;
 
     private Attacker attacker;
     private Inventory inventory;
     private Collider2D attackTrailColl;
     private Animator attackTrailAnimator;
+    private Movement movement;
 
     private bool hasWeapon = false;
 
     private void Awake()
     {
+        movement = GetComponent<Movement>();
         attacker = GetComponent<Attacker>();
         inventory = GetComponent<Inventory>();
         inventory.OnStoreItems += (InventoryItem item, int count) =>
@@ -62,8 +66,11 @@ public class PlayerCombat : MonoBehaviour
         attackTrailRotator.transform.eulerAngles = Vector3.forward * attackAngle;
         Physics2D.SyncTransforms(); // Force update collider's position according to attackTrailRotator's rotation and scale
 
-        attacker.FixedDurationAttack(attackTrailColl, attackTrailRotator.transform, Shortcuts.RealToIso(dir));
+        movement.StopWalking();
+        attacker.FixedDurationAttackWithEndAction(attackTrailColl, attackTrailRotator.transform, Shortcuts.RealToIso(dir), movement.StartWalking);
 
+        animator.SetTrigger("Attacked");
+        animator.SetFloat("AttackDir", Shortcuts.RealVectorToAnimationDir(dir));
         attackTrailAnimator.SetTrigger("Attacked");
     }
 

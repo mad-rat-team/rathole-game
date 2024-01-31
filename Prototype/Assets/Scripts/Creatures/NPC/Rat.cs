@@ -76,8 +76,8 @@ public class Rat : MonoBehaviour
                 break;
         }
 
-        //animator.SetFloat("WalkDir", Shortcuts.GetAnimationDir(movement.GetWalkDir())); // Not PH
-        animator.SetFloat("WalkDir", Shortcuts.GetAnimationDir(movement.GetMoveDir())); //PH
+        //animator.SetFloat("WalkDir", Shortcuts.IsoVectorToAnimationDir(movement.GetWalkDir())); // Not PH
+        animator.SetFloat("WalkDir", Shortcuts.RealVectorToAnimationDir(Shortcuts.IsoToReal(movement.GetMoveDir()))); //PH
     }
 
     private void HandleMovementStateChange(Movement.MovementState from, Movement.MovementState to)
