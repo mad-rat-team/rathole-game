@@ -15,6 +15,7 @@ public class MainUIButtonHandler : MonoBehaviour
         {
             throw new System.Exception("Save file does not exist");
         }
+        PauseManager.TogglePauseMenu(false);
         PauseManager.PauseForSecondsAndPerformAction(fadeOutTime, GameManager.LoadMainScene);
         ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutTime, 0f, true);
     }
