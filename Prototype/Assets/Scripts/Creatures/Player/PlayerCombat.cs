@@ -70,7 +70,8 @@ public class PlayerCombat : MonoBehaviour
         attacker.FixedDurationAttackWithEndAction(attackTrailColl, attackTrailRotator.transform, Shortcuts.RealToIso(dir), movement.StartWalking);
 
         animator.SetTrigger("Attacked");
-        animator.SetFloat("AttackDir", Shortcuts.RealVectorToAnimationDir(dir));
+        float attackAnimDir = Shortcuts.RealVectorToAnimationDir(dir);
+        animator.SetFloat("AttackDir", attackAnimDir);
         attackTrailAnimator.SetTrigger("Attacked");
     }
 
