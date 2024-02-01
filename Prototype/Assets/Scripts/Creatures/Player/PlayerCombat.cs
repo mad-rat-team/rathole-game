@@ -72,6 +72,7 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("Attacked");
         float attackAnimDir = Shortcuts.RealVectorToAnimationDir(dir);
         animator.SetFloat("AttackDir", attackAnimDir);
+        animator.SetFloat("WalkDir", attackAnimDir);
         attackTrailAnimator.SetTrigger("Attacked");
     }
 

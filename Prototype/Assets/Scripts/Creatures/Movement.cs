@@ -160,7 +160,7 @@ public class Movement : MonoBehaviour
 
     public bool IsMoving()
     {
-        return moveDir.sqrMagnitude < isMovingThreshold;
+        return moveDir.sqrMagnitude >= isMovingThreshold;
     }
 
     private void Awake()
