@@ -11,7 +11,7 @@ public class Door : Interactable
 
     [SerializeField] private float fadeOutTime = 0.5f;
     [SerializeField] private float restTime = 0.25f;
-    [SerializeField] private float fadeInTime = 0.5f;
+    //[SerializeField] private float fadeInTime = 0.5f;
 
     [Header(header: "Lock")]
     [SerializeField] private bool hasALock;
@@ -47,7 +47,7 @@ public class Door : Interactable
         PauseManager.PauseForSecondsAndPerformAction(fadeOutTime + restTime, () =>
         {
             GoThroughDoor(interactionAgent);
-            ScreenEffectManager.FadeFromCurrent(new Color(0, 0, 0, 0), fadeInTime, 0f, false);
+            //ScreenEffectManager.FadeFromCurrent(new Color(0, 0, 0, 0), fadeInTime, 0f, false);
         });
         ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutTime, 0f, true);
     }
