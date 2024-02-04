@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New NoteData", menuName = "Custom/NoteData")]
 public class NoteData : ScriptableObject
 {
-    [TextArea] public string text;
+    [TextArea] public string[] pages;
 }

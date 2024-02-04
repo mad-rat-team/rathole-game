@@ -11,12 +11,14 @@ public class NoteOverlay : MonoBehaviour
     private static NoteOverlay no;
 
     private NoteData currentNote;
+    private int currentPage;
+
     private bool noteWasIsBeingShownThisFrame;
 
     public static void ShowNote(NoteData note)
     {
         no.currentNote = note;
-        no.text.text = no.currentNote.text;
+        if (!no.ShowPage(0)) throw new System.Exception("Note is empty");
         no.parentGameObject.SetActive(true);
         no.SetNoteWasBeingShownThisFrame();
         PauseManager.SetPaused(true);
@@ -29,6 +31,16 @@ public class NoteOverlay : MonoBehaviour
         PauseManager.SetPaused(false);
     }
 
+    public static void ShowNextPage()
+    {
+        no.ShowPage(no.currentPage + 1);
+    }
+
+    public static void ShowPreviousPage()
+    {
+        no.ShowPage(no.currentPage - 1);
+    }
+
     public static bool NoteIsBeingShown()
     {
         return no.parentGameObject.activeSelf;
@@ -37,6 +49,15 @@ public class NoteOverlay : MonoBehaviour
     public static bool NoteWasBeingShownThisFrame()
     {
         return no.noteWasIsBeingShownThisFrame;
+    }
+
+    /// <returns>Returns <b>false</b> if a page with a given number does not exist. Othervise returns <b>true</b></returns>
+    private bool ShowPage(int pageNumber)
+    {
+        if (currentNote.pages.Length <= pageNumber || pageNumber < 0) return false;
+        text.text = currentNote.pages[pageNumber];
+        currentPage = pageNumber;
+        return true;
     }
 
     private void SetNoteWasBeingShownThisFrame()
