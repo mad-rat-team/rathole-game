@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NoteOverlay : MonoBehaviour
 {
     [SerializeField] private GameObject parentGameObject;
+    [SerializeField] private Button nextPageButton;
+    [SerializeField] private Button previousPageButton;
     [SerializeField] private TextMeshProUGUI text;
 
     private static NoteOverlay no;
@@ -57,6 +60,10 @@ public class NoteOverlay : MonoBehaviour
         if (currentNote.pages.Length <= pageNumber || pageNumber < 0) return false;
         text.text = currentNote.pages[pageNumber];
         currentPage = pageNumber;
+
+        nextPageButton.gameObject.SetActive(pageNumber < currentNote.pages.Length - 1);
+        previousPageButton.gameObject.SetActive(pageNumber > 0);
+
         return true;
     }
 
