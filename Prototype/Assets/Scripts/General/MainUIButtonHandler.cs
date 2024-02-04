@@ -20,6 +20,15 @@ public class MainUIButtonHandler : MonoBehaviour
         ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutTime, 0f, true);
     }
 
+    public void HandleLoadLastSaveFromDeathScreen()
+    {
+        if (!SaveSystem.SaveFileExists())
+        {
+            throw new System.Exception("Save file does not exist");
+        }
+        GameManager.LoadMainScene();
+    }
+
     public void HandleExit()
     {
         GameManager.ExitGame();
