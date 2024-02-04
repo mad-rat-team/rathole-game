@@ -73,7 +73,7 @@ public class PauseManager : MonoBehaviour
             }
         }
 
-        if (InputManager.GetButtonDown(InputManager.InputButton.Pause) && manualPauseAllowed)
+        if (InputManager.GetButtonDown(InputManager.InputButton.Pause) && manualPauseAllowed && !NoteOverlay.NoteWasBeingShownThisFrame())
         {
             SetPaused(!paused);
             TogglePauseMenu(paused);
