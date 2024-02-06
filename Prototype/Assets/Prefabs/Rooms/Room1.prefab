@@ -3324,20 +3324,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionRadius: 0
-  pulseWhenInteractable: 1
-  sprite: {fileID: 5846392968582537159}
-  maxWhitening: 0.5
-  pulsePeriod: 1
+  glowsWhenIsClosestInteractable: 0
+  glowMask: {fileID: 0}
   drawDebugGizmos: 0
   noteData: {fileID: 11400000, guid: a0520e94de439ff44b20b142347c0ab8, type: 2}
 --- !u!4 &4932476157084926431 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6439001047059341151, guid: e944e6bd70c7f9a4db21c396b1aa032f, type: 3}
-  m_PrefabInstance: {fileID: 2101001485511204480}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &5846392968582537159 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 5479419314593497415, guid: e944e6bd70c7f9a4db21c396b1aa032f, type: 3}
   m_PrefabInstance: {fileID: 2101001485511204480}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2445982547012832893
@@ -3722,11 +3715,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 80943756992694938}
   m_SourcePrefab: {fileID: 100100000, guid: e944e6bd70c7f9a4db21c396b1aa032f, type: 3}
---- !u!212 &964607930294896179 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 5479419314593497415, guid: e944e6bd70c7f9a4db21c396b1aa032f, type: 3}
-  m_PrefabInstance: {fileID: 4713077588761905012}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1743977512810387499 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6439001047059341151, guid: e944e6bd70c7f9a4db21c396b1aa032f, type: 3}
@@ -3750,10 +3738,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionRadius: 0
-  pulseWhenInteractable: 1
-  sprite: {fileID: 964607930294896179}
-  maxWhitening: 0.5
-  pulsePeriod: 1
+  glowsWhenIsClosestInteractable: 0
+  glowMask: {fileID: 0}
   drawDebugGizmos: 0
   noteData: {fileID: 11400000, guid: 0ea4d4d5c8aba7a498cf7f193bbe5468, type: 2}
 --- !u!1001 &5778580144664670777
@@ -4192,11 +4178,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5585458111982941108}
   m_SourcePrefab: {fileID: 100100000, guid: 4b5dd22ab1863114dbe68c8432885537, type: 3}
---- !u!212 &2861120163854409717 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 5479419314593497415, guid: 4b5dd22ab1863114dbe68c8432885537, type: 3}
-  m_PrefabInstance: {fileID: 7763769752102461106}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3667511343812592109 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6439001047059341151, guid: 4b5dd22ab1863114dbe68c8432885537, type: 3}
@@ -4220,10 +4201,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionRadius: 0.35
-  pulseWhenInteractable: 1
-  sprite: {fileID: 2861120163854409717}
-  maxWhitening: 0.5
-  pulsePeriod: 1
+  glowsWhenIsClosestInteractable: 0
+  glowMask: {fileID: 0}
   drawDebugGizmos: 0
   noteData: {fileID: 11400000, guid: 90b94b54c33b8814cb43a99332f4e837, type: 2}
 --- !u!1001 &7910198068636058035
@@ -4456,6 +4435,10 @@ PrefabInstance:
       propertyPath: nextRoom
       value: 
       objectReference: {fileID: 6755183147772450525, guid: da62cd62897a1274ab7ed870df8d906e, type: 3}
+    - target: {fileID: 2149416900395024933, guid: 5588711a275fda74ca5e4ef5db95694e, type: 3}
+      propertyPath: maxWhitening
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2149416900395024933, guid: 5588711a275fda74ca5e4ef5db95694e, type: 3}
       propertyPath: nextRoomName
       value: Room2

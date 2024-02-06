@@ -5,16 +5,8 @@ using UnityEngine;
 public abstract class Interactable : MonoBehaviour
 {
     [SerializeField] private float interactionRadius = 0f;
-
-    [Header("Pulse")]
-    [SerializeField] private bool pulseWhenInteractable = true;
-    [SerializeField] private SpriteRenderer sprite;
-    [SerializeField][Range(0, 1)] private float maxWhitening = 1f;
-    [SerializeField] private float pulsePeriod = 0.5f;
-
-    private bool isClosestInteractable = true;
-    private float pulseStartTime;
-    private Color startColor;
+    [SerializeField] private bool glowsWhenIsClosestInteractable = true;
+    [SerializeField] private SpriteMask glowMask;
 
     // NOTE: If NPCs can also interact, PlayerInteractions should be replaced with InteractionAgent abstract class or interface
     public abstract void Interact(PlayerInteractions interactionAgent);
@@ -23,39 +15,10 @@ public abstract class Interactable : MonoBehaviour
         return interactionRadius;
     }
 
-    public void SetIsClosestInteractable(bool newIsClosestInteractable)
+    public void SetGlowMaskActive(bool enabled)
     {
-        if (!newIsClosestInteractable)
-        {
-            isClosestInteractable = false;
-            sprite.color = startColor;
-            return;
-        }
-
-        if (isClosestInteractable) return;
-
-        isClosestInteractable = true;
-        pulseStartTime = Time.time;
-    }
-
-    private void Start()
-    {
-        if (pulseWhenInteractable)
-        {
-            startColor = sprite.color;
-        }
-    }
-
-    private void Update()
-    {
-        if(isClosestInteractable && pulseWhenInteractable)
-        {
-            //float whitening = maxWhitening * Mathf.Sin(((Time.time - pulseStartTime) * 2 * Mathf.PI) / pulsePeriod);
-            float whitening = maxWhitening * (1 + Mathf.Sin(((Time.time - pulseStartTime) * 2 * Mathf.PI) / pulsePeriod - Mathf.PI / 2)) / 2;
-            Debug.Log(new Color(startColor.r + whitening, startColor.g + whitening, startColor.b + whitening, sprite.color.a));
-            //Debug.Log($"{name}: {startColor}    {sprite}");
-            sprite.color = new Color(startColor.r + whitening, startColor.g + whitening, startColor.b + whitening, sprite.color.a);
-        }
+        if (!glowsWhenIsClosestInteractable) return;
+        glowMask.enabled = enabled;
     }
 
     private void OnDestroy()
