@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5031187388452461824}
   - component: {fileID: 4409135651120900067}
   m_Layer: 0
-  m_Name: KeySprite
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,7 +186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7858170783893118545
 Transform:
   m_ObjectHideFlags: 0
@@ -217,6 +217,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionRadius: 0
+  pulseWhenInteractable: 1
+  sprite: {fileID: 4409135651120900067}
+  maxWhitening: 0.5
+  pulsePeriod: 1
   drawDebugGizmos: 0
   inventoryItem: {fileID: 11400000, guid: ef70632792892104bab5b67c23b4b089, type: 2}
   count: 1

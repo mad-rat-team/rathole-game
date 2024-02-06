@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6277088687810219910
 Transform:
   m_ObjectHideFlags: 0
@@ -49,8 +49,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionRadius: 0
+  pulseWhenInteractable: 1
+  sprite: {fileID: 7469858106908378888}
+  maxWhitening: 0.5
+  pulsePeriod: 1
   drawDebugGizmos: 0
-  inventoryItem: {fileID: 0}
+  inventoryItem: {fileID: 11400000, guid: ab561d76c48483d4aa95a0181320133f, type: 2}
   count: 1
 --- !u!114 &-9115819331909635331
 MonoBehaviour:
