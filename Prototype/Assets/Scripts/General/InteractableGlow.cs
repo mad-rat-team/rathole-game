@@ -11,6 +11,8 @@ public class InteractableGlow : MonoBehaviour
     [SerializeField][Range(0, 1)] private float maxGlow = 0.25f;
     [SerializeField] private float pulsePeriod = 1f;
 
+    private static InteractableGlow ig;
+
     private SpriteRenderer sprite;
 
     private bool pulseEnabled;

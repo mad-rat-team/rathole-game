@@ -6,7 +6,9 @@ public abstract class Interactable : MonoBehaviour
 {
     [SerializeField] private float interactionRadius = 0f;
     [SerializeField] private bool glowsWhenIsClosestInteractable = true;
-    [SerializeField] private SpriteMask glowMask;
+    [SerializeField] private SpriteRenderer mainSprite;
+
+    private SpriteMask glowMask;
 
     // NOTE: If NPCs can also interact, PlayerInteractions should be replaced with InteractionAgent abstract class or interface
     public abstract void Interact(PlayerInteractions interactionAgent);
@@ -19,6 +21,28 @@ public abstract class Interactable : MonoBehaviour
     {
         if (!glowsWhenIsClosestInteractable) return;
         glowMask.enabled = enabled;
+    }
+    
+    public void UpdateGlowMaskTransform()
+    {
+        if (!glowsWhenIsClosestInteractable) return;
+        glowMask.gameObject.transform.position = mainSprite.gameObject.transform.position;
+        glowMask.gameObject.transform.localRotation = mainSprite.gameObject.transform.localRotation;
+        glowMask.gameObject.transform.localScale = mainSprite.gameObject.transform.localScale;
+    }
+
+    private void Awake()
+    {
+        if (glowsWhenIsClosestInteractable)
+        {
+            //GameObject glowMaskGO = Instantiate(new GameObject("Glow Mask"), transform);
+            GameObject glowMaskGO = new GameObject("Glow Mask");
+            glowMaskGO.transform.parent = transform;
+            glowMask = glowMaskGO.AddComponent<SpriteMask>();
+            glowMask.sprite = mainSprite.sprite;
+            glowMask.enabled = false;
+            UpdateGlowMaskTransform();
+        }
     }
 
     private void OnDestroy()

@@ -5,52 +5,40 @@ using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
 {
+    [SerializeField] private InteractableGlow interactableGlow;
+
     private static InteractionManager im;
+
+    private PlayerInteractions playerInteractionAgent;
+
     private List<Interactable> interactables = new List<Interactable>();
+    private Interactable closestInteractable = null;
 
     /// <summary>
-    /// Returns the closest of all interactables within interactionAgent's interaction radius. If there are no interactables within radius, returns NULL.
+    /// Returns the closest of all interactables within interactionAgent's interaction radius.
+    /// If there are no interactables within radius, returns NULL.
     /// </summary>
     /// <returns>May be NULL</returns>
     public static Interactable GetPotentialInteractable(PlayerInteractions interactionAgent)
     {
         Vector2 agentPos = interactionAgent.transform.position;
 
-        List<Interactable> interactablesWithinRadius = new List<Interactable>();
-        foreach (var interactable in im.interactables)
+        Interactable closest = null;
+        float minDistanceToPlayerSquared = float.PositiveInfinity;
+
+        foreach (Interactable interactable in im.interactables)
         {
-            float distanceToInteractable = Shortcuts.IsoToReal(agentPos - (Vector2)interactable.transform.position).SqrMagnitude();
+            float distanceSquared = Shortcuts.IsoToReal(agentPos - (Vector2)interactable.transform.position).SqrMagnitude();
             float maxAllowedDistance = interactionAgent.GetInteractionRadius() + interactable.GetInteractionRadius();
-            maxAllowedDistance *= maxAllowedDistance;
-            if (distanceToInteractable <= maxAllowedDistance)
+
+            if (distanceSquared < minDistanceToPlayerSquared && distanceSquared <= maxAllowedDistance * maxAllowedDistance)
             {
-                interactablesWithinRadius.Add(interactable);
+                closest = interactable;
+                minDistanceToPlayerSquared = distanceSquared;
             }
         }
 
-        if(interactablesWithinRadius.Count == 0)
-        {
-            return null;
-        }
-
-        interactablesWithinRadius.Sort((a, b) =>
-        {
-            float sqrDistToA = Shortcuts.IsoToReal((Vector2)a.transform.position - agentPos).SqrMagnitude();
-            float sqrDistToB = Shortcuts.IsoToReal((Vector2)b.transform.position - agentPos).SqrMagnitude();
-
-            if (sqrDistToA > sqrDistToB)
-            {
-                return 1;
-            }
-            else if (sqrDistToA < sqrDistToB)
-            {
-                return -1;
-            }
-
-            return 0;
-        }); // List.Sort() sorts in ascending order, so the comarator returns a > b if a is further away from agentPos than b
-
-        return interactablesWithinRadius[0];
+        return closest;
     }
 
     public static void Interact(PlayerInteractions interactionAgent)
@@ -75,6 +63,7 @@ public class InteractionManager : MonoBehaviour
         if (im != null)
         {
             Debug.LogWarning("More than 1 InteractionManager in the scene");
+            return;
         }
 
         im = this;
@@ -82,8 +71,32 @@ public class InteractionManager : MonoBehaviour
 
     private void Start()
     {
+        playerInteractionAgent = GameManager.GetPlayer().GetComponent<PlayerInteractions>();
         UpdateInteractables();
         RoomManager.OnRoomChanged += UpdateInteractables;
+    }
+
+    private void Update()
+    {
+        Interactable prevClosestInteractable = closestInteractable;
+        closestInteractable = GetPotentialInteractable(playerInteractionAgent);
+        if (closestInteractable != prevClosestInteractable)
+        {
+            if (prevClosestInteractable != null)
+            {
+                prevClosestInteractable.SetGlowMaskActive(false);
+            }
+
+            if (closestInteractable != null)
+            {
+                closestInteractable.SetGlowMaskActive(true);
+                interactableGlow.StartPulse();
+            }
+            else
+            {
+                interactableGlow.StopPulse();
+            }
+        }
     }
 
     private void UpdateInteractables()
