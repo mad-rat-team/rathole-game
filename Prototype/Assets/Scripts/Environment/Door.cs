@@ -29,7 +29,6 @@ public class Door : Interactable
     {
         if (RoomManager.GetCurrentRoomEnemyCount() > 0)
         {
-            //Debug.Log("Can't open the door while there are enemies in the room");
             ScreenEffectManager.ShowMessage("Can't open the door while there are enemies in the room");
             return;
         }
@@ -38,8 +37,8 @@ public class Door : Interactable
         {
             if(interactionAgent.Inventory.GetItemCount(requiredKey) <= 0)
             {
-                //Debug.Log("You don's have the required key");
-                ScreenEffectManager.ShowMessage("You don't have the required key");
+                //ScreenEffectManager.ShowMessage("You don't have the required key");
+                ScreenEffectManager.ShowMessage($"{requiredKey.itemName} required to open this door");
                 return;
             }
             SetIsLocked(false);
