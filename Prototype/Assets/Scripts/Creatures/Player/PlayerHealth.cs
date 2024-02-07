@@ -21,9 +21,6 @@ public class PlayerHealth : MonoBehaviour
         health.OnKnockbackReceived += movement.StartKnockback;
         health.OnDeath += () =>
         {
-            //PH
-            //Debug.Log("You died");
-            //Time.timeScale = 0f;
             GameManager.HandleDeath();
         };
     }

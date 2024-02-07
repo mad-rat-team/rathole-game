@@ -85,4 +85,9 @@ public class PlayerCombat : MonoBehaviour
     {
         hasWeapon = inventory.GetItemCount(weaponItem) > 0;
     }
+
+    public bool HasWeapon()
+    {
+        return hasWeapon;
+    }
 }
