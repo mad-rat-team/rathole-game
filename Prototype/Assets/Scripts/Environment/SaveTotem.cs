@@ -8,5 +8,6 @@ public class SaveTotem : Interactable
     {
         RuntimeSaveManager.SaveGame();
         interactionAgent.GetComponent<Health>().RestoreAllHealth();
+        ScreenEffectManager.ShowMessage("Progress saved\nYour health has been restored");
     }
 }
