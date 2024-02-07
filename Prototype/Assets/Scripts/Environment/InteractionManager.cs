@@ -91,6 +91,14 @@ public class InteractionManager : MonoBehaviour
             {
                 closestInteractable.SetGlowMaskActive(true);
                 interactableGlow.StartPulse();
+                if (closestInteractable.UsesCustomGlowBrightness())
+                {
+                    interactableGlow.SetMaxGlowBrightness(closestInteractable.GetCustomGlowBrightness());
+                }
+                else
+                {
+                    interactableGlow.ResetMaxGlowBrightness();
+                }
             }
             else
             {

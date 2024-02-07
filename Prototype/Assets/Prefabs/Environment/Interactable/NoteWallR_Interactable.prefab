@@ -87,7 +87,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionRadius: 0
   glowsWhenIsClosestInteractable: 1
-  mainSprite: {fileID: 5479419314593497415}
+  useCustomGlowBrightness: 0
+  customGlowBrightness: 0.5
+  maskSprite: {fileID: 5479419314593497415}
   drawDebugGizmos: 0
   noteData: {fileID: 0}
 --- !u!212 &5479419314593497415 stripped

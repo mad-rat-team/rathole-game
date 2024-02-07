@@ -4,9 +4,12 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
+    [Header("Interactable")]
     [SerializeField] private float interactionRadius = 0f;
     [SerializeField] private bool glowsWhenIsClosestInteractable = true;
-    [SerializeField] private SpriteRenderer mainSprite;
+    [SerializeField] private bool useCustomGlowBrightness = false;
+    [SerializeField][Range(0f, 1f)] private float customGlowBrightness = 0.25f;
+    [SerializeField] private SpriteRenderer maskSprite;
 
     private SpriteMask glowMask;
 
@@ -23,12 +26,22 @@ public abstract class Interactable : MonoBehaviour
         glowMask.enabled = enabled;
     }
     
-    public void UpdateGlowMaskTransform()
+    public void UpdateGlowMaskTransform() //NOTE: If sprite can move, this should be called in update
     {
         if (!glowsWhenIsClosestInteractable) return;
-        glowMask.gameObject.transform.position = mainSprite.gameObject.transform.position;
-        glowMask.gameObject.transform.localRotation = mainSprite.gameObject.transform.localRotation;
-        glowMask.gameObject.transform.localScale = mainSprite.gameObject.transform.localScale;
+        glowMask.gameObject.transform.position = maskSprite.gameObject.transform.position;
+        glowMask.gameObject.transform.localRotation = maskSprite.gameObject.transform.localRotation;
+        glowMask.gameObject.transform.localScale = maskSprite.gameObject.transform.localScale;
+    }
+
+    public bool UsesCustomGlowBrightness()
+    {
+        return useCustomGlowBrightness;
+    }
+
+    public float GetCustomGlowBrightness()
+    {
+        return customGlowBrightness;
     }
 
     private void Awake()
@@ -39,7 +52,7 @@ public abstract class Interactable : MonoBehaviour
             GameObject glowMaskGO = new GameObject("Glow Mask");
             glowMaskGO.transform.parent = transform;
             glowMask = glowMaskGO.AddComponent<SpriteMask>();
-            glowMask.sprite = mainSprite.sprite;
+            glowMask.sprite = maskSprite.sprite;
             glowMask.enabled = false;
             UpdateGlowMaskTransform();
         }

@@ -8,13 +8,14 @@ public class InteractableGlow : MonoBehaviour
     const float ADDITIONAL_SCALE_MULTIPLIER = 1.1f;
 
     [SerializeField] private Camera mainCamera;
-    [SerializeField][Range(0, 1)] private float maxGlow = 0.25f;
+    [SerializeField][Range(0, 1)] private float defaultMaxGlow = 0.35f;
     [SerializeField] private float pulsePeriod = 1f;
 
     private static InteractableGlow ig;
 
     private SpriteRenderer sprite;
 
+    private float maxGlow;
     private bool pulseEnabled;
     private float pulseStartTime;
 
@@ -32,9 +33,20 @@ public class InteractableGlow : MonoBehaviour
         sprite.color = color;
     }
 
+    public void SetMaxGlowBrightness(float maxGlowBrightness)
+    {
+        maxGlow = maxGlowBrightness;
+    }
+
+    public void ResetMaxGlowBrightness()
+    {
+        maxGlow = defaultMaxGlow;
+    }
+
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+        maxGlow = defaultMaxGlow;
     }
 
     private void Start()

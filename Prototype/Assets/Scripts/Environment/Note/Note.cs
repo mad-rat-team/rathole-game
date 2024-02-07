@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Note : Interactable
 {
+    [Header("Note")]
     [SerializeField] private NoteData noteData;
 
     public override void Interact(PlayerInteractions interactionAgent)
