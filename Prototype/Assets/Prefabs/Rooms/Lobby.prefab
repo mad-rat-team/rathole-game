@@ -1036,7 +1036,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 9
+      m_TileSpriteIndex: 19
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1586,7 +1586,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 8
+      m_TileSpriteIndex: 18
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1795,10 +1795,10 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: de9fae28e00f1ee4fb04b671b1953634, type: 3}
   - m_RefCount: 6
     m_Data: {fileID: 21300000, guid: bf2404b7e2a15864fbce84f48ecf80d4, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 0f9f5c8797ba95247b3308daf05030db, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 109fafdeb38a8864a8b00611aea3aac0, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 2
     m_Data: {fileID: 21300000, guid: 34ff14e3c2df80a449923c4e8dc57cca, type: 3}
   - m_RefCount: 0
@@ -1815,10 +1815,10 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 0f9f5c8797ba95247b3308daf05030db, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 109fafdeb38a8864a8b00611aea3aac0, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: fc9822667cb2b134bac867f76d59e0cf, type: 3}
   m_TileMatrixArray:
@@ -2935,12 +2935,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2149416900395024933, guid: 7019eb5d5f3450a45a253bbfd0427ccd, type: 3}
       propertyPath: hasALock
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2149416900395024933, guid: 7019eb5d5f3450a45a253bbfd0427ccd, type: 3}
       propertyPath: nextRoom
       value: 
       objectReference: {fileID: 6350346943489896053, guid: d124bcaa2da65eb478b59ea96006d127, type: 3}
+    - target: {fileID: 2149416900395024933, guid: 7019eb5d5f3450a45a253bbfd0427ccd, type: 3}
+      propertyPath: requiredKey
+      value: 
+      objectReference: {fileID: 11400000, guid: f9fa8ad76914ac54487b634bbba33fec, type: 2}
     - target: {fileID: 2149416900395024933, guid: 7019eb5d5f3450a45a253bbfd0427ccd, type: 3}
       propertyPath: nextRoomName
       value: SecurityRoom

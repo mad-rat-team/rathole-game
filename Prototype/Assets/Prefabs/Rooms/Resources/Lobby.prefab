@@ -3111,12 +3111,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2149416900395024933, guid: 7019eb5d5f3450a45a253bbfd0427ccd, type: 3}
       propertyPath: hasALock
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2149416900395024933, guid: 7019eb5d5f3450a45a253bbfd0427ccd, type: 3}
       propertyPath: nextRoom
       value: 
       objectReference: {fileID: 6350346943489896053, guid: d124bcaa2da65eb478b59ea96006d127, type: 3}
+    - target: {fileID: 2149416900395024933, guid: 7019eb5d5f3450a45a253bbfd0427ccd, type: 3}
+      propertyPath: requiredKey
+      value: 
+      objectReference: {fileID: 11400000, guid: f9fa8ad76914ac54487b634bbba33fec, type: 2}
     - target: {fileID: 2149416900395024933, guid: 7019eb5d5f3450a45a253bbfd0427ccd, type: 3}
       propertyPath: nextRoomName
       value: SecurityRoom
