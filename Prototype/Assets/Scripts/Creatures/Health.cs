@@ -10,16 +10,16 @@ public class Health : MonoBehaviour
     private int currentHealth;
 
     public event Action OnHit;
+    public event Action OnHeal;
     public event Action OnDeath;
-
 
     public delegate void KnockbackStartHandler(Vector2 direction, float distance, float time);
     public event KnockbackStartHandler OnKnockbackReceived;
 
     public void TakeHit(HitInfo hitInfo)
     {
-        OnHit?.Invoke();
         currentHealth -= hitInfo.attackStats.damage;
+        OnHit?.Invoke();
         if (currentHealth <= 0)
         {
             OnDeath?.Invoke();
@@ -34,6 +34,12 @@ public class Health : MonoBehaviour
     public void RestoreAllHealth()
     {
         currentHealth = maxHealth;
+        OnHeal?.Invoke();
+    }
+
+    public int GetHealthAmount()
+    {
+        return currentHealth;
     }
 
     public bool IsAlive()
