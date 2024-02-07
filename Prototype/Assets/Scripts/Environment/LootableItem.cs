@@ -12,6 +12,7 @@ public class LootableItem : Interactable, ISavable
         public int count;
         //public SerializableVector3 position;
     }
+
     [Header("LootableItem")]
     [SerializeField] private InventoryItem inventoryItem;
     [SerializeField] private int count = 1;
