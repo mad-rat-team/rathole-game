@@ -211,6 +211,10 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 2113014928}
+    - target: {fileID: 8203572169344648860, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: healthUI
+      value: 
+      objectReference: {fileID: 2100025257}
     - target: {fileID: 9129454694115212814, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -474,6 +478,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2100025257 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7833334570569532486, guid: eb954401c114a2844b2a574d2717a5e6, type: 3}
+  m_PrefabInstance: {fileID: 1028925505}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17071f573d707dd4db60b50331f58728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!20 &2113014928 stripped

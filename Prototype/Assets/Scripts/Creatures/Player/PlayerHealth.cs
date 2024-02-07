@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Movement))]
 public class PlayerHealth : MonoBehaviour
 {
+    [SerializeField] private HealthUI healthUI;
+
     private Health health;
     private Movement movement;
 
@@ -14,6 +16,8 @@ public class PlayerHealth : MonoBehaviour
         health = GetComponent<Health>();
         movement = GetComponent<Movement>();
 
+        health.OnHit += () => healthUI.UpdateHeartCount(health.GetHealthAmount());
+        health.OnHeal += () => healthUI.UpdateHeartCount(health.GetHealthAmount());
         health.OnKnockbackReceived += movement.StartKnockback;
         health.OnDeath += () =>
         {
@@ -22,5 +26,10 @@ public class PlayerHealth : MonoBehaviour
             //Time.timeScale = 0f;
             GameManager.HandleDeath();
         };
+    }
+
+    private void Start()
+    {
+        healthUI.UpdateHeartCount(health.GetHealthAmount());
     }
 }
