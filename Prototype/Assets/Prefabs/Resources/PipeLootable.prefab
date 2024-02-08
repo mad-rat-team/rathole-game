@@ -67,6 +67,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3069215744021777009, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4896289578583070720}
+    - targetCorrespondingSourceObject: {fileID: 3069215744021777009, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -619798348205842324}
+    - targetCorrespondingSourceObject: {fileID: 3069215744021777009, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7850665966546075775}
   m_SourcePrefab: {fileID: 100100000, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
 --- !u!212 &115004125482883435 stripped
 SpriteRenderer:
@@ -98,3 +104,28 @@ MonoBehaviour:
   drawDebugGizmos: 0
   inventoryItem: {fileID: 11400000, guid: ef70632792892104bab5b67c23b4b089, type: 2}
   count: 1
+--- !u!114 &-619798348205842324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5201935815037044108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e0bc957a743e042bc28069e0edff92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7850665966546075775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5201935815037044108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89d1a4a1e0ebc304f9991a4f1152b6d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabResourcePath: PipeLootable
