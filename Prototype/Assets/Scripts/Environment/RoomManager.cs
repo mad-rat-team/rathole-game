@@ -4,6 +4,8 @@ using UnityEngine;
 public class RoomManager : MonoBehaviour
 {
     const string enemyTag = "Enemy";
+    [SerializeField] private float fadeInTime = 0.5f;
+
 
     private static RoomManager rm;
 
@@ -26,6 +28,7 @@ public class RoomManager : MonoBehaviour
     {
         RuntimeSaveManager.SaveRoom(rm.currentRoom, rm.currentRoomName);
         ChangeRoomWithoutSaving(newRoomName);
+        OnRoomChanged?.Invoke();
     }
 
     public static void ChangeRoomWithoutSaving(string newRoomName)
@@ -34,7 +37,7 @@ public class RoomManager : MonoBehaviour
         if (rm.currentRoom != null) DestroyImmediate(rm.currentRoom);
         rm.currentRoom = RuntimeSaveManager.LoadRoom(newRoomName);
         rm.currentRoomName = newRoomName;
-        OnRoomChanged?.Invoke();
+        //OnRoomChanged?.Invoke();
     }
 
     public static int GetCurrentRoomEnemyCount()
@@ -58,5 +61,7 @@ public class RoomManager : MonoBehaviour
             return;
         }
         rm = this;
+
+        OnRoomChanged += () => ScreenEffectManager.FadeFromCurrent(new Color(0, 0, 0, 0), fadeInTime, 0f, false);
     }
 }

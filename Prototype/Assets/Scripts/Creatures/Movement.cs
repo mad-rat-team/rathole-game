@@ -21,6 +21,7 @@ public class Movement : MonoBehaviour
     public event StateChangeHandler OnStateChange;
 
     public enum MovementState {
+        Standing,
         Walking,
         Jumping,
         KnockedBack
@@ -41,7 +42,7 @@ public class Movement : MonoBehaviour
     private float moveDirChangeFactor = 0f;
 
     private Vector2 jumpXYVelocity;
-    private float jumpStartUpVelocity;
+    //private float jumpStartUpVelocity;
     private float jumpStartTime; //NOTE: It's possible to combine some jump and knockback variables, but I'll leave it as is for now to avoid confusion
     private float jumpTime;
 
@@ -52,6 +53,18 @@ public class Movement : MonoBehaviour
     private float knockbackAcceleration;
 
     private Rigidbody2D rb;
+
+    public void StopWalking()
+    {
+        ChangeState(MovementState.Standing);
+        ResetMoveDir();
+    }
+
+    public void StartWalking()
+    {
+        ChangeState(MovementState.Walking);
+        ResetMoveDir();
+    }
 
     public void StartKnockback(Vector2 direction, float distance, float time)
     {
@@ -147,12 +160,13 @@ public class Movement : MonoBehaviour
 
     public bool IsMoving()
     {
-        return moveDir.sqrMagnitude < isMovingThreshold;
+        return moveDir.sqrMagnitude >= isMovingThreshold;
     }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        state = MovementState.Walking;
     }
 
     private void Start()
@@ -210,6 +224,7 @@ public class Movement : MonoBehaviour
         targetMoveDir = Vector2.zero;
         moveDir = Vector2.zero;
         moveDirChangeFactor = 0f;
+        rb.velocity = Vector2.zero;
     }
 
     private void HandleJumping() //TODO
@@ -248,7 +263,6 @@ public class Movement : MonoBehaviour
     {
         MovementState oldState = state;
         state = newState;
-        //Debug.Log(oldState.ToString() + " -> " + newState.ToString());
         OnStateChange?.Invoke(oldState, newState);
     }
 

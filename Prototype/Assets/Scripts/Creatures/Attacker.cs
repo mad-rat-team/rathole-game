@@ -20,6 +20,7 @@ public class Attacker : MonoBehaviour
 
     private bool fixedDurationAttackActive;
     private float fixedDurationAttackEndTime;
+    private System.Action fixedDurationAttackEndAction = null;
 
     public void OneFrameAttack(Collider2D attackColl, Vector2 attackOrigin, Vector2 attackIsoDir)
     {
@@ -37,8 +38,17 @@ public class Attacker : MonoBehaviour
         }
     }
 
+    public void FixedDurationAttackWithEndAction(Collider2D attackColl, Transform attackOrigin, Vector2 attackIsoDir, System.Action endAction)
+    {
+        if (!CanAttack()) return;
+        fixedDurationAttackEndAction = endAction;
+        FixedDurationAttack(attackColl, attackOrigin, attackIsoDir);
+    }
+
+
     public void FixedDurationAttack(Collider2D attackColl, Transform attackOrigin, Vector2 attackIsoDir)
     {
+        if (!CanAttack()) return;
         StartLastingAttack(attackColl, attackOrigin, attackIsoDir);
         fixedDurationAttackActive = true;
         fixedDurationAttackEndTime = Time.time + lastingAttackDuration;
@@ -57,6 +67,11 @@ public class Attacker : MonoBehaviour
     public float GetAttackCooldown()
     {
         return attackCooldown;
+    }
+
+    public float GetLastingAttackDuration()
+    {
+        return lastingAttackDuration;
     }
 
     private void HandleLastingAttack()
@@ -114,6 +129,8 @@ public class Attacker : MonoBehaviour
             {
                 StopLastingAttack();
                 fixedDurationAttackActive = false;
+                fixedDurationAttackEndAction?.Invoke();
+                fixedDurationAttackEndAction = null;
             }
         }
 

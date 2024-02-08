@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class RuntimeSaveManager : MonoBehaviour
 {
+    [SerializeField] private float loadGameFadeInRestDuration = 0.5f;
+    [SerializeField] private float loadGameFadeInDuration = 1f;
+
     private static RuntimeSaveManager rsm;
 
     private SaveSystem saveSystem;
@@ -23,21 +26,17 @@ public class RuntimeSaveManager : MonoBehaviour
     public static void SaveGame()
     {
         SaveRoom(RoomManager.GetCurrentRoom(), RoomManager.GetCurrentRoomName());
-        //GameObject player = GameManager.GetPlayer();
-        //rsm.saveSystem.SavePlayerData(RoomManager.GetCurrentRoomName(), player.transform.position, player.GetComponent<Inventory>().GetState());
         rsm.saveSystem.SavePlayerState(GameManager.GetPlayer().GetComponent<PlayerData>().GetState());
-        //NOTE: GetComponent() here is not good, it would be better to have a component on player that stores other Player... components
+        //NOTE: GetComponent() here is not good, it would be better to have a component on player that stores other "Player..." components
         rsm.saveSystem.SaveToDisk();
     }
 
     public static void LoadGame()
     {
         rsm.saveSystem.LoadFromDisk();
-        //RoomManager.ChangeRoomWithoutSaving(rsm.saveSystem.GetSavedRoomName());
-        //GameObject player = GameManager.GetPlayer();
-        //player.transform.position = rsm.saveSystem.GetSavedPlayerPosition();
-        //player.GetComponent<Inventory>().LoadState(rsm.saveSystem.GetPlayerInventoryState());
         GameManager.GetPlayer().GetComponent<PlayerData>().LoadState(rsm.saveSystem.GetPlayerState());
+        ScreenEffectManager.Fade(Color.black, new Color(0, 0, 0, 0), rsm.loadGameFadeInDuration, rsm.loadGameFadeInRestDuration, false);
+        //PauseManager.SetManualPauseProhibited(true);
     }
 
     private void Awake()
@@ -53,7 +52,6 @@ public class RuntimeSaveManager : MonoBehaviour
 
         rsm = this;
 
-        //SaveSystem.CreateNewSaveFile(); // PH: This should be handled by main menu
         saveSystem = new SaveSystem(SaveSystem.SaveFileType.Existing);
     }
 

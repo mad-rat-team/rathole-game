@@ -4,13 +4,58 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
+    [Header("Interactable")]
     [SerializeField] private float interactionRadius = 0f;
+    [SerializeField] private bool glowsWhenIsClosestInteractable = true;
+    [SerializeField] private bool useCustomGlowBrightness = false;
+    [SerializeField][Range(0f, 1f)] private float customGlowBrightness = 0.25f;
+    [SerializeField] private SpriteRenderer maskSprite;
+
+    private SpriteMask glowMask;
 
     // NOTE: If NPCs can also interact, PlayerInteractions should be replaced with InteractionAgent abstract class or interface
     public abstract void Interact(PlayerInteractions interactionAgent);
     public float GetInteractionRadius()
     {
         return interactionRadius;
+    }
+
+    public void SetGlowMaskActive(bool enabled)
+    {
+        if (!glowsWhenIsClosestInteractable) return;
+        glowMask.enabled = enabled;
+    }
+    
+    public void UpdateGlowMaskTransform() //NOTE: If sprite can move, this should be called in update
+    {
+        if (!glowsWhenIsClosestInteractable) return;
+        glowMask.gameObject.transform.position = maskSprite.gameObject.transform.position;
+        glowMask.gameObject.transform.localRotation = maskSprite.gameObject.transform.localRotation;
+        glowMask.gameObject.transform.localScale = maskSprite.gameObject.transform.localScale;
+    }
+
+    public bool UsesCustomGlowBrightness()
+    {
+        return useCustomGlowBrightness;
+    }
+
+    public float GetCustomGlowBrightness()
+    {
+        return customGlowBrightness;
+    }
+
+    private void Awake()
+    {
+        if (glowsWhenIsClosestInteractable)
+        {
+            //GameObject glowMaskGO = Instantiate(new GameObject("Glow Mask"), transform);
+            GameObject glowMaskGO = new GameObject("Glow Mask");
+            glowMaskGO.transform.parent = transform;
+            glowMask = glowMaskGO.AddComponent<SpriteMask>();
+            glowMask.sprite = maskSprite.sprite;
+            glowMask.enabled = false;
+            UpdateGlowMaskTransform();
+        }
     }
 
     private void OnDestroy()
