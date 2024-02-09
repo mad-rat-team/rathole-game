@@ -12,6 +12,7 @@ public class Rat : MonoBehaviour
     [SerializeField] private float minJumpOffset = 0.125f;
     [SerializeField] private float maxJumpOffset = 1f;
     [SerializeField] private float maxAdditionalJumpCooldown = 1f;
+    [SerializeField] private float firstJumpCooldown = 2f;
     [SerializeField] private Animator animator;
     [SerializeField] private Collider2D attackColl;
     [SerializeField] private GameObject corpseGO;
@@ -44,6 +45,7 @@ public class Rat : MonoBehaviour
 
     private void Start()
     {
+        nextAttackTime = Time.time + firstJumpCooldown;
         movement.SetMoveSpeed(walkSpeed);
         player = GameObject.FindWithTag("Player"); //PH (probably not)
     }
