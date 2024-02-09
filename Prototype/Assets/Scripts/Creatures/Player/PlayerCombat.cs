@@ -30,7 +30,7 @@ public class PlayerCombat : MonoBehaviour
         {
             if (item == weaponItem)
             {
-                hasWeapon = true;
+                SetHasWeapon(true);
             }
         };
 
@@ -76,14 +76,15 @@ public class PlayerCombat : MonoBehaviour
         attackTrailAnimator.SetTrigger("Attacked");
     }
 
-    //public void Reset()
-    //{
-    //    hasWeapon = false;
-    //}
+    private void SetHasWeapon(bool newHasWeapon)
+    {
+        hasWeapon = newHasWeapon;
+        animator.SetBool("HasWeapon", hasWeapon);
+    }
 
     public void ResetHasWeapon()
     {
-        hasWeapon = inventory.GetItemCount(weaponItem) > 0;
+        SetHasWeapon(inventory.GetItemCount(weaponItem) > 0);
     }
 
     public bool HasWeapon()
