@@ -18,7 +18,8 @@ public class Health : MonoBehaviour
 
     public void TakeHit(HitInfo hitInfo)
     {
-        currentHealth -= hitInfo.attackStats.damage;
+        //currentHealth -= hitInfo.attackStats.damage;
+        SetHealth(currentHealth - hitInfo.attackStats.damage);
         OnHit?.Invoke();
         if (currentHealth <= 0)
         {
