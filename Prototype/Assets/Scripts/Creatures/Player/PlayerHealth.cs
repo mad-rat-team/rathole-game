@@ -12,6 +12,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float deathScreenDelay = 2f;
     [SerializeField] private float fadeOutDuration = 1f;
     [SerializeField] private float fadeOutDelay = 0.5f;
+    [SerializeField] private float corpseLen = 2f;
+    [SerializeField] private LayerMask environmentLayerMask;
 
     private Health health;
     private Movement movement;
@@ -40,6 +42,11 @@ public class PlayerHealth : MonoBehaviour
             }
             StartCoroutine(waitAndHandleDeathCoroutine());
 
+            RaycastHit2D hitR = Physics2D.Raycast(transform.position, Vector2.right, corpseLen, environmentLayerMask);
+            RaycastHit2D hitL = Physics2D.Raycast(transform.position, Vector2.left, corpseLen, environmentLayerMask);
+            bool dropToTheRight = hitR.collider == null || hitR.distance <= hitL.distance;
+
+            animator.SetBool("DropToTheRight", dropToTheRight);
             animator.SetTrigger("Died");
             ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutDuration, fadeOutDelay, false);
         };
