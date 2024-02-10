@@ -10,7 +10,7 @@ public class Health : MonoBehaviour
     private int currentHealth;
 
     public event Action OnHit;
-    public event Action OnHeal;
+    public event Action OnHealthChange;
     public event Action OnDeath;
 
     public delegate void KnockbackStartHandler(Vector2 direction, float distance, float time);
@@ -33,8 +33,13 @@ public class Health : MonoBehaviour
 
     public void RestoreAllHealth()
     {
-        currentHealth = maxHealth;
-        OnHeal?.Invoke();
+        SetHealth(maxHealth);
+    }
+
+    public void SetHealth(int healthAmount)
+    {
+        currentHealth = healthAmount;
+        OnHealthChange?.Invoke();
     }
 
     public int GetHealthAmount()

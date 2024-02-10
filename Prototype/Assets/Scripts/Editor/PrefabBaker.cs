@@ -72,7 +72,8 @@ public static class PrefabBaker
                 {
                     position = new SerializableVector3(playerPos),
                     currentRoomName = roomName,
-                    inventoryState = Inventory.GetEmptyState()
+                    inventoryState = Inventory.GetEmptyState(),
+                    health = 1, // Maybe this value should be stored somewhere, idk
                 });
 
                 if (!foundPlayerStartPos)
