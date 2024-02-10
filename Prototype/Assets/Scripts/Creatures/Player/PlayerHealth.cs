@@ -16,8 +16,8 @@ public class PlayerHealth : MonoBehaviour
         health = GetComponent<Health>();
         movement = GetComponent<Movement>();
 
-        health.OnHit += () => healthUI.UpdateHeartCount(health.GetHealthAmount());
-        health.OnHeal += () => healthUI.UpdateHeartCount(health.GetHealthAmount());
+        //health.OnHit += () => healthUI.UpdateHeartCount(health.GetHealthAmount());
+        health.OnHealthChange += () => healthUI.UpdateHeartCount(health.GetHealthAmount());
         health.OnKnockbackReceived += movement.StartKnockback;
         health.OnDeath += () =>
         {
