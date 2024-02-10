@@ -218,7 +218,7 @@ public class Movement : MonoBehaviour
         rb.velocity = moveDir * moveSpeed;
     }
 
-    private void ResetMoveDir()
+    public void ResetMoveDir()
     {
         startMoveDir = Vector2.zero;
         targetMoveDir = Vector2.zero;
