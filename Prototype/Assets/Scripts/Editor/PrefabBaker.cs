@@ -18,6 +18,8 @@ public static class PrefabBaker
     private static string prefabExtension = ".prefab";
     private static string roomTag = "Room";
 
+    private static int initialPlayerHealth = 1;
+
     //public class RoomBakerWindow : EditorWindow
     //{
     //    public static void ShowWindow()
@@ -73,7 +75,7 @@ public static class PrefabBaker
                     position = new SerializableVector3(playerPos),
                     currentRoomName = roomName,
                     inventoryState = Inventory.GetEmptyState(),
-                    health = 1, // Maybe this value should be stored somewhere, idk
+                    health = initialPlayerHealth,
                 });
 
                 if (!foundPlayerStartPos)
