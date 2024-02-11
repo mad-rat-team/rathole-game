@@ -142,18 +142,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 32308735699775075, guid: e47b061738533c048a29a60e40425420, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 32308735699775075, guid: e47b061738533c048a29a60e40425420, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2768348733256467111, guid: e47b061738533c048a29a60e40425420, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 1015
-      objectReference: {fileID: 0}
     - target: {fileID: 6404874311041514010, guid: e47b061738533c048a29a60e40425420, type: 3}
       propertyPath: m_Follow
       value: 
@@ -218,22 +206,6 @@ PrefabInstance:
     - target: {fileID: 3110448896672116035, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4103359919959518293, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4103359919959518293, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-      propertyPath: m_Size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4103359919959518293, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 1581266748, guid: f2dc2a4e4c86f9440a279d2c2be2c3a4, type: 3}
-    - target: {fileID: 4103359919959518293, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6956284265177250919, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
       propertyPath: playerCamera

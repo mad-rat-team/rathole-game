@@ -11,8 +11,6 @@ public class InteractableGlow : MonoBehaviour
     [SerializeField][Range(0, 1)] private float defaultMaxGlow = 0.35f;
     [SerializeField] private float pulsePeriod = 1f;
 
-    private static InteractableGlow ig;
-
     private SpriteRenderer sprite;
 
     private float maxGlow;
@@ -41,6 +39,16 @@ public class InteractableGlow : MonoBehaviour
     public void ResetMaxGlowBrightness()
     {
         maxGlow = defaultMaxGlow;
+    }
+
+    public int GetSortingLayerID()
+    {
+        return sprite.sortingLayerID;
+    }
+
+    public int GetOrderInLayer()
+    {
+        return sprite.sortingOrder;
     }
 
     private void Awake()

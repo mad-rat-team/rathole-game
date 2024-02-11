@@ -53,6 +53,11 @@ public abstract class Interactable : MonoBehaviour
             glowMaskGO.transform.parent = transform;
             glowMask = glowMaskGO.AddComponent<SpriteMask>();
             glowMask.sprite = maskSprite.sprite;
+            glowMask.isCustomRangeActive = true;
+            glowMask.frontSortingLayerID = InteractionManager.GetInteractableGlow().GetSortingLayerID();
+            glowMask.frontSortingOrder = InteractionManager.GetInteractableGlow().GetOrderInLayer() + 1;
+            glowMask.backSortingLayerID = InteractionManager.GetInteractableGlow().GetSortingLayerID();
+            glowMask.backSortingOrder = InteractionManager.GetInteractableGlow().GetOrderInLayer() - 1;
             glowMask.enabled = false;
             UpdateGlowMaskTransform();
         }

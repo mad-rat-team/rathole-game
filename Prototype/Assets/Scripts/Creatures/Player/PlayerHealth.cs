@@ -9,6 +9,9 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private HealthUI healthUI;
     [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer playerSprite;
+    [SerializeField] private SpriteMask playerSpriteMask;
+    [SerializeField] private Animator colorChangerAnimator;
     [SerializeField] private float deathScreenDelay = 2f;
     [SerializeField] private float fadeOutDuration = 1f;
     [SerializeField] private float fadeOutDelay = 0.5f;
@@ -27,33 +30,47 @@ public class PlayerHealth : MonoBehaviour
 
         health.OnHealthChange += () => healthUI.UpdateHeartCount(health.GetHealthAmount());
         health.OnKnockbackReceived += movement.StartKnockback;
-        health.OnDeath += () =>
-        {
-            if (!alive) return;
-            alive = false;
-            movement.ResetMoveDir();
-            movement.enabled = false;
-            GetComponent<PlayerCombat>().enabled = false;
-
-            IEnumerator waitAndHandleDeathCoroutine()
-            {
-                yield return new WaitForSeconds(deathScreenDelay);
-                GameManager.HandleDeath();
-            }
-            StartCoroutine(waitAndHandleDeathCoroutine());
-
-            RaycastHit2D hitR = Physics2D.Raycast(transform.position, Vector2.right, corpseLen, environmentLayerMask);
-            RaycastHit2D hitL = Physics2D.Raycast(transform.position, Vector2.left, corpseLen, environmentLayerMask);
-            bool dropToTheRight = hitR.collider == null || hitR.distance <= hitL.distance;
-
-            animator.SetBool("DropToTheRight", dropToTheRight);
-            animator.SetTrigger("Died");
-            ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutDuration, fadeOutDelay, false);
-        };
+        health.OnDeath += HandleOnDeath;
+        health.OnHit += HandleOnHit;
     }
 
     private void Start()
     {
         healthUI.UpdateHeartCount(health.GetHealthAmount());
+    }
+
+    private void Update()
+    {
+        playerSpriteMask.sprite = playerSprite.sprite;
+    }
+
+    private void HandleOnHit()
+    {
+        if (!alive) return;
+        colorChangerAnimator.SetTrigger("Hit");
+    }
+
+    private void HandleOnDeath()
+    {
+        if (!alive) return;
+        alive = false;
+        movement.ResetMoveDir();
+        movement.enabled = false;
+        GetComponent<PlayerCombat>().enabled = false;
+
+        IEnumerator waitAndHandleDeathCoroutine()
+        {
+            yield return new WaitForSeconds(deathScreenDelay);
+            GameManager.HandleDeath();
+        }
+        StartCoroutine(waitAndHandleDeathCoroutine());
+
+        RaycastHit2D hitR = Physics2D.Raycast(transform.position, Vector2.right, corpseLen, environmentLayerMask);
+        RaycastHit2D hitL = Physics2D.Raycast(transform.position, Vector2.left, corpseLen, environmentLayerMask);
+        bool dropToTheRight = hitR.collider == null || hitR.distance <= hitL.distance;
+
+        animator.SetBool("DropToTheRight", dropToTheRight);
+        animator.SetTrigger("Died");
+        ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutDuration, fadeOutDelay, false);
     }
 }

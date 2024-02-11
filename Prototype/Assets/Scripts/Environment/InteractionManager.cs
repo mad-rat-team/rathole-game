@@ -58,6 +58,11 @@ public class InteractionManager : MonoBehaviour
         im.interactables.Remove(interactable);
     }
 
+    public static InteractableGlow GetInteractableGlow()
+    {
+        return im.interactableGlow;
+    }
+
     private void Awake()
     {
         if (im != null)
