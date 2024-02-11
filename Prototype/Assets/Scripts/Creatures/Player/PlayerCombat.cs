@@ -12,10 +12,13 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private GameObject attackTrail;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Animator animator;
+    [SerializeField] private int orderInLayerBehind = -1;
+    [SerializeField] private int orderInLayerFront = 1;
 
     private Attacker attacker;
     private Inventory inventory;
     private Collider2D attackTrailColl;
+    private SpriteRenderer attackTrailSprite;
     private Animator attackTrailAnimator;
     private Movement movement;
 
@@ -43,6 +46,11 @@ public class PlayerCombat : MonoBehaviour
         {
             Debug.LogError("attackTrail does not have an Animator component");
         }
+        
+        if (!attackTrail.TryGetComponent<SpriteRenderer>(out attackTrailSprite))
+        {
+            Debug.LogError("attackTrail does not have a SpriteRenderer component");
+        }
     }
 
     private void Update()
@@ -68,6 +76,8 @@ public class PlayerCombat : MonoBehaviour
 
         movement.StopWalking();
         attacker.FixedDurationAttackWithEndAction(attackTrailColl, attackTrailRotator.transform, Shortcuts.RealToIso(dir), movement.StartWalking);
+
+        attackTrailSprite.sortingOrder = attackAngle > 0 ? orderInLayerBehind : orderInLayerFront;
 
         animator.SetTrigger("Attacked");
         float attackAnimDir = Shortcuts.RealVectorToAnimationDir(dir);
