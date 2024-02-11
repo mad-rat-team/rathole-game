@@ -203,9 +203,61 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2745185328333515408, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745185328333515408, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].y
+      value: 0.2198468
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745185328333515408, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
+      value: 0.27239984
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745185328333515408, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].y
+      value: 0.16672975
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745185328333515408, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].y
+      value: -0.16989794
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745185328333515408, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].y
+      value: -0.2842642
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745185328333515408, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[5].y
+      value: -0.23441015
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745185328333515408, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[6].y
+      value: -0.1137398
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745185328333515408, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[7].y
+      value: 0.1265495
+      objectReference: {fileID: 0}
+    - target: {fileID: 3007187289494323106, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3110448896672116035, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103359919959518293, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103359919959518293, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103359919959518293, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6956284265177250919, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
       propertyPath: playerCamera
@@ -290,10 +342,6 @@ PrefabInstance:
     - target: {fileID: 2516789879601979221, guid: eb954401c114a2844b2a574d2717a5e6, type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 5260931497685570100, guid: eb954401c114a2844b2a574d2717a5e6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8434642280599848725, guid: eb954401c114a2844b2a574d2717a5e6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
