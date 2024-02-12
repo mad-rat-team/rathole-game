@@ -7,6 +7,6 @@ public class FinalRoomManager : MonoBehaviour
 {
     private void Start()
     {
-        //GameManager.LoadFinalScene();
+        GameManager.LoadEndingCutsceneScene();
     }
 }

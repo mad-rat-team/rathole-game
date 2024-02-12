@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     const string mainSceneName = "Main";
     const string mainMenuSceneName = "MainMenu";
+    const string endingCutsceneScene = "EndingCutscene";
     const string finalScreenSceneName = "FinalScreen";
 
     public static void HandleDeath()
@@ -38,9 +39,14 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
-    public static void LoadFinalScene()
+    public static void LoadFinalScreenScene()
     {
         SceneManager.LoadScene(finalScreenSceneName);
+    }
+
+    public static void LoadEndingCutsceneScene()
+    {
+        SceneManager.LoadScene(endingCutsceneScene);
     }
 
     public static GameObject GetPlayer()
