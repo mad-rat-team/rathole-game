@@ -348,9 +348,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1600222926879090375}
     - target: {fileID: 8512613624710113006, guid: eb954401c114a2844b2a574d2717a5e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512613624710113006, guid: eb954401c114a2844b2a574d2717a5e6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1600222926879090375}
+    - target: {fileID: 8512613624710113006, guid: eb954401c114a2844b2a574d2717a5e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HandleLoadLastSave
+      objectReference: {fileID: 0}
     - target: {fileID: 8608452168764590679, guid: eb954401c114a2844b2a574d2717a5e6, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -584,6 +592,10 @@ PrefabInstance:
       propertyPath: interactableGlow
       value: 
       objectReference: {fileID: 1909954319}
+    - target: {fileID: 4972650843789508284, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
+      propertyPath: fadeOutTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8362519724292382408, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

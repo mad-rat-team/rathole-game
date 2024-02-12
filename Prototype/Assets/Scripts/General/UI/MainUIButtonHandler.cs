@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class MainUIButtonHandler : MonoBehaviour
 {
+    [SerializeField] private float fadeOutTime = 1f;
+
     public void HandleMainMenu()
     {
-        GameManager.LoadMainMenuScene();
+        PauseManager.TogglePauseMenu(false);
+        PauseManager.PauseForSecondsAndPerformAction(fadeOutTime, GameManager.LoadMainMenuScene);
+        ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutTime, 0f, true);
     }
 
-    public void HandleLoadLastSave(float fadeOutTime)
+    public void HandleLoadLastSave()
     {
         if (!SaveSystem.SaveFileExists())
         {

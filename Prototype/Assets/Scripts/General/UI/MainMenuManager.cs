@@ -7,34 +7,49 @@ public class MainMenuManager : MonoBehaviour
 {
     //private SaveSystem saveSystem;
     [SerializeField] private Button loadGameButton;
+    [SerializeField] private float fadeInDuration = 1f;
+    [SerializeField] private float fadeOutDuration = 1f;
+
+    private bool active = true;
 
     public void HandleNewGame()
     {
+        if (!active) return;
         SaveSystem.CreateNewSaveFile();
-        GameManager.LoadMainScene();
+        FadeAndLoad();
     }
 
     public void HandleLoadGame()
     {
+        if (!active) return;
         if (!SaveSystem.SaveFileExists())
         {
             throw new System.Exception("Save file does not exist");
         }
-        GameManager.LoadMainScene();
+        FadeAndLoad();
     }
 
     public void HandleExit()
     {
+        if (!active) return;
         GameManager.ExitGame();
     }
 
-    //private void Awake()
-    //{
-    //    saveSystem = new SaveSystem(SaveSystem.SaveFileType.Existing);
-    //}
+    private void FadeAndLoad()
+    {
+        active = false;
+        ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutDuration, 0f, false);
+        IEnumerator waitAndLoad()
+        {
+            yield return new WaitForSeconds(fadeOutDuration);
+            GameManager.LoadMainScene();
+        };
+        StartCoroutine(waitAndLoad());
+    }
 
     private void Start()
     {
         loadGameButton.interactable = SaveSystem.SaveFileExists();
+        ScreenEffectManager.Fade(Color.black, new Color(0, 0, 0, 0), fadeInDuration, 0f, false);
     }
 }

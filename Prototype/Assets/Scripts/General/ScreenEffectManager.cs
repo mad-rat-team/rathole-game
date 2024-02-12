@@ -64,7 +64,7 @@ public class ScreenEffectManager : MonoBehaviour
 
     private void Start()
     {
-        messageAnimator = messageText.GetComponent<Animator>();
+        messageAnimator = messageText?.GetComponent<Animator>();
     }
 
     private void Update()

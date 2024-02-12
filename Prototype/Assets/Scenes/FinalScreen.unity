@@ -313,7 +313,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 514316183}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd3a8f844d6a45941ba216cbcff107cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 47ce5e4c3b7444d41945f38c3cd59896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &741599247
@@ -775,7 +775,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 514316185}
-        m_TargetAssemblyTypeName: MainUIButtonHandler, Assembly-CSharp
+        m_TargetAssemblyTypeName: FinalScreenManager, Assembly-CSharp
         m_MethodName: HandleMainMenu
         m_Mode: 1
         m_Arguments:
@@ -1134,7 +1134,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 514316185}
-        m_TargetAssemblyTypeName: MainUIButtonHandler, Assembly-CSharp
+        m_TargetAssemblyTypeName: FinalScreenManager, Assembly-CSharp
         m_MethodName: HandleExit
         m_Mode: 1
         m_Arguments:
