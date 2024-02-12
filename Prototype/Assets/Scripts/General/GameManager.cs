@@ -10,8 +10,9 @@ public class GameManager : MonoBehaviour
 
     private static GameManager gm;
 
-    const string MainSceneName = "Main";
-    const string MainMenuSceneName = "MainMenu";
+    const string mainSceneName = "Main";
+    const string mainMenuSceneName = "MainMenu";
+    const string finalScreenSceneName = "FinalScreen";
 
     public static void HandleDeath()
     {
@@ -28,13 +29,18 @@ public class GameManager : MonoBehaviour
     public static void LoadMainScene()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(MainSceneName);
+        SceneManager.LoadScene(mainSceneName);
     }
 
     public static void LoadMainMenuScene()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(MainMenuSceneName);
+        SceneManager.LoadScene(mainMenuSceneName);
+    }
+
+    public static void LoadFinalScene()
+    {
+        SceneManager.LoadScene(finalScreenSceneName);
     }
 
     public static GameObject GetPlayer()

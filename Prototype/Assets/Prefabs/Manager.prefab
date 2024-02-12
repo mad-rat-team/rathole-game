@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12504eeffda148a4d8beb194b965dd6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableGlow: {fileID: 0}
 --- !u!114 &4328195439025380549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ee83de8e55969c46a9518365138650a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeInTime: 0.5
 --- !u!114 &5165269382990011873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 0}
+  messageText: {fileID: 0}
 --- !u!114 &4972650843789508284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,3 +131,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd3a8f844d6a45941ba216cbcff107cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeOutTime: 1

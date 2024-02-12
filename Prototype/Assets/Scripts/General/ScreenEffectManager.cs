@@ -49,6 +49,11 @@ public class ScreenEffectManager : MonoBehaviour
         sem.messageAnimator.SetTrigger("ShowMessage");
     }
 
+    public static void SetMessageVisible(bool visible)
+    {
+        sem.messageText.enabled = visible;
+    }
+
     private void Awake()
     {
         if (sem != null)

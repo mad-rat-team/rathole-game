@@ -23,6 +23,11 @@ public class PlayerHealth : MonoBehaviour
 
     private bool alive = true;
 
+    public void SetHealthUIVisible(bool visible)
+    {
+        healthUI.SetHeartsVisible(visible);
+    }
+
     private void Awake()
     {
         health = GetComponent<Health>();

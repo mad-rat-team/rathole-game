@@ -17,6 +17,11 @@ public class HealthUI : MonoBehaviour
         rectTransform.sizeDelta = newSizeDelta;
     }
 
+    public void SetHeartsVisible(bool visible)
+    {
+        image.enabled = visible;
+    }
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
