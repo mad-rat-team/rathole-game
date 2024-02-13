@@ -1,12 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EndingCutsceneManager : MonoBehaviour
 {
-    public void Start()
+    [SerializeField] private TextMeshProUGUI text;
+
+    public enum Ending
     {
-        Time.timeScale = 1f;
+        Caught = 1,
+        Escape = 2
+    }
+
+    public static Ending ending;
+
+    private void Start()
+    {
+        Time.timeScale = 1f; //just in case
+
+        text.text = GetEndingText();
+
         ScreenEffectManager.Fade(Color.black, new Color(0, 0, 0, 0), 1.5f, 0.5f, false);
 
         IEnumerator waitAndGoToFinalScreen()
@@ -23,5 +37,15 @@ public class EndingCutsceneManager : MonoBehaviour
         }
 
         StartCoroutine(waitAndFade());
+    }
+
+    private string GetEndingText()
+    {
+        return ending switch
+        {
+            Ending.Caught => "You got caught",
+            Ending.Escape => "You made it to the surface",
+            _ => ":)"
+        };
     }
 }
