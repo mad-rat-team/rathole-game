@@ -10,6 +10,7 @@ public class FinalRoomManager : MonoBehaviour
     private void Start()
     {
         EndingCutsceneManager.ending = ending;
+        FinalScreenManager.foundWeapon = GameManager.GetPlayer().GetComponent<PlayerCombat>().HasWeapon();
         GameManager.LoadEndingCutsceneScene();
     }
 }
