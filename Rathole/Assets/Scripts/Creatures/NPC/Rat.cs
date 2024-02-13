@@ -15,7 +15,8 @@ public class Rat : MonoBehaviour
     [SerializeField] private float firstJumpCooldown = 2f;
     [SerializeField] private Animator animator;
     [SerializeField] private Collider2D attackColl;
-    [SerializeField] private GameObject corpseGO;
+    [SerializeField] private GameObject corpseLeftGO;
+    [SerializeField] private GameObject corpseRightGO;
 
     private Movement movement;
     private Health health;
@@ -23,6 +24,7 @@ public class Rat : MonoBehaviour
 
     private GameObject player;
     private bool alive = true;
+    private bool dieToTheRight;
     private float nextAttackTime;
 
     private void Awake()
@@ -36,6 +38,9 @@ public class Rat : MonoBehaviour
         health.OnDeath += () => 
         {
             alive = false;
+            dieToTheRight = Random.Range(0, 1) == 1;
+            animator.SetBool("DieToTheRight", dieToTheRight);
+            animator.SetTrigger("Die");
             //animator.gameObject.GetComponent<SpriteRenderer>().flipY = true; // PH
         };
 
@@ -78,8 +83,8 @@ public class Rat : MonoBehaviour
                 break;
         }
 
-        //animator.SetFloat("WalkDir", Shortcuts.IsoVectorToAnimationDir(movement.GetWalkDir())); // Not PH
-        animator.SetFloat("WalkDir", Shortcuts.RealVectorToAnimationDir(Shortcuts.IsoToReal(movement.GetMoveDir()))); //PH
+        //animator.SetFloat("WalkDir", Shortcuts.RealVectorToAnimationDir(Shortcuts.IsoToReal(movement.GetMoveDir()))); //PH
+        animator.SetFloat("MoveDir", Shortcuts.RealVectorToAnimationDir(Shortcuts.IsoToReal(movement.GetMoveDir())));
     }
 
     private void HandleMovementStateChange(Movement.MovementState from, Movement.MovementState to)
@@ -88,6 +93,7 @@ public class Rat : MonoBehaviour
         {
             case Movement.MovementState.Jumping:
                 attacker.StopLastingAttack();
+                animator.SetBool("IsJumping", false);
                 break;
             case Movement.MovementState.KnockedBack:
                 //animator.SetBool("KnockedBack", false);
@@ -99,11 +105,12 @@ public class Rat : MonoBehaviour
         {
             case Movement.MovementState.Jumping:
                 attacker.StartLastingAttack(attackColl, attackColl.transform, movement.GetMoveDir());
+                animator.SetBool("IsJumping", true);
                 break;
             case Movement.MovementState.Walking:
                 if (!alive)
                 {
-                    Instantiate(corpseGO, transform.position, Quaternion.identity, transform.parent);
+                    Instantiate(dieToTheRight ? corpseRightGO : corpseLeftGO, transform.position, Quaternion.identity, transform.parent);
                     Destroy(gameObject);
                 }
                 break;
