@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
-    //private SaveSystem saveSystem;
     [SerializeField] private Button loadGameButton;
     [SerializeField] private float fadeInDuration = 1f;
     [SerializeField] private float fadeOutDuration = 1f;
+    [SerializeField] private GameObject controlsParent;
+    [SerializeField] private GameObject creditsParent;
 
     private bool active = true;
 
@@ -29,10 +30,30 @@ public class MainMenuManager : MonoBehaviour
         FadeAndLoad();
     }
 
+    public void HandleControls()
+    {
+        controlsParent.SetActive(true);
+    }
+
+    public void HandleControlsBack()
+    {
+        controlsParent.SetActive(false);
+    }
+
     public void HandleExit()
     {
         if (!active) return;
         GameManager.ExitGame();
+    }
+
+    public void HandleCredits()
+    {
+        creditsParent.SetActive(true);
+    }
+
+    public void HandleCreditsBack()
+    {
+        creditsParent.SetActive(false);
     }
 
     private void FadeAndLoad()
