@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Movement))]
@@ -38,10 +39,9 @@ public class Rat : MonoBehaviour
         health.OnDeath += () => 
         {
             alive = false;
-            dieToTheRight = Random.Range(0, 1) == 1;
+            dieToTheRight = Random.Range(0, 2) == 1;
             animator.SetBool("DieToTheRight", dieToTheRight);
             animator.SetTrigger("Die");
-            //animator.gameObject.GetComponent<SpriteRenderer>().flipY = true; // PH
         };
 
         //Not this one though
@@ -96,8 +96,10 @@ public class Rat : MonoBehaviour
                 animator.SetBool("IsJumping", false);
                 break;
             case Movement.MovementState.KnockedBack:
-                //animator.SetBool("KnockedBack", false);
-                animator.enabled = true;
+                if (alive)
+                {
+                    animator.enabled = true;
+                }
                 break;
         }
 
@@ -115,8 +117,10 @@ public class Rat : MonoBehaviour
                 }
                 break;
             case Movement.MovementState.KnockedBack:
-                //animator.SetBool("KnockedBack", true);
-                animator.enabled = false;
+                if (alive)
+                {
+                    animator.enabled = false;
+                }
                 break;
         }
     }
