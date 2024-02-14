@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 7147324491222390422, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: cab2f84be077e9540a8bcb41b7c6d72c, type: 3}
+      objectReference: {fileID: 21300000, guid: 929960b30fc574e49a054e7d08eccaa8, type: 3}
     - target: {fileID: 8530176419208562830, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -121,10 +121,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 0.25}
-      - {x: -0.5, y: 0}
-      - {x: 0, y: -0.25}
-      - {x: 0.5, y: 0}
+    - - {x: 0, y: 0.125}
+      - {x: -0.25, y: 0}
+      - {x: 0, y: -0.125}
+      - {x: 0.25, y: 0}
   m_UseDelaunayMesh: 0
 --- !u!114 &5732558408833594584
 MonoBehaviour:
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionRadius: 0.5
   glowsWhenIsClosestInteractable: 1
-  useCustomGlowBrightness: 0
-  customGlowBrightness: 0.25
+  useCustomGlowBrightness: 1
+  customGlowBrightness: 0.125
   maskSprite: {fileID: 1431090887088456210}
-  drawDebugGizmos: 1
+  drawDebugGizmos: 0
