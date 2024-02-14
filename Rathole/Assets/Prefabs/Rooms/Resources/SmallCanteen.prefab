@@ -1325,7 +1325,7 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 4773039593462383439}
---- !u!1 &6061200900738093353
+--- !u!1 &6004954166974612544
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1333,8 +1333,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6766921011345704331}
-  - component: {fileID: 1835096942281950252}
+  - component: {fileID: 1545665437071949167}
+  - component: {fileID: 7666230754996179273}
   m_Layer: 0
   m_Name: PlateSprite
   m_TagString: Untagged
@@ -1342,28 +1342,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6766921011345704331
+--- !u!4 &1545665437071949167
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6061200900738093353}
+  m_GameObject: {fileID: 6004954166974612544}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0625, y: 0.5703125, z: 0}
+  m_LocalPosition: {x: 0.078125, y: 0.8671875, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2014209260201405734}
+  m_Father: {fileID: 7570153211060686059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1835096942281950252
+--- !u!212 &7666230754996179273
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6061200900738093353}
+  m_GameObject: {fileID: 6004954166974612544}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -1409,7 +1409,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &7888719136197923505
+--- !u!1 &6061200900738093353
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1417,8 +1417,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9043623152914689616}
-  - component: {fileID: 1791780234207430097}
+  - component: {fileID: 6766921011345704331}
+  - component: {fileID: 1835096942281950252}
   m_Layer: 0
   m_Name: PlateSprite
   m_TagString: Untagged
@@ -1426,28 +1426,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9043623152914689616
+--- !u!4 &6766921011345704331
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7888719136197923505}
+  m_GameObject: {fileID: 6061200900738093353}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.078125, y: 0.8671875, z: 0}
+  m_LocalPosition: {x: -0.0625, y: 0.5703125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7570153211060686059}
+  m_Father: {fileID: 2014209260201405734}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1791780234207430097
+--- !u!212 &1835096942281950252
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7888719136197923505}
+  m_GameObject: {fileID: 6061200900738093353}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -2158,7 +2158,7 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8525096884236473523, guid: de08c127f1060184b91cdb0de222219b, type: 3}
       insertIndex: 0
-      addedObject: {fileID: 9043623152914689616}
+      addedObject: {fileID: 1545665437071949167}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de08c127f1060184b91cdb0de222219b, type: 3}
 --- !u!4 &5045258922730508988 stripped
