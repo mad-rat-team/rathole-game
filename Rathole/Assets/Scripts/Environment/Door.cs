@@ -46,12 +46,10 @@ public class Door : Interactable
 
         // All conditions to go through the door have been met
 
-        PauseManager.PauseForSecondsAndPerformAction(fadeOutTime + restTime, () =>
-        {
-            GoThroughDoor(interactionAgent);
-            //ScreenEffectManager.FadeFromCurrent(new Color(0, 0, 0, 0), fadeInTime, 0f, false);
-        });
+        PauseManager.PauseForSecondsAndPerformAction(fadeOutTime + restTime, () => GoThroughDoor(interactionAgent));
         ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutTime, 0f, true);
+
+        SoundManager.PlaySoundEffect(SoundName.DoorOpen);
     }
 
     private void GoThroughDoor(PlayerInteractions interactionAgent)
@@ -82,6 +80,8 @@ public class Door : Interactable
 
         // NOTE: Maybe change agent's position not directly but through Movement
         interactionAgent.transform.position = nextRoomPlayerPos;
+
+        SoundManager.PlaySoundEffect(SoundName.DoorClose);
     }
 
     private void OnDrawGizmosSelected()
