@@ -22,11 +22,11 @@ public class LootableItem : Interactable, ISavable
         interactionAgent.Inventory.StoreItems(inventoryItem, count);
         if(count == 1)
         {
-            ScreenEffectManager.ShowMessage($"{inventoryItem.itemName} obtained");
+            ScreenEffectManager.ShowMessage($"{inventoryItem.GetTMPColoredName()} obtained");
         }
         else
         {
-            ScreenEffectManager.ShowMessage($"X{count} {inventoryItem.itemName} obtained");
+            ScreenEffectManager.ShowMessage($"X{count} {inventoryItem.GetTMPColoredName()} obtained");
         }
         Destroy(gameObject);
     }

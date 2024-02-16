@@ -6,6 +6,12 @@ using UnityEngine;
 public class InventoryItem : ScriptableObject
 {
     public string itemName;
+    public Color nameColor = new Color(255, 255, 255, 255);
     //public Sprite menuSprite;
     //public bool visibleInInventory = true;
+
+    public string GetTMPColoredName()
+    {
+        return $"<color=#{ColorUtility.ToHtmlStringRGBA(nameColor)}>{itemName}</color>";
+    }
 }

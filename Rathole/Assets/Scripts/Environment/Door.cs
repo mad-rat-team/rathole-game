@@ -38,7 +38,7 @@ public class Door : Interactable
             if(interactionAgent.Inventory.GetItemCount(requiredKey) <= 0)
             {
                 //ScreenEffectManager.ShowMessage("You don't have the required key");
-                ScreenEffectManager.ShowMessage($"{requiredKey.itemName} required to open this door");
+                ScreenEffectManager.ShowMessage($"{requiredKey.GetTMPColoredName()} required to open this door");
                 return;
             }
             SetIsLocked(false);
