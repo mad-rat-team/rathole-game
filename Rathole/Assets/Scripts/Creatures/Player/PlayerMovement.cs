@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     {
         movement.SetTargetMoveDir(Shortcuts.RealToIso(InputManager.GetInputMoveDir()));
 
+        //Animations
         bool isMoving = movement.IsMoving();
         if (isMoving) animator.SetFloat("WalkDir", Shortcuts.RealVectorToAnimationDir(Shortcuts.IsoToReal(movement.GetWalkDir())));
         animator.SetBool("IsWalking", movement.GetMovementState() == Movement.MovementState.Walking && isMoving);
