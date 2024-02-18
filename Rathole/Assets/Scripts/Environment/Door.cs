@@ -29,6 +29,7 @@ public class Door : Interactable
     {
         if (RoomManager.GetCurrentRoomEnemyCount() > 0)
         {
+            SoundManager.PlaySoundEffect(SoundName.KeyTwist);
             ScreenEffectManager.ShowMessage("Can't open the door while there are enemies in the room");
             return;
         }
@@ -37,7 +38,7 @@ public class Door : Interactable
         {
             if(interactionAgent.Inventory.GetItemCount(requiredKey) <= 0)
             {
-                //ScreenEffectManager.ShowMessage("You don't have the required key");
+                SoundManager.PlaySoundEffect(SoundName.KeyTwist);
                 ScreenEffectManager.ShowMessage($"{requiredKey.GetTMPColoredName()} required to open this door");
                 return;
             }

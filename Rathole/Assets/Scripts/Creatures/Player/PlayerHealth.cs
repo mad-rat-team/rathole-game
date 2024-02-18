@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(Movement))]
 [RequireComponent(typeof(PlayerCombat))]
+[RequireComponent(typeof(PlayerInteractions))]
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private HealthUI healthUI;
@@ -62,6 +63,7 @@ public class PlayerHealth : MonoBehaviour
         movement.ResetMoveDir();
         movement.enabled = false;
         GetComponent<PlayerCombat>().enabled = false;
+        GetComponent<PlayerInteractions>().enabled = false;
 
         IEnumerator waitAndHandleDeathCoroutine()
         {

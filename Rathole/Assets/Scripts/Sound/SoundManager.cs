@@ -16,8 +16,6 @@ public class SoundManager : MonoBehaviour
 
     public static void PlaySoundEffect(SoundName soundName)
     {
-        //AudioClipInfo soundInfo = sm.GetSoundInfo(soundName);
-        //Debug.Log(sm.sounds.Keys.First());
         AudioClipInfo soundInfo = sm.sounds[soundName].GetAudioClipInfo();
         sm.audioSource.PlayOneShot(soundInfo.audioClip, soundInfo.volume);
     }
@@ -60,7 +58,6 @@ public class SoundManager : MonoBehaviour
 
         foreach (var kv in tempDict)
         {
-            //Debug.Log($"{kv.Key}: {kv.Value.Count}");
             if (kv.Value.Count == 1)
             {
                 sounds[kv.Key] = new SimpleSound(kv.Value[0]);
