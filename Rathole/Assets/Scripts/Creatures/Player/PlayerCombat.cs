@@ -90,6 +90,10 @@ public class PlayerCombat : MonoBehaviour
     {
         hasWeapon = newHasWeapon;
         animator.SetBool("HasWeapon", hasWeapon);
+        //animator.Rebind();
+        animator.SetBool("IsWalking", !animator.GetBool("IsWalking"));
+        animator.Update(0f);
+        animator.SetBool("IsWalking", !animator.GetBool("IsWalking"));
     }
 
     public void ResetHasWeapon()
