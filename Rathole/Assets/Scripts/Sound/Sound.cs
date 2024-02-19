@@ -8,7 +8,10 @@ public enum SoundName
     DoorOpen,
     DoorClose,
     KeyTwist,
-    Footstep
+    Footstep,
+    NoteOpen,
+    PageTurn,
+    NoteClose
 }
 
 [System.Serializable]
