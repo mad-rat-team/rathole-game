@@ -36,7 +36,7 @@ public class Rat : MonoBehaviour
 
         //Subscribing to events - PH, should be abstracted to not write this every time for a new enemy
         health.OnKnockbackReceived += movement.StartKnockback;
-        health.OnDeath += () => 
+        health.OnDeath += () =>
         {
             alive = false;
             dieToTheRight = Random.Range(0, 2) == 1;

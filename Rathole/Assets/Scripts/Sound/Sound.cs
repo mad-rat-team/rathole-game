@@ -13,7 +13,9 @@ public enum SoundName
     PageTurn,
     NoteClose,
     PipeSwing,
-    Hit
+    Hit,
+    ItemPickUp,
+    SaveTotem
 }
 
 [System.Serializable]
