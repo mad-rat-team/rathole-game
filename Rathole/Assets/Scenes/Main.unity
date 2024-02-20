@@ -207,10 +207,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6161051263559759676, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
-      propertyPath: footstepSoundInterval
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6956284265177250919, guid: aa0d2dcffcb467d43a65e50cfe0788a0, type: 3}
       propertyPath: playerCamera
       value: 
@@ -537,25 +533,45 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 700094300}
     - target: {fileID: 1829651175769433668, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
-      propertyPath: audioClipInfoArray.Array.data[5].volume
+      propertyPath: audioClipInfoArray.Array.size
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829651175769433668, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
+      propertyPath: audioClipInfoArray.Array.data[12].volume
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1829651175769433668, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
-      propertyPath: audioClipInfoArray.Array.data[6].volume
+      propertyPath: audioClipInfoArray.Array.data[13].volume
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1829651175769433668, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
-      propertyPath: audioClipInfoArray.Array.data[7].volume
+      propertyPath: audioClipInfoArray.Array.data[14].volume
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1829651175769433668, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
-      propertyPath: audioClipInfoArray.Array.data[3].audioClip
+      propertyPath: audioClipInfoArray.Array.data[15].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829651175769433668, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
+      propertyPath: audioClipInfoArray.Array.data[16].volume
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829651175769433668, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
+      propertyPath: audioClipInfoArray.Array.data[15].audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 30c8307b6f386494f81a481f3b6cff47, type: 3}
+      objectReference: {fileID: 8300000, guid: d5297150852134e4c8a8ca7d3c2d4bc7, type: 3}
     - target: {fileID: 1829651175769433668, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
-      propertyPath: audioClipInfoArray.Array.data[4].audioClip
+      propertyPath: audioClipInfoArray.Array.data[15].soundName
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829651175769433668, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
+      propertyPath: audioClipInfoArray.Array.data[16].audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 6a17f138877003a469072a7b2ad5ab62, type: 3}
+      objectReference: {fileID: 8300000, guid: 506f80031ac5acb4f8830a848738c2da, type: 3}
+    - target: {fileID: 1829651175769433668, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
+      propertyPath: audioClipInfoArray.Array.data[16].soundName
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2482397440151752519, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
       propertyPath: m_Name
       value: Manager

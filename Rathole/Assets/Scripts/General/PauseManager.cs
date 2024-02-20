@@ -13,6 +13,13 @@ public class PauseManager : MonoBehaviour
     private float unpauseTime;
     private System.Action onUnpauseAction;
 
+    private bool manualPauseAllowed = true;
+
+    public static void SetManualPauseAllowed(bool newManualPauseAllowed)
+    {
+        pm.manualPauseAllowed = newManualPauseAllowed;
+    }
+
     public static void PauseForSecondsAndPerformAction(float duration, System.Action action)
     {
         pm.unpauseTime = Time.unscaledTime + duration;
@@ -66,7 +73,7 @@ public class PauseManager : MonoBehaviour
             }
         }
 
-        if (InputManager.GetButtonDown(InputManager.InputButton.Pause) && !NoteOverlay.NoteWasBeingShownThisFrame())
+        if (InputManager.GetButtonDown(InputManager.InputButton.Pause) && !NoteOverlay.NoteWasBeingShownThisFrame() && manualPauseAllowed)
         {
             SetPaused(!paused);
             SetPauseMenuActive(paused);

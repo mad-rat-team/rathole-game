@@ -11,7 +11,11 @@ public enum SoundName
     Footstep,
     NoteOpen,
     PageTurn,
-    NoteClose
+    NoteClose,
+    PipeSwing,
+    Hit,
+    ItemPickUp,
+    SaveTotem
 }
 
 [System.Serializable]

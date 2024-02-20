@@ -28,6 +28,7 @@ public class LootableItem : Interactable, ISavable
         {
             ScreenEffectManager.ShowMessage($"X{count} {inventoryItem.GetTMPColoredName()} obtained");
         }
+        SoundManager.PlaySoundEffect(SoundName.ItemPickUp);
         Destroy(gameObject);
     }
 

@@ -64,11 +64,15 @@ public class PlayerHealth : MonoBehaviour
         movement.enabled = false;
         GetComponent<PlayerCombat>().enabled = false;
         GetComponent<PlayerInteractions>().enabled = false;
+        PauseManager.SetPaused(false);
+        PauseManager.SetPauseMenuActive(false);
+        PauseManager.SetManualPauseAllowed(false);
 
         IEnumerator waitAndHandleDeathCoroutine()
         {
             yield return new WaitForSeconds(deathScreenDelay);
             GameManager.HandleDeath();
+            ScreenEffectManager.FadeFromCurrent(new Color(0, 0, 0, 0), 0.5f, 0f, true);
         }
         StartCoroutine(waitAndHandleDeathCoroutine());
 
