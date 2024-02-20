@@ -84,6 +84,8 @@ public class PlayerCombat : MonoBehaviour
         animator.SetFloat("AttackDir", attackAnimDir);
         animator.SetFloat("WalkDir", attackAnimDir);
         attackTrailAnimator.SetTrigger("Attacked");
+
+        SoundManager.PlaySoundEffect(SoundName.PipeSwing);
     }
 
     private void SetHasWeapon(bool newHasWeapon)
