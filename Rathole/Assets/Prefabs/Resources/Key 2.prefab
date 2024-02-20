@@ -48,12 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a6d7b56cccd270409d9fa61a38ebcdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionRadius: 0
+  interactionRadius: 0.2
   glowsWhenIsClosestInteractable: 1
   useCustomGlowBrightness: 0
   customGlowBrightness: 0.25
   maskSprite: {fileID: 7469858106908378888}
-  drawDebugGizmos: 0
+  drawDebugGizmos: 1
   inventoryItem: {fileID: 11400000, guid: ab561d76c48483d4aa95a0181320133f, type: 2}
   count: 1
 --- !u!114 &-9115819331909635331
@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89d1a4a1e0ebc304f9991a4f1152b6d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabResourcePath: Key
+  prefabResourcePath: Key 2
 --- !u!1 &3177632853554762832
 GameObject:
   m_ObjectHideFlags: 0
