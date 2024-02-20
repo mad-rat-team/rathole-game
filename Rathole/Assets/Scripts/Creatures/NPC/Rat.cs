@@ -44,6 +44,11 @@ public class Rat : MonoBehaviour
             animator.SetTrigger("Die");
         };
 
+        health.OnHit += () =>
+        {
+            SoundManager.PlaySoundEffect(SoundName.Hit);
+        };
+
         //Not this one though
         movement.OnStateChange += HandleMovementStateChange;
     }
