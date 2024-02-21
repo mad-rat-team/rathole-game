@@ -20,9 +20,12 @@ public class SoundManager : MonoBehaviour
         sm.sfxAudioSource.PlayOneShot(soundInfo.audioClip, soundInfo.volume);
     }
 
-    public static void SetSoundtrack()
+    public static void SetSoundtrack(SoundName soundName)
     {
-        //sm.sfxAudioSource.Play
+        AudioClipInfo soundInfo = sm.sounds[soundName].GetAudioClipInfo();
+        sm.soundtrackAudioSource.clip = soundInfo.audioClip;
+        sm.soundtrackAudioSource.volume = soundInfo.volume;
+        sm.soundtrackAudioSource.Play();
     }
 
     private void Awake()
