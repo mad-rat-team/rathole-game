@@ -13,6 +13,10 @@ public class SoundManager : MonoBehaviour
     private static SoundManager sm;
 
     private Dictionary<SoundName, Sound> sounds = new();
+    private AudioClipInfo currentSoundtrackInfo;
+    private bool fadingOut;
+    private float fadeOutDuration;
+    private float fadeOutStartTime;
 
     public static void PlaySoundEffect(SoundName soundName)
     {
@@ -22,10 +26,17 @@ public class SoundManager : MonoBehaviour
 
     public static void SetSoundtrack(SoundName soundName)
     {
-        AudioClipInfo soundInfo = sm.sounds[soundName].GetAudioClipInfo();
-        sm.soundtrackAudioSource.clip = soundInfo.audioClip;
-        sm.soundtrackAudioSource.volume = soundInfo.volume;
+        sm.currentSoundtrackInfo = sm.sounds[soundName].GetAudioClipInfo();
+        sm.soundtrackAudioSource.clip = sm.currentSoundtrackInfo.audioClip;
+        sm.soundtrackAudioSource.volume = sm.currentSoundtrackInfo.volume;
         sm.soundtrackAudioSource.Play();
+    }
+
+    public static void FadeOutSoundtrack(float fadeOutDuration)
+    {
+        sm.fadingOut = true;
+        sm.fadeOutDuration = fadeOutDuration;
+        sm.fadeOutStartTime = Time.unscaledTime;
     }
 
     private void Awake()
@@ -60,6 +71,20 @@ public class SoundManager : MonoBehaviour
             {
                 // NOTE: Maybe there should be an option to allow repeating sounds
                 sounds[kv.Key] = new RandomSound(kv.Value.ToArray(), false);
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (fadingOut)
+        {
+            float timePassedRelative = (Time.unscaledTime - fadeOutStartTime) / fadeOutDuration;
+            soundtrackAudioSource.volume = currentSoundtrackInfo.volume * (1 - timePassedRelative);
+            if (timePassedRelative > 1f)
+            {
+                soundtrackAudioSource.Stop();
+                fadingOut = false;
             }
         }
     }

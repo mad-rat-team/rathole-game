@@ -83,5 +83,6 @@ public class PlayerHealth : MonoBehaviour
         animator.SetBool("DropToTheRight", dropToTheRight);
         animator.SetTrigger("Died");
         ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutDuration, fadeOutDelay, false);
+        SoundManager.FadeOutSoundtrack(fadeOutDuration + fadeOutDelay);
     }
 }

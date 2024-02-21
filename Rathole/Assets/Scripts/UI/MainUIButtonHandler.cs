@@ -17,6 +17,7 @@ public class MainUIButtonHandler : MonoBehaviour
         PauseManager.SetPauseMenuActive(false);
         PauseManager.PauseForSecondsAndPerformAction(fadeOutTime, GameManager.LoadMainMenuScene);
         ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutTime, 0f, true);
+        SoundManager.FadeOutSoundtrack(fadeOutTime);
     }
 
     public void HandleLoadLastSave()
@@ -28,6 +29,7 @@ public class MainUIButtonHandler : MonoBehaviour
         PauseManager.SetPauseMenuActive(false);
         PauseManager.PauseForSecondsAndPerformAction(fadeOutTime, GameManager.LoadMainScene);
         ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutTime, 0f, true);
+        SoundManager.FadeOutSoundtrack(fadeOutTime);
     }
 
     public void HandleLoadLastSaveFromDeathScreen()
@@ -36,7 +38,7 @@ public class MainUIButtonHandler : MonoBehaviour
         {
             throw new System.Exception("Save file does not exist");
         }
-        GameManager.LoadMainScene();
+        HandleLoadLastSave();
     }
 
     public void HandleExit()
