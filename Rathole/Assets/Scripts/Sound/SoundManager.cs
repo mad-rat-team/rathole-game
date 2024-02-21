@@ -4,16 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
+    [SerializeField] private AudioSource sfxAudioSource;
     [SerializeField] private AudioSource soundtrackAudioSource;
-    //[SerializeField] private AudioClipInfo[] audioClipInfoArray;
     [SerializeField] private SoundEffectMapping soundEffectMapping;
 
     private static SoundManager sm;
 
-    private AudioSource sfxAudioSource;
     private Dictionary<SoundName, Sound> sounds = new();
 
     public static void PlaySoundEffect(SoundName soundName)
@@ -35,8 +33,6 @@ public class SoundManager : MonoBehaviour
             return;
         }
         sm = this;
-
-        sfxAudioSource = GetComponent<AudioSource>();
 
         Dictionary<SoundName, List<AudioClipInfo>> tempDict = new();
 
