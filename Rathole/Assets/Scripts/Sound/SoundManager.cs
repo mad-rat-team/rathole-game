@@ -7,29 +7,24 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] private AudioClipInfo[] audioClipInfoArray;
+    [SerializeField] private AudioSource soundtrackAudioSource;
+    //[SerializeField] private AudioClipInfo[] audioClipInfoArray;
+    [SerializeField] private SoundEffectMapping soundEffectMapping;
 
     private static SoundManager sm;
 
-    private AudioSource audioSource;
+    private AudioSource sfxAudioSource;
     private Dictionary<SoundName, Sound> sounds = new();
 
     public static void PlaySoundEffect(SoundName soundName)
     {
         AudioClipInfo soundInfo = sm.sounds[soundName].GetAudioClipInfo();
-        sm.audioSource.PlayOneShot(soundInfo.audioClip, soundInfo.volume);
+        sm.sfxAudioSource.PlayOneShot(soundInfo.audioClip, soundInfo.volume);
     }
 
-    private AudioClipInfo GetSoundInfo(SoundName soundName)
+    public static void SetSoundtrack()
     {
-        foreach (AudioClipInfo soundAudioClip in audioClipInfoArray)
-        {
-            if (soundAudioClip.soundName == soundName)
-            {
-                return soundAudioClip;
-            }
-        }
-        return null;
+        //sm.sfxAudioSource.Play
     }
 
     private void Awake()
@@ -41,11 +36,11 @@ public class SoundManager : MonoBehaviour
         }
         sm = this;
 
-        audioSource = GetComponent<AudioSource>();
+        sfxAudioSource = GetComponent<AudioSource>();
 
         Dictionary<SoundName, List<AudioClipInfo>> tempDict = new();
 
-        foreach (AudioClipInfo audioClipInfo in audioClipInfoArray)
+        foreach (AudioClipInfo audioClipInfo in soundEffectMapping.audioClipInfoArray)
         {
             if (tempDict.ContainsKey(audioClipInfo.soundName)) {
                 tempDict[audioClipInfo.soundName].Add(audioClipInfo);

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public enum SoundName
 {
+    SoundtrackMain,
     DoorOpen,
     DoorClose,
     KeyTwist,

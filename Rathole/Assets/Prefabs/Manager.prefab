@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 340d71b3518308445acb295af8984756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundtrackAudioSource: {fileID: 0}
   audioClipInfoArray:
   - soundName: 0
     audioClip: {fileID: 8300000, guid: 31442982505e2af4b82ca62dff569e5e, type: 3}
@@ -185,13 +186,19 @@ MonoBehaviour:
     volume: 0.5
   - soundName: 8
     audioClip: {fileID: 8300000, guid: ec0849699a7db7248bf5c12bd64f6733, type: 3}
-    volume: 1
+    volume: 0.5
   - soundName: 8
     audioClip: {fileID: 8300000, guid: 36c5cf0cfe0cd964e9a09cb75f1ccd1d, type: 3}
-    volume: 1
+    volume: 0.5
   - soundName: 8
     audioClip: {fileID: 8300000, guid: 0567de87fea97e44ebf35aa66e1bfb41, type: 3}
+    volume: 0.5
+  - soundName: 9
+    audioClip: {fileID: 8300000, guid: d5297150852134e4c8a8ca7d3c2d4bc7, type: 3}
     volume: 1
+  - soundName: 10
+    audioClip: {fileID: 8300000, guid: 506f80031ac5acb4f8830a848738c2da, type: 3}
+    volume: 0.75
 --- !u!82 &4163706217699829849
 AudioSource:
   m_ObjectHideFlags: 0
