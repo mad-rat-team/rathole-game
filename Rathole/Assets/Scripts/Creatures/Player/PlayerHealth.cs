@@ -54,6 +54,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!alive) return;
         colorChangerAnimator.SetTrigger("Hit");
+        SoundManager.PlaySoundEffect(SoundName.DamageGrunt);
     }
 
     private void HandleOnDeath()
@@ -83,5 +84,6 @@ public class PlayerHealth : MonoBehaviour
         animator.SetBool("DropToTheRight", dropToTheRight);
         animator.SetTrigger("Died");
         ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutDuration, fadeOutDelay, false);
+        SoundManager.FadeOutSoundtrack(fadeOutDuration + fadeOutDelay);
     }
 }

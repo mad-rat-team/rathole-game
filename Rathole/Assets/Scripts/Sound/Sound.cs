@@ -5,18 +5,19 @@ using UnityEngine;
 
 public enum SoundName
 {
-    SoundtrackMain,
-    DoorOpen,
-    DoorClose,
-    KeyTwist,
-    Footstep,
-    NoteOpen,
-    PageTurn,
-    NoteClose,
-    PipeSwing,
-    Hit,
-    ItemPickUp,
-    SaveTotem
+    DoorOpen = 0,
+    DoorClose = 1,
+    KeyTwist = 2,
+    Footstep = 3,
+    NoteOpen = 4,
+    PageTurn = 5,
+    NoteClose = 6,
+    PipeSwing = 7,
+    Hit = 8,
+    ItemPickUp = 9,
+    SaveTotem = 10,
+    DamageGrunt = 11,
+    SoundtrackMain = 1000
 }
 
 [System.Serializable]

@@ -3,18 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 
-[RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] private AudioSource soundtrackAudioSource;
-    //[SerializeField] private AudioClipInfo[] audioClipInfoArray;
+    [SerializeField] private AudioSource sfxAudioSource;
+    [SerializeField] private AudioMixer sfxMixer;
+    [SerializeField] private AudioSource musicAudioSource;
+    [SerializeField] private AudioMixer musicMixer;
     [SerializeField] private SoundEffectMapping soundEffectMapping;
 
     private static SoundManager sm;
 
-    private AudioSource sfxAudioSource;
     private Dictionary<SoundName, Sound> sounds = new();
+    private AudioClipInfo currentSoundtrackInfo;
+    private bool fadingOut;
+    private float fadeOutDuration;
+    private float fadeOutStartTime;
 
     public static void PlaySoundEffect(SoundName soundName)
     {
@@ -22,9 +27,34 @@ public class SoundManager : MonoBehaviour
         sm.sfxAudioSource.PlayOneShot(soundInfo.audioClip, soundInfo.volume);
     }
 
-    public static void SetSoundtrack()
+    public static void SetSoundtrack(SoundName soundName)
     {
-        //sm.sfxAudioSource.Play
+        sm.currentSoundtrackInfo = sm.sounds[soundName].GetAudioClipInfo();
+        sm.musicAudioSource.clip = sm.currentSoundtrackInfo.audioClip;
+        sm.musicAudioSource.volume = sm.currentSoundtrackInfo.volume;
+        sm.musicAudioSource.Play();
+    }
+
+    public static void SetSoundEffectVolume(float volume)
+    {
+        sm.sfxMixer.SetFloat("Volume", SliderToDb(volume));
+    }
+    
+    public static void SetMusicVolume(float volume)
+    {
+        sm.musicMixer.SetFloat("Volume", SliderToDb(volume));
+    }
+
+    private static float SliderToDb(float sliderVolume)
+    {
+        return Mathf.Log10(Mathf.Clamp(sliderVolume, Mathf.Epsilon, 1f)) * 20f + 10f;
+    }
+
+    public static void FadeOutSoundtrack(float fadeOutDuration)
+    {
+        sm.fadingOut = true;
+        sm.fadeOutDuration = fadeOutDuration;
+        sm.fadeOutStartTime = Time.unscaledTime;
     }
 
     private void Awake()
@@ -35,8 +65,6 @@ public class SoundManager : MonoBehaviour
             return;
         }
         sm = this;
-
-        sfxAudioSource = GetComponent<AudioSource>();
 
         Dictionary<SoundName, List<AudioClipInfo>> tempDict = new();
 
@@ -61,6 +89,20 @@ public class SoundManager : MonoBehaviour
             {
                 // NOTE: Maybe there should be an option to allow repeating sounds
                 sounds[kv.Key] = new RandomSound(kv.Value.ToArray(), false);
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (fadingOut)
+        {
+            float timePassedRelative = (Time.unscaledTime - fadeOutStartTime) / fadeOutDuration;
+            musicAudioSource.volume = currentSoundtrackInfo.volume * (1 - timePassedRelative);
+            if (timePassedRelative > 1f)
+            {
+                musicAudioSource.Stop();
+                fadingOut = false;
             }
         }
     }
