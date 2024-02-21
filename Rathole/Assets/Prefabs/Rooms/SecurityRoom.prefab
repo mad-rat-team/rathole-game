@@ -1678,7 +1678,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7702483281822573092, guid: ce69732fbb741d44ab3630a01ebc9d56, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: -1.078125
       objectReference: {fileID: 0}
     - target: {fileID: 7702483281822573092, guid: ce69732fbb741d44ab3630a01ebc9d56, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1718,10 +1718,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8729364261638923679, guid: ce69732fbb741d44ab3630a01ebc9d56, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.15625
       objectReference: {fileID: 0}
     - target: {fileID: 8729364261638923679, guid: ce69732fbb741d44ab3630a01ebc9d56, type: 3}
       propertyPath: m_LocalPosition.y
+      value: -0.375
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202424414707055676, guid: ce69732fbb741d44ab3630a01ebc9d56, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 75746d4e1873ccf4cb03cf1cbc5a5eaa, type: 3}
+    - target: {fileID: 9202424414707055676, guid: ce69732fbb741d44ab3630a01ebc9d56, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1764,7 +1772,7 @@ MonoBehaviour:
   useCustomGlowBrightness: 0
   customGlowBrightness: 0.25
   maskSprite: {fileID: 3112099585217419562}
-  drawDebugGizmos: 1
+  drawDebugGizmos: 0
   noteData: {fileID: 11400000, guid: e86bc6560d9957d4395104c9278017d7, type: 2}
 --- !u!1001 &7423649498818289693
 PrefabInstance:
