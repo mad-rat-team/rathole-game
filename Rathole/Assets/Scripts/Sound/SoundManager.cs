@@ -21,6 +21,9 @@ public class SoundManager : MonoBehaviour
     private float fadeOutDuration;
     private float fadeOutStartTime;
 
+    private float sfxVolume = 0.5f;
+    private float musicVolume = 0.5f;
+
     public static void PlaySoundEffect(SoundName soundName)
     {
         AudioClipInfo soundInfo = sm.sounds[soundName].GetAudioClipInfo();
@@ -37,11 +40,13 @@ public class SoundManager : MonoBehaviour
 
     public static void SetSoundEffectVolume(float volume)
     {
+        sm.sfxVolume = volume;
         sm.sfxMixer.SetFloat("Volume", SliderToDb(volume));
     }
     
     public static void SetMusicVolume(float volume)
     {
+        sm.musicVolume = volume;
         sm.musicMixer.SetFloat("Volume", SliderToDb(volume));
     }
 
@@ -55,6 +60,37 @@ public class SoundManager : MonoBehaviour
         sm.fadingOut = true;
         sm.fadeOutDuration = fadeOutDuration;
         sm.fadeOutStartTime = Time.unscaledTime;
+    }
+
+    public static void SavePrefs()
+    {
+        PlayerPrefs.SetFloat("SfxVolume", sm.sfxVolume);
+        PlayerPrefs.SetFloat("MusicVolume", sm.musicVolume);
+    }
+
+    public static void SaveSfxVolume()
+    {
+        PlayerPrefs.SetFloat("SfxVolume", sm.sfxVolume);
+    }
+
+    public static void SaveMusicVolume()
+    {
+        PlayerPrefs.SetFloat("MusicVolume", sm.musicVolume);
+    }
+
+    public static float GetSfxVolume()
+    {
+        return sm.sfxVolume;
+    }
+    public static float GetMusicVolume()
+    {
+        return sm.musicVolume;
+    }
+
+    private void LoadPrefs()
+    {
+        sfxVolume = PlayerPrefs.GetFloat("SfxVolume", 0.5f);
+        musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
     }
 
     private void Awake()
@@ -91,6 +127,8 @@ public class SoundManager : MonoBehaviour
                 sounds[kv.Key] = new RandomSound(kv.Value.ToArray(), false);
             }
         }
+
+        LoadPrefs();
     }
 
     private void Update()
