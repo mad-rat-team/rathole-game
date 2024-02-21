@@ -16,6 +16,7 @@ public enum SoundName
     Hit = 8,
     ItemPickUp = 9,
     SaveTotem = 10,
+    DamageGrunt = 11,
     SoundtrackMain = 1000
 }
 

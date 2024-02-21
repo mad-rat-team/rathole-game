@@ -54,6 +54,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!alive) return;
         colorChangerAnimator.SetTrigger("Hit");
+        SoundManager.PlaySoundEffect(SoundName.DamageGrunt);
     }
 
     private void HandleOnDeath()
