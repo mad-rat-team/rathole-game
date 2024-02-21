@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ending: 1
+  endingCutsceneDelay: 2
+  door: {fileID: 5159771657060419825}
 --- !u!1 &6350346943489896053
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,5 +177,10 @@ PrefabInstance:
 --- !u!4 &153797488342648018 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3383079035587245736, guid: 5588711a275fda74ca5e4ef5db95694e, type: 3}
+  m_PrefabInstance: {fileID: 3229497052194763386}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5159771657060419825 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7731073663982271115, guid: 5588711a275fda74ca5e4ef5db95694e, type: 3}
   m_PrefabInstance: {fileID: 3229497052194763386}
   m_PrefabAsset: {fileID: 0}

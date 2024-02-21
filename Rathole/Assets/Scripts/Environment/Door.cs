@@ -29,6 +29,7 @@ public class Door : Interactable
     {
         if (RoomManager.GetCurrentRoomEnemyCount() > 0)
         {
+            SoundManager.PlaySoundEffect(SoundName.KeyTwist);
             ScreenEffectManager.ShowMessage("Can't open the door while there are enemies in the room");
             return;
         }
@@ -37,8 +38,8 @@ public class Door : Interactable
         {
             if(interactionAgent.Inventory.GetItemCount(requiredKey) <= 0)
             {
-                //ScreenEffectManager.ShowMessage("You don't have the required key");
-                ScreenEffectManager.ShowMessage($"{requiredKey.itemName} required to open this door");
+                SoundManager.PlaySoundEffect(SoundName.KeyTwist);
+                ScreenEffectManager.ShowMessage($"{requiredKey.GetTMPColoredName()} required to open this door");
                 return;
             }
             SetIsLocked(false);
@@ -46,12 +47,10 @@ public class Door : Interactable
 
         // All conditions to go through the door have been met
 
-        PauseManager.PauseForSecondsAndPerformAction(fadeOutTime + restTime, () =>
-        {
-            GoThroughDoor(interactionAgent);
-            //ScreenEffectManager.FadeFromCurrent(new Color(0, 0, 0, 0), fadeInTime, 0f, false);
-        });
+        PauseManager.PauseForSecondsAndPerformAction(fadeOutTime + restTime, () => GoThroughDoor(interactionAgent));
         ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutTime, 0f, true);
+
+        SoundManager.PlaySoundEffect(SoundName.DoorOpen);
     }
 
     private void GoThroughDoor(PlayerInteractions interactionAgent)
@@ -82,6 +81,8 @@ public class Door : Interactable
 
         // NOTE: Maybe change agent's position not directly but through Movement
         interactionAgent.transform.position = nextRoomPlayerPos;
+
+        SoundManager.PlaySoundEffect(SoundName.DoorClose);
     }
 
     private void OnDrawGizmosSelected()

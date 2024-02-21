@@ -25,16 +25,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7861666429580422302, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
+      propertyPath: m_Name
+      value: MaskSprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 7861666429580422302, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8530176419208562830, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1484375
+      value: -0.3125
       objectReference: {fileID: 0}
     - target: {fileID: 8530176419208562830, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.9179688
+      value: 3.140625
       objectReference: {fileID: 0}
     - target: {fileID: 8530176419208562830, guid: 9d4d34585138375418a13845e0d00c3b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -99,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a6d7b56cccd270409d9fa61a38ebcdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionRadius: 0
+  interactionRadius: 0.75
   glowsWhenIsClosestInteractable: 1
   useCustomGlowBrightness: 1
   customGlowBrightness: 0.1

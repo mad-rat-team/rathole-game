@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject uiCanvas;
     [SerializeField] private GameObject deathScreen;
 
     private static GameManager gm;

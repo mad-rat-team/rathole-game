@@ -25,6 +25,7 @@ public class NoteOverlay : MonoBehaviour
         no.parentGameObject.SetActive(true);
         no.SetNoteWasBeingShownThisFrame();
         PauseManager.SetPaused(true);
+        SoundManager.PlaySoundEffect(SoundName.NoteOpen);
     }
 
     public static void CloseNote()
@@ -32,16 +33,19 @@ public class NoteOverlay : MonoBehaviour
         no.parentGameObject.SetActive(false);
         no.SetNoteWasBeingShownThisFrame();
         PauseManager.SetPaused(false);
+        SoundManager.PlaySoundEffect(SoundName.NoteClose);
     }
 
     public static void ShowNextPage()
     {
         no.ShowPage(no.currentPage + 1);
+        SoundManager.PlaySoundEffect(SoundName.PageTurn);
     }
 
     public static void ShowPreviousPage()
     {
         no.ShowPage(no.currentPage - 1);
+        SoundManager.PlaySoundEffect(SoundName.PageTurn);
     }
 
     public static bool NoteIsBeingShown()
@@ -86,11 +90,6 @@ public class NoteOverlay : MonoBehaviour
             return;
         }
         no = this;
-    }
-
-    private void Start()
-    {
-        CloseNote();
     }
 
     private void Update()

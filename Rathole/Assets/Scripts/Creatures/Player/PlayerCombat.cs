@@ -84,12 +84,18 @@ public class PlayerCombat : MonoBehaviour
         animator.SetFloat("AttackDir", attackAnimDir);
         animator.SetFloat("WalkDir", attackAnimDir);
         attackTrailAnimator.SetTrigger("Attacked");
+
+        SoundManager.PlaySoundEffect(SoundName.PipeSwing);
     }
 
     private void SetHasWeapon(bool newHasWeapon)
     {
         hasWeapon = newHasWeapon;
         animator.SetBool("HasWeapon", hasWeapon);
+        //animator.Rebind();
+        animator.SetBool("IsWalking", !animator.GetBool("IsWalking"));
+        animator.Update(0f);
+        animator.SetBool("IsWalking", !animator.GetBool("IsWalking"));
     }
 
     public void ResetHasWeapon()

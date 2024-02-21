@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(Movement))]
 [RequireComponent(typeof(PlayerCombat))]
+[RequireComponent(typeof(PlayerInteractions))]
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private HealthUI healthUI;
@@ -53,6 +54,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!alive) return;
         colorChangerAnimator.SetTrigger("Hit");
+        SoundManager.PlaySoundEffect(SoundName.DamageGrunt);
     }
 
     private void HandleOnDeath()
@@ -62,11 +64,16 @@ public class PlayerHealth : MonoBehaviour
         movement.ResetMoveDir();
         movement.enabled = false;
         GetComponent<PlayerCombat>().enabled = false;
+        GetComponent<PlayerInteractions>().enabled = false;
+        PauseManager.SetPaused(false);
+        PauseManager.SetPauseMenuActive(false);
+        PauseManager.SetManualPauseAllowed(false);
 
         IEnumerator waitAndHandleDeathCoroutine()
         {
             yield return new WaitForSeconds(deathScreenDelay);
             GameManager.HandleDeath();
+            ScreenEffectManager.FadeFromCurrent(new Color(0, 0, 0, 0), 0.5f, 0f, true);
         }
         StartCoroutine(waitAndHandleDeathCoroutine());
 
@@ -77,5 +84,6 @@ public class PlayerHealth : MonoBehaviour
         animator.SetBool("DropToTheRight", dropToTheRight);
         animator.SetTrigger("Died");
         ScreenEffectManager.FadeFromCurrent(Color.black, fadeOutDuration, fadeOutDelay, false);
+        SoundManager.FadeOutSoundtrack(fadeOutDuration + fadeOutDelay);
     }
 }

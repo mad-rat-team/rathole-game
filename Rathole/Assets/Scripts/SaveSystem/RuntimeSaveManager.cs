@@ -58,5 +58,6 @@ public class RuntimeSaveManager : MonoBehaviour
     private void Start()
     {
         LoadGame();
+        SoundManager.SetSoundtrack(SoundName.SoundtrackMain);
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class HealthUI : MonoBehaviour
 {
+    [SerializeField] private GameObject parent;
     private RectTransform rectTransform;
     private Image image;
 
@@ -19,7 +20,7 @@ public class HealthUI : MonoBehaviour
 
     public void SetHeartsVisible(bool visible)
     {
-        image.enabled = visible;
+        parent.SetActive(visible);
     }
 
     private void Awake()

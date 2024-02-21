@@ -48,7 +48,7 @@ public class Inventory : MonoBehaviour, ISavable
     //        }
     //        StoreItems(startingItem.item, startingItem.count);
     //    }
-    //}
+    //} Zhizhoid doesn't allow me to delete this :(
 
     public object GetState()
     {
