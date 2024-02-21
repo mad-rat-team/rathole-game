@@ -134,6 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &170310743 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2516789879601979221, guid: eb954401c114a2844b2a574d2717a5e6, type: 3}
+  m_PrefabInstance: {fileID: 1028925505}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &206214653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -558,6 +563,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1767316289}
+    - target: {fileID: 165948323011160036, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
+      propertyPath: uiCanvas
+      value: 
+      objectReference: {fileID: 170310743}
     - target: {fileID: 165948323011160036, guid: 5f9cdf58ed75b0746bc47b1951978057, type: 3}
       propertyPath: deathScreen
       value: 
