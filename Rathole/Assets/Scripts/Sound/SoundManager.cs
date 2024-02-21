@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] private AudioSource sfxAudioSource;
-    [SerializeField] private AudioSource soundtrackAudioSource;
+    [SerializeField] private AudioMixer sfxMixer;
+    [SerializeField] private AudioSource musicAudioSource;
+    [SerializeField] private AudioMixer musicMixer;
     [SerializeField] private SoundEffectMapping soundEffectMapping;
 
     private static SoundManager sm;
@@ -27,9 +30,24 @@ public class SoundManager : MonoBehaviour
     public static void SetSoundtrack(SoundName soundName)
     {
         sm.currentSoundtrackInfo = sm.sounds[soundName].GetAudioClipInfo();
-        sm.soundtrackAudioSource.clip = sm.currentSoundtrackInfo.audioClip;
-        sm.soundtrackAudioSource.volume = sm.currentSoundtrackInfo.volume;
-        sm.soundtrackAudioSource.Play();
+        sm.musicAudioSource.clip = sm.currentSoundtrackInfo.audioClip;
+        sm.musicAudioSource.volume = sm.currentSoundtrackInfo.volume;
+        sm.musicAudioSource.Play();
+    }
+
+    public static void SetSoundEffectVolume(float volume)
+    {
+        sm.sfxMixer.SetFloat("Volume", SliderToDb(volume));
+    }
+    
+    public static void SetMusicVolume(float volume)
+    {
+        sm.musicMixer.SetFloat("Volume", SliderToDb(volume));
+    }
+
+    private static float SliderToDb(float sliderVolume)
+    {
+        return Mathf.Log10(Mathf.Clamp(sliderVolume, Mathf.Epsilon, 1f)) * 20f + 10f;
     }
 
     public static void FadeOutSoundtrack(float fadeOutDuration)
@@ -80,10 +98,10 @@ public class SoundManager : MonoBehaviour
         if (fadingOut)
         {
             float timePassedRelative = (Time.unscaledTime - fadeOutStartTime) / fadeOutDuration;
-            soundtrackAudioSource.volume = currentSoundtrackInfo.volume * (1 - timePassedRelative);
+            musicAudioSource.volume = currentSoundtrackInfo.volume * (1 - timePassedRelative);
             if (timePassedRelative > 1f)
             {
-                soundtrackAudioSource.Stop();
+                musicAudioSource.Stop();
                 fadingOut = false;
             }
         }

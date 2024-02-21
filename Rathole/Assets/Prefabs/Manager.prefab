@@ -276,7 +276,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sfxAudioSource: {fileID: 4505080494048289527}
-  soundtrackAudioSource: {fileID: 4478140003412848235}
+  sfxMixer: {fileID: 24100000, guid: 00847fd612472934894f04931b2a5e79, type: 2}
+  musicAudioSource: {fileID: 4478140003412848235}
+  musicMixer: {fileID: 24100000, guid: 6d40ce65f5599a04088a1408ced4772e, type: 2}
   soundEffectMapping: {fileID: 11400000, guid: 500196b7fc3d0454e94b70a4e5142c2a, type: 2}
 --- !u!1 &7210087993747447988
 GameObject:
