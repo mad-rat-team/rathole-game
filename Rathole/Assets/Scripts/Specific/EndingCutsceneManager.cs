@@ -43,7 +43,7 @@ public class EndingCutsceneManager : MonoBehaviour
     {
         return ending switch
         {
-            Ending.Caught => "You got caught",
+            Ending.Caught => "\"What are you doing here, Smirnov?\"",
             Ending.Escape => "You made it to the surface",
             _ => ":)"
         };
