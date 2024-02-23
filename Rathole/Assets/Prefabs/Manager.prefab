@@ -235,6 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  uiCanvas: {fileID: 0}
   deathScreen: {fileID: 0}
 --- !u!114 &79254965113300105
 MonoBehaviour:
@@ -263,6 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeOutTime: 1
+  sfxSlider: {fileID: 0}
+  musicSlider: {fileID: 0}
 --- !u!114 &1829651175769433668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,6 +283,8 @@ MonoBehaviour:
   musicAudioSource: {fileID: 4478140003412848235}
   musicMixer: {fileID: 24100000, guid: 6d40ce65f5599a04088a1408ced4772e, type: 2}
   soundEffectMapping: {fileID: 11400000, guid: 500196b7fc3d0454e94b70a4e5142c2a, type: 2}
+  musicFadeInDuration: 5
+  currentVolumeMultiplier: 1
 --- !u!1 &7210087993747447988
 GameObject:
   m_ObjectHideFlags: 0
