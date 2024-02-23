@@ -12,14 +12,19 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private AudioMixer musicMixer;
     [SerializeField] private SoundEffectMapping soundEffectMapping;
+    [SerializeField] private float musicFadeInDuration = 3f;
 
     private static SoundManager sm;
 
     private Dictionary<SoundName, Sound> sounds = new();
     private AudioClipInfo currentSoundtrackInfo;
-    private bool fadingOut;
-    private float fadeOutDuration;
-    private float fadeOutStartTime;
+
+    private bool fading;
+    private float fadeDuration;
+    private float fadeStartTime;
+    private float fadeStartVolumeMultiplier;
+    private float fadeEndVolumeMultiplier;
+    private float currentVolumeMultiplier = 1f;
 
     private float sfxVolume = 0.5f;
     private float musicVolume = 0.5f;
@@ -55,11 +60,23 @@ public class SoundManager : MonoBehaviour
         return Mathf.Log10(Mathf.Clamp(sliderVolume, Mathf.Epsilon, 1f)) * 20f + 10f;
     }
 
+    public static void FadeInSoundtrack(float fadeOutDuration)
+    {
+        sm.StartFade(0f, 1f, fadeOutDuration);
+    }
+    
     public static void FadeOutSoundtrack(float fadeOutDuration)
     {
-        sm.fadingOut = true;
-        sm.fadeOutDuration = fadeOutDuration;
-        sm.fadeOutStartTime = Time.unscaledTime;
+        sm.StartFade(sm.currentVolumeMultiplier, 0f, fadeOutDuration);
+    }
+
+    private void StartFade(float startMultiplier, float endMultiplier, float duration)
+    {
+        fading = true;
+        fadeStartVolumeMultiplier = startMultiplier;
+        fadeEndVolumeMultiplier = endMultiplier;
+        fadeDuration = duration;
+        fadeStartTime = Time.unscaledTime;
     }
 
     public static void SavePrefs()
@@ -129,18 +146,21 @@ public class SoundManager : MonoBehaviour
         }
 
         LoadPrefs();
+
+        FadeInSoundtrack(musicFadeInDuration);
     }
 
     private void Update()
     {
-        if (fadingOut)
+        if (fading)
         {
-            float timePassedRelative = (Time.unscaledTime - fadeOutStartTime) / fadeOutDuration;
-            musicAudioSource.volume = currentSoundtrackInfo.volume * (1 - timePassedRelative);
+            float timePassedRelative = (Time.unscaledTime - fadeStartTime) / fadeDuration;
+            currentVolumeMultiplier = fadeStartVolumeMultiplier + timePassedRelative * (fadeEndVolumeMultiplier - fadeStartVolumeMultiplier);
+            currentVolumeMultiplier = Mathf.Clamp(currentVolumeMultiplier, 0f, Mathf.Max(fadeStartVolumeMultiplier, fadeEndVolumeMultiplier));
+            musicAudioSource.volume = currentSoundtrackInfo.volume * currentVolumeMultiplier;
             if (timePassedRelative > 1f)
             {
-                musicAudioSource.Stop();
-                fadingOut = false;
+                fading = false;
             }
         }
     }
