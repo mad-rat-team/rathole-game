@@ -6,9 +6,13 @@
 Various strange things have been happening in the city lately. You find yourself in an underground complex under the city and you have to explore it and try to find a way out.
 ## Controls
 Move - WASD
+
 Interact - E
+
 Toggle Pause - ESC
+
 Attack - Left Mouse Button
+
 Aim - Mouse Movement
 ## Credits
 ### Our team
